@@ -45,10 +45,10 @@ funkcjonalności, które opisaliśmy przy kategoriach użytkowników poniżej.
     * temat z Podstaw Inżynierii Programowania: szkoła podstawowa
     * temat pracy inżynierskiej: niewybrany
 
-* Marcin Majdański - 
+* Marcin Majdański - majmarcin0@gmail.com
 
     * temat z Inżynierii: niewybrany
-    * temat z Podstaw Inżynierii Programowania:
+    * temat z Podstaw Inżynierii Programowania: Komisariat Policji
     * temat pracy inżynierskiej: niewybrany
 
 ## Podział pracy
