@@ -1,0 +1,1 @@
+# Przypadki użycia użytkownika niezalogowanego
