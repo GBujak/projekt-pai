@@ -87,3 +87,57 @@ głównym w sytemie.
 
 * Wygenerowane adresy działają tylko do ustalonej daty, pozwalają na założenie
   jednego konta pracownika.
+
+---
+---
+
+## Transfer zgłoszenia do innego pracownika
+
+**1. Nazwa przypadku użycia**
+
+Transfer zgłoszenia do innego pracownika.
+
+**1.1. Krótki opis**
+
+Pracownik może zgłosić kierownikowi, że nie da rady wykonać zadania. Kierownik może
+wtedy zmienić przypisanego do zgłoszenia pracownika.
+
+Może też zamknąć zgłoszenie z wiadomością dla klienta, ale to inny przypadek.
+
+**1.2. Aktorzy**
+
+* Kierownik
+* Pracownik
+
+**1.3 Wyzwalacze**
+
+Kierownik kliknie w jedno ze zgłoszeń w panelu "prośby o interwencję kierownika".
+
+**2. Przepływ zdarzeń**
+
+**2.1. Przepływ podstawowy**
+
+1. System pokazuje kierownikowi przebieg zgłoszenia, przewija widok tak, żeby była na
+   ekranie wybrana prośba o interwencję.
+2. Kierownik czyta wiadomość, jaką załączył pracownik. Może zdecydować o konieczności
+   przypisania zgłoszenia do innego pracownika. Klika opcję "transfer zgłoszenia".
+3. System prosi kierownika o komentarz do operacji oraz wybór pracownika.
+4. Kierownik wpisuje komentarz i wybiera pracownika.
+5. System dodaje nowe wydarzenie do przebiegu zgłoszenia z opisem transferu.
+   Przypisuje zgłosznie do wybranego przez kierownika pracownika.
+
+**2.2 Przepływy alternatywne**
+
+2.2.1 Kierownik decyduje, że nie dokona transferu.
+
+3. System prosi kierownika o wiadomość dla pracownika.
+4. Kierownik wpisuje wiadomość.
+5. System dodaje wiadomość od kierownika do przebiegu zgłoszenia.
+
+**3. Warunki początkowe**
+
+* W sytemie jest przynajmniej jedna prośba o interwencję kierownika.
+
+**4. Warunki końcowe**
+
+* Zgłoszenie jest przypisane do innego pracownika, niż oryginalnie.
