@@ -30,7 +30,11 @@ Klient wybiera opcję "stwórz zgłoszenie" z panelu głównego klienta.
 
 **2.2 Przepływy alternatywne**
 
+2.2.1 Po wysłaniu formularzu system weryfikuje, że dana marka samochodu nie jest naprawiana w tym serwisie.
+
 **3. Warunki początkowe**
+
+*Klient musi być zalogowany na swoje konto użytkownika.
 
 **4. Warunki końcowe**
 
