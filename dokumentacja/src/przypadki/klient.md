@@ -98,7 +98,9 @@ Podgląd aktualnego zgłoszenia.
 
 **1.1. Krótki opis**
 
-Klient może sprawdzić stan swojego aktualnego zgłoszenia. Zgłoszenie może być w trakcie i pokazać rzeczy zrobione i te, które zostały jeszcze do zrobienia oraz zgłoszenie może być już zakończone i samochód oczekuje na odebranie.
+Klient może sprawdzić stan swojego aktualnego zgłoszenia. Zgłoszenie może być w
+trakcie i pokazać rzeczy zrobione i te, które zostały jeszcze do zrobienia oraz
+zgłoszenie może być już zakończone i samochód oczekuje na odebranie.
 
 **1.2. Aktorzy**
 
@@ -112,16 +114,17 @@ Klient wybiera w panelu "pokaż aktualne zgłoszenia".
 
 **2.1. Przepływ podstawowy**
 
-1.Klientowi wyświetla się lista zgłoszeń, które są przypisane do jego konta.
-2.Klient klika w "pokaż szczegóły" przy najświeższym zgłoszeniu.
-3.System wyświetla dane o zgłoszeniu oraz informacje co zostało zrobione, a co zostało jeszcze do zrobienia.
+1. Klientowi wyświetla się lista zgłoszeń, które są przypisane do jego konta.
+2. Klient klika w "pokaż szczegóły" przy najświeższym zgłoszeniu.
+3. System wyświetla dane o zgłoszeniu oraz informacje co zostało zrobione, a co
+   zostało jeszcze do zrobienia.
 
 **2.2 Przepływy alternatywne**
 
 **3. Warunki początkowe**
 
-*Klient musi być zalogowany.
-*Do konta klienta musi być przypisane zgłoszenie.
+* Klient musi być zalogowany.
+* Do konta klienta musi być przypisane zgłoszenie.
 
 **4. Warunki końcowe**
 
