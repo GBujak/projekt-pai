@@ -24,5 +24,5 @@ data class ApplicationUser(
         // danych przy zapisywaniu do repozytorium
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int = 0,
+        val id: Long = 0,
 )
