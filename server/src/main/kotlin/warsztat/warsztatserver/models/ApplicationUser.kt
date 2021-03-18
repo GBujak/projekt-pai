@@ -3,7 +3,8 @@ package warsztat.warsztatserver.models
 import javax.persistence.*
 
 enum class ApplicationUserType {
-    REGULAR,
+    CUSTOMER,
+    MECHANIC,
     MANAGER,
     ADMIN
 }
