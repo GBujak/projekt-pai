@@ -10,7 +10,7 @@ enum class ApplicationUserType {
 }
 
 @Entity
-data class ApplicationUser(
+data class ApplicationUser (
         @Column(nullable = false, unique = true)
         val username: String,
         var password: String,

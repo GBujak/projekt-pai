@@ -3,16 +3,16 @@ package warsztat.warsztatserver.models.carmodels
 import javax.persistence.*
 
 @Entity
-class CarMake (
+data class CarMake (
         val makeName: String,
 
         @OneToMany(
                 fetch = FetchType.LAZY,
-                mappedBy = "carMake",
+                mappedBy = "carMake", // nazwa zmiennej w klasie CarModel reprezentującej powiązanie
                 cascade = arrayOf(CascadeType.ALL),
                 orphanRemoval = true,
         )
-        val carModels: Set<CarModel>,
+        var carModels: Set<CarModel>,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,14 @@ class CarModel (
         val modelVariant: String,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "fk_carmake")
+        @JoinColumn(name = "fk_carmake") // nazwa kolumny przechowującej klucz obcy
         val carMake: CarMake,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0
-)
+) {
+    override fun toString(): String {
+        return "CarModel(modelName=$modelName, modelVariant=$modelVariant, id=$id)"
+    }
+}
