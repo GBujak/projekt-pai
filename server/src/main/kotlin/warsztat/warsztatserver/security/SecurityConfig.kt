@@ -12,6 +12,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll() // TODO: Usuń, gdy przeniesiesz się na Postgresql
                 .antMatchers("/api/index").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -26,6 +27,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .disable() // TODO: Włącz CSRF, gdy będzie gotowy klient
+            .headers().frameOptions().disable() // TODO: Usuń, gdy przeniesiesz się na Postgresql
     }
 
     // Configure password encoder
