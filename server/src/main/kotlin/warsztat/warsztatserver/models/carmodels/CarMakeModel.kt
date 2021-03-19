@@ -1,5 +1,7 @@
 package warsztat.warsztatserver.models.carmodels
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
 @Entity
@@ -12,6 +14,7 @@ data class CarMake (
         cascade = arrayOf(CascadeType.ALL),
         orphanRemoval = true,
     )
+    @JsonManagedReference
     var carModels: Set<CarModel>,
 
     @Id
@@ -32,6 +35,7 @@ class CarModel (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_carmake") // nazwa kolumny przechowującej klucz obcy
+    @JsonBackReference // Nie dodawaj do JSON - nieskończona rekurencja
     val carMake: CarMake,
 
     @Id

@@ -13,7 +13,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http
             .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll() // TODO: Usuń, gdy przeniesiesz się na Postgresql
-                .antMatchers("/api/index").permitAll()
+                .antMatchers("/api/index/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
