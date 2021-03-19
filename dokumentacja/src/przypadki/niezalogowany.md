@@ -44,3 +44,43 @@ Niezalogowany użytkownik tworzy konto pracownika.
 
 * W systemie znajduje się nowe konto pracownika z podanymi przez niezalogowanego
   użytkownika danymi.
+
+## Stworzenie konta klienta
+
+**1. Nazwa przypadku użycia**
+
+Stworzenie konta klienta.
+
+**1.1. Krótki opis**
+
+Niezalogowany użytkownik tworzy konto klienta.
+
+**1.2. Aktorzy**
+
+* Niezalogowany użytkownik
+
+**1.3 Wyzwalacze**
+
+* Niezalogowany użytkownik otwiera stronę serwisu i wybiera przycisk "zarejestruj się".
+
+**2. Przepływ zdarzeń**
+
+**2.1. Przepływ podstawowy**
+
+1. System prosi użytkownika o podanie imienia, nazwiska, loginu i hasła.
+2. Użytkownik podaje dane.
+3. System sprawdza czy nie istnieje już użytkownik o podanych wcześniej danych.
+4. System tworzy konto dla klienta.
+
+**2.2 Przepływy alternatywne**
+
+3.2.1 System znalazł użytkownika pasujacego do podanych danych.
+2. Użytkownik może poprawić dane lub się zalogować.
+
+**3. Warunki początkowe**
+
+* Klient nie może mieć już założonego konta użytkownika.
+
+**4. Warunki końcowe**
+
+* Klient posiada konto.
