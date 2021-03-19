@@ -1,6 +1,5 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
-import com.sun.istack.Nullable
 import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.ApplicationUserType
 import java.util.*

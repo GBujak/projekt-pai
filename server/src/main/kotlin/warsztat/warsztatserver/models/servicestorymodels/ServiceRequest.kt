@@ -1,6 +1,5 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
-import com.sun.istack.Nullable
 import warsztat.warsztatserver.models.ApplicationUser
 import java.util.*
 import javax.persistence.*
@@ -14,9 +13,8 @@ data class ServiceRequest (
     @JoinColumn(name = "fk_submitter")
     val submitter: ApplicationUser,
 
-    @Column(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_assignedworker")
+    @JoinColumn(name = "fk_assignedworker", nullable = true)
     val assignedWorker: ApplicationUser?,
 
     @Id
