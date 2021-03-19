@@ -90,7 +90,7 @@ Klient otwiera panel zgłoszenia po zgłoszeniu przez pracownika wykonania usłu
 ---
 ---
 
-## TODO
+## Podgląd aktualnego zgłoszenia
 
 **1. Nazwa przypadku użycia**
 
