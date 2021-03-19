@@ -17,7 +17,13 @@ data class CarMake (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-)
+) {
+    fun newModel(modelName: String, modelVariant: String): CarModel {
+        val carModel = CarModel(modelName, modelVariant, carMake = this)
+        this.carModels += carModel
+        return carModel
+    }
+}
 
 @Entity
 class CarModel (
