@@ -11,7 +11,7 @@ class ServiceComment (
     @Temporal(TemporalType.TIMESTAMP)
     val submittedOn: Date,
 
-    @Nullable
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     var editedOn: Date?,
 

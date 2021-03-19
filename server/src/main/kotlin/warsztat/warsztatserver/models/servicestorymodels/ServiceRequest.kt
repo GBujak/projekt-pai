@@ -14,7 +14,7 @@ data class ServiceRequest (
     @JoinColumn(name = "fk_submitter")
     val submitter: ApplicationUser,
 
-    @Nullable
+    @Column(nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_assignedworker")
     val assignedWorker: ApplicationUser?,
