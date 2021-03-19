@@ -89,21 +89,20 @@ Przypadek rozpoczyna się, gdy pracownik wybierze opcję "Zaktualizuj Zlecenie" 
 ---
 ---
 
-## Rozliczenie się z klientem
+## Wystawienie klientowi Faktury
 
 **1. Nazwa przypadku użycia**
 
-Rozliczenie się z klientem.
+Wystawienie Klientowi Faktury.
 
 **1.1. Krótki opis**
 
 Pracownik po zakończeniu zlecenia, wystawia rachunek klientowi za wykonane prace
-i kontaktuje się z nim, informując o zakończonej pracy i rozlicza się z klientem.
+i wysyła mu fakturę w celu uregulowania należności.
 
 **1.2. Aktorzy**
 
 * Pracownik
-* Klient
 
 **1.3 Wyzwalacze**
 
@@ -116,12 +115,8 @@ Pracownik zakończył wykonywane zlecenie.
 1. Po zakończeniu zlecenia przez pracownika, system przekierowuje go do strony rozliczeniowej gdzie jest formularz.
 2. Pracownik wypełnia informacje w formularzu, takie jak koszty, dane klienta, dane pracownika.
 3. Po wypełnieniu formularza, pracownik wybiera opcję "Zatwierdź". Tym samym zapisując informacje systemie.
-4. System przyjmuje formularz i przesyła go do klienta.
-5. Klient otrzymuje informacje o zakończeniu jego zlecenia i otrzymaniu formularza.
-6. Klient wybiera opcję "Rozlicz Się".
-7. System wyświetla klientowi dane do rozliczenia się i prosi o podanie terminu odbioru swojej własności.
-8. Klient rozlicza się wybraną metodą i wypełnia informacje, kończąc kliknięciem przycisku "Zatwierdź".
-9. System odnotowuje rozliczenie płatności i wysyła do pracownika informację o terminie odbioru własności klienta.
+4. System przyjmuje formularz i tworzy fakturę.
+5. System przesyła fakturę do klienta.
 
 **2.2 Przepływy alternatywne**
 
@@ -132,4 +127,4 @@ Pracownik zakończył wykonywane zlecenie.
 
 **4. Warunki końcowe**
 
-* Klient jest rozliczony ze zlecenia i ustalony jest termin odbioru.
+* Klient otrzymuje na swoje konto fakturę.

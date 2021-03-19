@@ -6,4 +6,7 @@
     - [Klient](przypadki/klient.md)
     - [Pracownik](przypadki/pracownik.md)
     - [Kierownik](przypadki/kierownik.md)
-
+- [Modele](./modele/README.md)
+    - [Użytkownicy](./modele/uzytkownicy.md)
+    - [Modele związane z samochodami](./modele/samochody.md)
+    - [Modele związane z historią usługi](./modele/historia_uslugi.md)

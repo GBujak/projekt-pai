@@ -1,9 +1,6 @@
-package warsztat.warsztatserver.models.carmodels
+# Modele związane z samochodami
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import javax.persistence.*
-
+```kotlin
 @Entity
 data class CarMake (
     val makeName: String,
@@ -27,7 +24,9 @@ data class CarMake (
         return carModel
     }
 }
+```
 
+```kotlin
 @Entity
 class CarModel (
     val modelName: String,
@@ -46,3 +45,20 @@ class CarModel (
         return "CarModel(modelName=$modelName, modelVariant=$modelVariant, id=$id)"
     }
 }
+```
+
+```kotlin
+@Entity
+class CarPart (
+    val name: String,
+    var price: Long,
+    var amountInStock: Long,
+
+    @ManyToMany
+    val carModel: Set<CarModel>,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+)
+```

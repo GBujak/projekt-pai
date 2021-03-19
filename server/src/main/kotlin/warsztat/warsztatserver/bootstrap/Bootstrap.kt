@@ -13,9 +13,9 @@ import javax.transaction.Transactional
 
 @Component
 class Bootstrap (
-        val applicationUserRepository: ApplicationUserRepository,
-        val carMakeRepository: CarMakeRepository,
-        val carModelRepository: CarModelRepository,
+    val applicationUserRepository: ApplicationUserRepository,
+    val carMakeRepository: CarMakeRepository,
+    val carModelRepository: CarModelRepository,
 ) : CommandLineRunner {
 
     @Transactional
@@ -28,18 +28,11 @@ class Bootstrap (
 
         println(applicationUserRepository.findAll().toList())
 
-        var carMake = CarMake("Volkswagen", HashSet())
-        carMake.carModels += setOf(
-                CarModel("Golf", "regular", carMake),
-                CarModel("Passat", "regular", carMake),
-        )
+        val carMake = CarMake("Volkswagen", HashSet())
+        carMake.newModel("Golf", "regular")
+        carMake.newModel("Passat", "regular")
 
         carMakeRepository.save(carMake)
-
         println(carMakeRepository.findAll())
-
-        println("carModelRepository ${carModelRepository.findAll()}")
-        carMakeRepository.deleteById(1)
-        println("carModelRepository ${carModelRepository.findAll()}")
     }
 }
