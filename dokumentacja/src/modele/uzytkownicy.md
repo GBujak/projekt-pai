@@ -1,6 +1,13 @@
 # Użytkownicy
 
 ```kotlin
+enum class ApplicationUserType {
+    CUSTOMER,
+    MECHANIC,
+    MANAGER,
+    ADMIN
+}
+
 @Entity
 data class ApplicationUser (
         @Column(nullable = false, unique = true)
