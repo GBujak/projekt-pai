@@ -1,5 +1,7 @@
 # Jak uruchomić bazę danych
 
+W tym folderze wywołaj:
+
 ```
 docker-compose up -d
 ```
