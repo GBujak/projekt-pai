@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="modele/uzytkownicy.html"><strong aria-hidden="true">3.1.</strong> Użytkownicy</a></li><li class="chapter-item expanded "><a href="modele/samochody.html"><strong aria-hidden="true">3.2.</strong> Modele związane z samochodami</a></li><li class="chapter-item expanded "><a href="modele/historia_uslugi.html"><strong aria-hidden="true">3.3.</strong> Modele związane z historią usługi</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -599,6 +599,190 @@ Przypisuje zgłosznie do wybranego przez kierownika pracownika.</li>
 <ul>
 <li>Zgłoszenie jest przypisane do innego pracownika, niż oryginalnie.</li>
 </ul>
+<h1 id="modele"><a class="header" href="#modele">Modele</a></h1>
+<p>Do tworzenia bazy danych użyliśmy encji JPA.</p>
+<h1 id="użytkownicy"><a class="header" href="#użytkownicy">Użytkownicy</a></h1>
+<pre><code class="language-kotlin">@Entity
+data class ApplicationUser (
+        @Column(nullable = false, unique = true)
+        val username: String,
+        var password: String,
+
+        @Column(nullable = false)
+        val userType: ApplicationUserType,
+
+        // Argumenty o wartościach domyślnych na końcu
+        //
+        // Ustawienie id na 0 spowoduje wygenerowanie id przez bazę
+        // danych przy zapisywaniu do repozytorium
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0,
+)
+</code></pre>
+<pre><code class="language-kotlin">@Entity
+class AccountCreationToken(
+    val email: String,
+    val tokenValue: UUID,
+    val createsAccountType: ApplicationUserType,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_generatedby&quot;)
+    val generatedBy: ApplicationUser,
+
+    @Temporal(TemporalType.TIMESTAMP)
+    val expiresOn: Date,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_account&quot;, nullable = true)
+    var usedToCreate: ApplicationUser? = null,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+) {
+    init {
+        assert(createsAccountType != ApplicationUserType.CUSTOMER)
+    }
+
+    fun isExpired() = Date().after(this.expiresOn)
+}
+</code></pre>
+<h1 id="modele-związane-z-samochodami"><a class="header" href="#modele-związane-z-samochodami">Modele związane z samochodami</a></h1>
+<pre><code class="language-kotlin">@Entity
+data class CarMake (
+    val makeName: String,
+
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = &quot;carMake&quot;, // nazwa zmiennej w klasie CarModel reprezentującej powiązanie
+        cascade = arrayOf(CascadeType.ALL),
+        orphanRemoval = true,
+    )
+    @JsonManagedReference
+    var carModels: Set&lt;CarModel&gt;,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+) {
+    fun newModel(modelName: String, modelVariant: String): CarModel {
+        val carModel = CarModel(modelName, modelVariant, carMake = this)
+        this.carModels += carModel
+        return carModel
+    }
+}
+</code></pre>
+<pre><code class="language-kotlin">@Entity
+class CarModel (
+    val modelName: String,
+    val modelVariant: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_carmake&quot;) // nazwa kolumny przechowującej klucz obcy
+    @JsonBackReference // Nie dodawaj do JSON - nieskończona rekurencja
+    val carMake: CarMake,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+) {
+    override fun toString(): String {
+        return &quot;CarModel(modelName=$modelName, modelVariant=$modelVariant, id=$id)&quot;
+    }
+}
+</code></pre>
+<pre><code class="language-kotlin">@Entity
+class CarPart (
+    val name: String,
+    var price: Long,
+    var amountInStock: Long,
+
+    @ManyToMany
+    val carModel: Set&lt;CarModel&gt;,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+)
+</code></pre>
+<h1 id="modele-związane-z-historią-usługi"><a class="header" href="#modele-związane-z-historią-usługi">Modele związane z historią usługi</a></h1>
+<pre><code class="language-kotlin">@Entity
+data class ServiceRequest (
+    @Temporal(TemporalType.TIMESTAMP) // przechowuj w bazie danych jako pole TIMESTAMP (data i czas)
+    val submittedOn: Date,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_submitter&quot;)
+    val submitter: ApplicationUser,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_assignedworker&quot;, nullable = true)
+    val assignedWorker: ApplicationUser? = null,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+)
+</code></pre>
+<pre><code class="language-kotlin">@Entity
+class ServiceComment (
+    var title: String,
+    var bodyText: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_servicerequest&quot;)
+    val serviceRequest: ServiceRequest,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_submitter&quot;)
+    val submitter: ApplicationUser,
+
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = &quot;serviceComment&quot;,
+        cascade = arrayOf(CascadeType.ALL),
+        orphanRemoval = true,
+    )
+    @JsonManagedReference
+    var workDescriptions: Set&lt;WorkDescription&gt; = setOf(),
+
+    @Temporal(TemporalType.TIMESTAMP)
+    val submittedOn: Date = Date(),
+
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    var editedOn: Date? = null,
+
+    val submitterRole: ApplicationUserType = submitter.userType,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+)
+</code></pre>
+<pre><code class="language-kotlin">@Entity
+class WorkDescription (
+    val workName: String,
+    val workHours: Int,
+
+    @ManyToMany
+    var usedParts: Set&lt;CarPart&gt;,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;fk_servicecomment&quot;)
+    @JsonBackReference
+    val serviceComment: ServiceComment,
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+) {
+    init {
+        assert(serviceComment.submitterRole != ApplicationUserType.CUSTOMER)
+    }
+}
+</code></pre>
 
                     </main>
 
