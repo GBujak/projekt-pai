@@ -30,7 +30,7 @@ class CarModel (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    val id: Long = 0,
 ) {
     override fun toString(): String {
         return "CarModel(modelName=$modelName, modelVariant=$modelVariant, id=$id)"
