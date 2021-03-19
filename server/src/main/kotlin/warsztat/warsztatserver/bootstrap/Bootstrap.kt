@@ -13,9 +13,9 @@ import javax.transaction.Transactional
 
 @Component
 class Bootstrap (
-        val applicationUserRepository: ApplicationUserRepository,
-        val carMakeRepository: CarMakeRepository,
-        val carModelRepository: CarModelRepository,
+    val applicationUserRepository: ApplicationUserRepository,
+    val carMakeRepository: CarMakeRepository,
+    val carModelRepository: CarModelRepository,
 ) : CommandLineRunner {
 
     @Transactional
@@ -30,8 +30,8 @@ class Bootstrap (
 
         var carMake = CarMake("Volkswagen", HashSet())
         carMake.carModels += setOf(
-                CarModel("Golf", "regular", carMake),
-                CarModel("Passat", "regular", carMake),
+            CarModel("Golf", "regular", carMake),
+            CarModel("Passat", "regular", carMake),
         )
 
         carMakeRepository.save(carMake)

@@ -4,14 +4,14 @@ import javax.persistence.*
 
 @Entity
 class CarPart (
-        val name: String,
-        var price: Long,
-        var amountInStock: Long,
+    val name: String,
+    var price: Long,
+    var amountInStock: Long,
 
-        @ManyToMany
-        val carModel: Set<CarModel>,
+    @ManyToMany
+    val carModel: Set<CarModel>,
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 )
