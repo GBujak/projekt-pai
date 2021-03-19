@@ -7,13 +7,6 @@ import javax.persistence.*
 
 @Entity
 class ServiceComment (
-    @Temporal(TemporalType.TIMESTAMP)
-    val submittedOn: Date,
-
-    @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    var editedOn: Date?,
-
     var title: String,
     var bodyText: String,
 
@@ -24,7 +17,23 @@ class ServiceComment (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_submitter")
     val submitter: ApplicationUser,
-    val submitterRole: ApplicationUserType,
+
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = "serviceComment",
+        cascade = arrayOf(CascadeType.ALL),
+        orphanRemoval = true,
+    )
+    var workDescriptions: Set<WorkDescription> = setOf(),
+
+    @Temporal(TemporalType.TIMESTAMP)
+    val submittedOn: Date = Date(),
+
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    var editedOn: Date? = null,
+
+    val submitterRole: ApplicationUserType = submitter.userType,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

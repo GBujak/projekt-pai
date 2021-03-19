@@ -1,5 +1,6 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import warsztat.warsztatserver.models.carmodels.CarPart
 import javax.persistence.*
 
@@ -10,6 +11,11 @@ class WorkDescription (
 
     @ManyToMany
     var usedParts: Set<CarPart>,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_servicecomment")
+    @JsonBackReference
+    val serviceComment: ServiceComment,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

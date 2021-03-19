@@ -15,7 +15,7 @@ data class ServiceRequest (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_assignedworker", nullable = true)
-    val assignedWorker: ApplicationUser?,
+    val assignedWorker: ApplicationUser? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
