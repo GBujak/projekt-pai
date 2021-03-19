@@ -602,7 +602,14 @@ Przypisuje zgłosznie do wybranego przez kierownika pracownika.</li>
 <h1 id="modele"><a class="header" href="#modele">Modele</a></h1>
 <p>Do tworzenia bazy danych użyliśmy encji JPA.</p>
 <h1 id="użytkownicy"><a class="header" href="#użytkownicy">Użytkownicy</a></h1>
-<pre><code class="language-kotlin">@Entity
+<pre><code class="language-kotlin">enum class ApplicationUserType {
+    CUSTOMER,
+    MECHANIC,
+    MANAGER,
+    ADMIN
+}
+
+@Entity
 data class ApplicationUser (
         @Column(nullable = false, unique = true)
         val username: String,
