@@ -1,5 +1,6 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.ApplicationUserType
 import java.util.*
@@ -24,6 +25,7 @@ class ServiceComment (
         cascade = arrayOf(CascadeType.ALL),
         orphanRemoval = true,
     )
+    @JsonManagedReference
     var workDescriptions: Set<WorkDescription> = setOf(),
 
     @Temporal(TemporalType.TIMESTAMP)
