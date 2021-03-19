@@ -295,6 +295,38 @@ konto kierownika.</li>
 <li>W systemie znajduje się nowe konto pracownika z podanymi przez niezalogowanego
 użytkownika danymi.</li>
 </ul>
+<h2 id="stworzenie-konta-klienta"><a class="header" href="#stworzenie-konta-klienta">Stworzenie konta klienta</a></h2>
+<p><strong>1. Nazwa przypadku użycia</strong></p>
+<p>Stworzenie konta klienta.</p>
+<p><strong>1.1. Krótki opis</strong></p>
+<p>Niezalogowany użytkownik tworzy konto klienta.</p>
+<p><strong>1.2. Aktorzy</strong></p>
+<ul>
+<li>Niezalogowany użytkownik</li>
+</ul>
+<p><strong>1.3 Wyzwalacze</strong></p>
+<ul>
+<li>Niezalogowany użytkownik otwiera stronę serwisu i wybiera przycisk &quot;zarejestruj się&quot;.</li>
+</ul>
+<p><strong>2. Przepływ zdarzeń</strong></p>
+<p><strong>2.1. Przepływ podstawowy</strong></p>
+<ol>
+<li>System prosi użytkownika o podanie imienia, nazwiska, loginu i hasła.</li>
+<li>Użytkownik podaje dane.</li>
+<li>System sprawdza czy nie istnieje już użytkownik o podanych wcześniej danych.</li>
+<li>System tworzy konto dla klienta.</li>
+</ol>
+<p><strong>2.2 Przepływy alternatywne</strong></p>
+<p>3.2.1 System znalazł użytkownika pasujacego do podanych danych.
+2. Użytkownik może poprawić dane lub się zalogować.</p>
+<p><strong>3. Warunki początkowe</strong></p>
+<ul>
+<li>Klient nie może mieć już założonego konta użytkownika.</li>
+</ul>
+<p><strong>4. Warunki końcowe</strong></p>
+<ul>
+<li>Klient posiada konto.</li>
+</ul>
 <h1 id="przypadki-użycia-klienta"><a class="header" href="#przypadki-użycia-klienta">Przypadki użycia klienta</a></h1>
 <p>//Arkadiusz Markowski</p>
 <h2 id="stworzenie-zgłoszenia"><a class="header" href="#stworzenie-zgłoszenia">Stworzenie zgłoszenia</a></h2>
