@@ -1,6 +1,7 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import warsztat.warsztatserver.models.ApplicationUserType
 import warsztat.warsztatserver.models.carmodels.CarPart
 import javax.persistence.*
 
@@ -20,4 +21,8 @@ class WorkDescription (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-)
+) {
+    init {
+        assert(serviceComment.submitterRole != ApplicationUserType.CUSTOMER)
+    }
+}
