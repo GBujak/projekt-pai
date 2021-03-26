@@ -26,7 +26,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .and()
             .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .disable() // TODO: Włącz CSRF, gdy będzie gotowy klient
+                .disable() // TODO: Włącz CSRF, gdy będzie gotowy klient.kt
             .headers().frameOptions().disable() // TODO: Usuń, gdy przeniesiesz się na Postgresql
     }
 
