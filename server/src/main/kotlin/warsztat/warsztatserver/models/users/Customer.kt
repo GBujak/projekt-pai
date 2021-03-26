@@ -1,12 +1,14 @@
 package warsztat.warsztatserver.klient
 
+import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.carmodels.Car
 import javax.persistence.*
 
 @Entity
-data class Customer (
-    @Column(nullable = false, unique = true)
-    val username: String,
+class Customer (
+    username: String,
+    password: String,
+
     val name: String,
     var phoneNumber: String,
 
@@ -18,7 +20,6 @@ data class Customer (
     )
     var cars: Set<Car> = setOf(),
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
-)
+    id: Long = 0,
+
+) : ApplicationUser(username, password, id)

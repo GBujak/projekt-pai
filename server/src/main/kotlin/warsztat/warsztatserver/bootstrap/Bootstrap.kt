@@ -2,37 +2,43 @@ package warsztat.warsztatserver.bootstrap
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
+import warsztat.warsztatserver.klient.Customer
 import warsztat.warsztatserver.models.ApplicationUser
-import warsztat.warsztatserver.models.ApplicationUserType.*
 import warsztat.warsztatserver.models.carmodels.CarMake
 import warsztat.warsztatserver.models.carmodels.CarModel
-import warsztat.warsztatserver.repositories.ApplicationUserRepository
-import warsztat.warsztatserver.repositories.CarMakeRepository
-import warsztat.warsztatserver.repositories.CarModelRepository
+import warsztat.warsztatserver.models.users.Employee
+import warsztat.warsztatserver.models.util.Address
+import warsztat.warsztatserver.repositories.*
 import javax.transaction.Transactional
 
 @Component
 class Bootstrap (
+    val customerRepository: CustomerRepository,
+    val employeeRepository: EmployeeRepository,
     val applicationUserRepository: ApplicationUserRepository,
-    val carMakeRepository: CarMakeRepository,
-    val carModelRepository: CarModelRepository,
 ) : CommandLineRunner {
 
     @Transactional
     override fun run(vararg args: String?) {
-        val user = ApplicationUser("test", "test", CUSTOMER)
-        val user2 = ApplicationUser("test2", "test", CUSTOMER)
+        val customer = Customer("customer1", "pass", "Jan Kowalski", "123123123")
+        val employee = Employee(
+            "employee1",
+            "password",
+            "Adam Nowak",
+            "adam@nowak.com",
+            "123123123",
+            Address("Kielce", "Sienkiewicza", 100, 2)
+        )
 
-        applicationUserRepository.save(user)
-        applicationUserRepository.save(user2)
+        customerRepository.save(customer)
+        employeeRepository.save(employee)
 
-        println(applicationUserRepository.findAll().toList())
+        val users = applicationUserRepository.findAll()
+        println(users)
+        println("Is customer: ${users.map { it is Customer }.toList()}")
+        println("Is employee: ${users.map { it is Employee }.toList()}")
 
-        val carMake = CarMake("Volkswagen", HashSet())
-        carMake.newModel("Golf", "regular")
-        carMake.newModel("Passat", "regular")
-
-        carMakeRepository.save(carMake)
-        println(carMakeRepository.findAll())
+        // Is customer: [true, false]
+        // Is employee: [false, true]
     }
 }

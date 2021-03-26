@@ -2,7 +2,6 @@ package warsztat.warsztatserver.models.servicestorymodels
 
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import warsztat.warsztatserver.models.ApplicationUser
-import warsztat.warsztatserver.models.ApplicationUserType
 import java.util.*
 import javax.persistence.*
 
@@ -34,8 +33,6 @@ class ServiceComment (
     @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     var editedOn: Date? = null,
-
-    val submitterRole: ApplicationUserType = submitter.userType,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

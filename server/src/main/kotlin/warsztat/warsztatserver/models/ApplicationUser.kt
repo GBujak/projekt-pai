@@ -2,27 +2,18 @@ package warsztat.warsztatserver.models
 
 import javax.persistence.*
 
-enum class ApplicationUserType {
-    CUSTOMER,
-    MECHANIC,
-    MANAGER,
-    ADMIN
-}
-
 @Entity
-data class ApplicationUser (
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+open class ApplicationUser protected constructor (
         @Column(nullable = false, unique = true)
-        val username: String,
-        var password: String,
-
-        @Column(nullable = false)
-        val userType: ApplicationUserType,
+        open val username: String,
+        open var password: String,
 
         // Argumenty o wartościach domyślnych na końcu
         //
         // Ustawienie id na 0 spowoduje wygenerowanie id przez bazę
         // danych przy zapisywaniu do repozytorium
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+        @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        open val id: Long = 0,
 )

@@ -1,5 +1,6 @@
 package warsztat.warsztatserver.models
 
+import warsztat.warsztatserver.models.users.EmployeeAuthority
 import java.util.*
 import javax.persistence.*
 
@@ -7,7 +8,7 @@ import javax.persistence.*
 class AccountCreationToken(
     val email: String,
     val tokenValue: UUID,
-    val createsAccountType: ApplicationUserType,
+    val grantedAutority: EmployeeAuthority,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_generatedby")
@@ -24,9 +25,5 @@ class AccountCreationToken(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {
-    init {
-        assert(createsAccountType != ApplicationUserType.CUSTOMER)
-    }
-
     fun isExpired() = Date().after(this.expiresOn)
 }
