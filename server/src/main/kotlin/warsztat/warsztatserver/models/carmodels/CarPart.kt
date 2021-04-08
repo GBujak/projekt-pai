@@ -8,8 +8,16 @@ class CarPart (
     var price: Long,
     var amountInStock: Long,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     val carModel: Set<CarModel>,
+
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = "carPart",
+        cascade = arrayOf(CascadeType.ALL),
+        orphanRemoval = true,
+    )
+    var purchases: Set<CarPartPurchase>,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,7 @@ package warsztat.warsztatserver.models
 import javax.persistence.*
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 open class ApplicationUser protected constructor (
         @Column(nullable = false, unique = true)
         open val username: String,

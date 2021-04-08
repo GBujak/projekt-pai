@@ -20,7 +20,9 @@ class Bootstrap (
 
     @Transactional
     override fun run(vararg args: String?) {
-        val customer = Customer("customer1", "pass", "Jan Kowalski", "123123123")
+        val customer = Customer("customer1", "pass", "Jan Kowalski", "123123123", Address(
+            "Kielce", "Sienkiewicza", 12, 1
+        ))
         val employee = Employee(
             "employee1",
             "password",
