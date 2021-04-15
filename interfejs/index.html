@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Serwis samochodowy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <a href="/pai2/">Serwis samochodowy</a>
+        <a>Usługi</a>
+        <a>Kontakt</a>
+        <a id="login" onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a>
+        <a id="signup" onclick="document.getElementById('id02').style.display='block'">Zarejestruj się</a>
+    </div>
+
+<div id="id01" class="modal">
+    <form class="modal-content login" action="/pai2/">
+      <div class="container">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Zamknij">&times;</span>
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+      <button type="submit">Zaloguj</button>
+      <label>
+        <p>Nie masz konta?</p>
+        <a onclick="document.getElementById('id02').style.display='block'; onclick=document.getElementById('id01').style.display='none'">Zarejestruj się</a>
+      </label>
+    </div>
+  </form>
+</div>
+<div id="id02" class="modal">
+  <form class="modal-content signup" action="/pai2/">
+    <div class="container">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Zamknij">&times;</span>
+    <label for="uname"><b>Email</b></label>
+    <input type="email" placeholder="Enter Email" name="email" required>
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <button type="submit">Zarejestruj</button>
+    <label>
+      <p>Masz konto?</p>
+      <a onclick="document.getElementById('id01').style.display='block'; onclick=document.getElementById('id02').style.display='none'">Zaloguj się</a>
+    </label>
+  </div>
+</form>
+</div>
+<script>
+    var modal1 = document.getElementById('id01');
+    var modal2 = document.getElementById('id02');
+    window.onclick = function(event) {
+      if (event.target == modal1 || event.target == modal2) {
+        modal1.style.display = "none";
+        modal2.style.display = "none";
+      }
+    }
+    </script>
+</body>
+</html>
