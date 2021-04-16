@@ -20,17 +20,19 @@ export const Navigation: React.FC<Props> = (_) => {
                 <IconButton edge="start" color="inherit" >
                     <MenuIcon />
                 </IconButton>
-                <Typography
-                    variant="h6"
-                    style={{
-                        flexGrow: 1,
-                        marginLeft: "1rem",
-                        cursor: "pointer",
-                    }}
-                    onClick={() => history.push("/")}
-                >
-                    Warsztat
-                </Typography>
+                <div style={{ flexGrow: 1 }}>
+                    <Typography
+                        variant="h6"
+                        style={{
+                            display: "inline-block",
+                            marginLeft: "1rem",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => history.push("/")}
+                    >
+                        Serwis samochodowy
+                    </Typography>
+                </div>
                 <Button color="inherit" onClick={(_) => history.push("/login")}>Login</Button>
             </Toolbar>
         </AppBar>
