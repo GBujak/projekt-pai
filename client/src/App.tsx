@@ -1,26 +1,55 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+} from 'react-router-dom';
+import { Navigation } from './components/Navigation';
+import { AdminView } from './views/AdminView';
+import { CustomerView } from './views/CustomerView';
+import { IndexView } from './views/IndexView';
+import { LoginView } from './views/LoginView';
+import { ManagerView } from './views/ManagerView';
+import { RegisterView } from './views/RegisterView';
+import { WorkerView } from './views/WorkerView';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            {/* Czcionki Roboto potrzebne do Material-ui */}
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
+            <Router>
+                <Navigation />
+
+                <Switch>
+                    <Route path="/klient">
+                        <CustomerView />
+                    </Route>
+                    <Route path="/pracownik">
+                        <WorkerView />
+                    </Route>
+                    <Route path="/kierownik">
+                        <ManagerView />
+                    </Route>
+                    <Route path="/admin">
+                        <AdminView />
+                    </Route>
+                    <Route path="/login">
+                        <LoginView />
+                    </Route>
+                    <Route path="/rejestracja">
+                        <RegisterView />
+                    </Route>
+                    <Route path="/">
+                        <IndexView />
+                    </Route>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
