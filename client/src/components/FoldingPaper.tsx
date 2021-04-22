@@ -5,7 +5,7 @@ import "./styles/paperComponents.css";
 export const FoldingPaper: React.FC<{ startOpen?: boolean; title: string; }> = ({ children, startOpen, title }) => {
     let [visible, setVisible] = useState(startOpen);
 
-    return <Paper style={{ maxWidth: "900px", padding: "1rem" }}>
+    return <Paper style={{ maxWidth: "900px", padding: "1rem", marginBottom: "1rem" }}>
         <div className="paper-header-with-button">
             <Typography variant="h5">{title}</Typography>
             <Button onClick={() => setVisible(!visible)}>
