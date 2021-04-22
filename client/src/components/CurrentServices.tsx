@@ -1,5 +1,6 @@
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import React from 'react';
+import { Button, Container, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import "./styles/paperComponents.css";
 
 interface Props {
     currentServices: Array<{
@@ -11,10 +12,17 @@ interface Props {
 }
 
 export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
+    let [visible, setVisible] = useState(false);
 
     return <Paper style={{ maxWidth: "900px", padding: "1rem" }}>
-        <Typography variant="h5">Aktywne usługi</Typography>
-        <Table size="small">
+        <div className="paper-header-with-button">
+            <Typography variant="h5">Aktywne usługi</Typography>
+            <Button onClick={() => setVisible(!visible)}>
+                {visible ? "zwiń" : "rozwiń"}
+            </Button>
+        </div>
+
+        {visible && <Table size="small">
             <TableHead>
                 <TableRow>
                     <TableCell>Marka samochodu</TableCell>
@@ -33,6 +41,6 @@ export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
                     </TableRow>
                 ))}
             </TableBody>
-        </Table>
+        </Table>}
     </Paper>;
 };
