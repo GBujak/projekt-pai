@@ -10,7 +10,6 @@ interface Props {
 
 }
 
-
 export const Navigation: React.FC<Props> = (_) => {
     const history = useHistory();
 
