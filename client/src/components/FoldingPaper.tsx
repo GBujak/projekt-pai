@@ -1,5 +1,6 @@
 import { Button, Paper, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import "./styles/paperComponents.css";
 
 export const FoldingPaper: React.FC<{ startOpen?: boolean; title: string; }> = ({ children, startOpen, title }) => {
     let [visible, setVisible] = useState(startOpen);
