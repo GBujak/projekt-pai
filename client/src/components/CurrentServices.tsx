@@ -1,6 +1,6 @@
-import { Button, Container, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import "./styles/paperComponents.css";
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import React from 'react';
+import { FoldingPaper } from './FoldingPaper';
 
 interface Props {
     currentServices: Array<{
@@ -12,17 +12,9 @@ interface Props {
 }
 
 export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
-    let [visible, setVisible] = useState(false);
 
-    return <Paper style={{ maxWidth: "900px", padding: "1rem" }}>
-        <div className="paper-header-with-button">
-            <Typography variant="h5">Aktywne usługi</Typography>
-            <Button onClick={() => setVisible(!visible)}>
-                {visible ? "zwiń" : "rozwiń"}
-            </Button>
-        </div>
-
-        {visible && <Table size="small">
+    return <FoldingPaper startOpen={true} title="Aktywne usługi">
+        <Table size="small">
             <TableHead>
                 <TableRow>
                     <TableCell>Marka samochodu</TableCell>
@@ -41,6 +33,6 @@ export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
                     </TableRow>
                 ))}
             </TableBody>
-        </Table>}
-    </Paper>;
+        </Table>
+    </FoldingPaper>;
 };
