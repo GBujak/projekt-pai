@@ -13,6 +13,7 @@ import { IndexView } from './views/IndexView';
 import { LoginView } from './views/LoginView';
 import { ManagerView } from './views/ManagerView';
 import { RegisterView } from './views/RegisterView';
+import { ServiceHistoryView } from './views/ServiceHistoryView';
 import { WorkerView } from './views/WorkerView';
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
                     </Route>
                     <Route path="/rejestracja">
                         <RegisterView />
+                    </Route>
+                    <Route path="/historia/:id">
+                        <ServiceHistoryView />
                     </Route>
                     <Route path="/">
                         <IndexView />

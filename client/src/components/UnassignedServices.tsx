@@ -34,15 +34,17 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                         <TableCell>{service.carMake}</TableCell>
                         <TableCell>{service.carModel}</TableCell>
                         <TableCell>{service.dateStarted.toLocaleDateString()}</TableCell>
-                        <TableCell>
-                            <Button onClick={() => setAssigning(index)}>
-                                przypisuj
+                        <TableCell style={{ width: "6rem" }}>
+                            <Button onClick={() => (assigning === index) ? setAssigning(-1) : setAssigning(index)}>
+                                {(assigning === index) ? "anuluj" : "przypisuj"}
                             </Button>
                         </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
         </Table>
+
+        {/* Przypisywanie mechanika */}
 
         {assigning !== -1 && <>
             <Typography variant="h6" style={{ marginTop: "1rem" }}>Przypisywanie mechanika</Typography>
@@ -63,9 +65,9 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                     }).map((m, index) => (
                         <TableRow key={index}>
                             <TableCell>{m.name}</TableCell>
-                            <TableCell>{m.specializes.map((s, i) => (
+                            <TableCell style={{ width: "70%" }}>{m.specializes.map((s, i) => (
                                 <Chip key={i} label={s} style={{
-                                    marginRight: ".5rem",
+                                    marginRight: ".5rem", marginBottom: ".2rem",
                                     background: (unassignedServices[assigning].typeOfService.indexOf(s) !== -1)
                                         ? "#EEEEFF" : ""
                                 }} />

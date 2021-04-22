@@ -1,0 +1,7 @@
+.clickable-table-row {
+    cursor: pointer;
+}
+
+.clickable-table-row:hover {
+    background-color: #EFEFEF;
+}

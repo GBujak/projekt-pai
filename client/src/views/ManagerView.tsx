@@ -16,11 +16,13 @@ export const ManagerView: React.FC<Props> = (props) => {
 
     const unassignedServices = [
         { carMake: "Deawoo", carModel: "Lanos", dateStarted: new Date("2021-01-02"), typeOfService: ['olej', 'opony'] },
+        { carMake: "Daewoo", carModel: "Matiz", dateStarted: new Date("2021-01-01"), typeOfService: ['silnik', 'detale'] },
     ];
 
     const availableMechanics = [
         { name: "Jan Kowalski", specializes: ['opony', 'silnik'] },
-        { name: "Jan Nowak", specializes: ['olej'] }
+        { name: "Jan Nowak", specializes: ['olej'] },
+        { name: "Marian Kowalski", specializes: ['detale', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9'] },
     ];
 
     return <Container>

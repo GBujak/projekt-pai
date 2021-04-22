@@ -12,6 +12,7 @@ export const IndexView: React.FC = () => {
             <li><Link to="/admin">admin</Link></li>
             <li><Link to="/login">login</Link></li>
             <li><Link to="/rejestracja">rejestracja</Link></li>
+            <li><Link to="/historia/1">historia serwisu</Link></li>
         </ul>
     </Container>;
 };
