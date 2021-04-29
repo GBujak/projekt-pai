@@ -14,7 +14,7 @@ export const Navigation: React.FC<Props> = (_) => {
     const history = useHistory();
 
     return <>
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar variant="dense">
                 <IconButton edge="start" color="inherit" >
                     <MenuIcon />
