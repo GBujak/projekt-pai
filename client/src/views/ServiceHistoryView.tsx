@@ -21,7 +21,7 @@ export interface HistoryElement {
     workDescriptions: Array<WorkDescription>,
 };
 
-export const ServiceHistoryView: React.FC<Props> = ({ }) => {
+export const ServiceHistoryView: React.FC<Props> = (props) => {
     const history: Array<HistoryElement> = [
         {
             postDate: new Date("2021-05-23"),

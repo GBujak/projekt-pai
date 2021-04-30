@@ -1,5 +1,6 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
+import { CreateAccoutTokens, } from '../components/CreateAccountTokens';
 import { CurrentServices, ServiceInterface } from '../components/CurrentServices';
 import { UnassignedServices } from '../components/UnassignedServices';
 
@@ -32,5 +33,6 @@ export const ManagerView: React.FC<Props> = (props) => {
             availableMechanics={availableMechanics}
             unassignedServices={unassignedServices}
         />
+        <CreateAccoutTokens />
     </Container>;
 };

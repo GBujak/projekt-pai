@@ -88,7 +88,7 @@ export const Invoice: React.FC<Props> = (props) => {
                     <TableBody>
                         {props.items.map((item, index) => (
                             <TableRow key={index}>
-                                <TableCell>{index}</TableCell>
+                                <TableCell>{index + 1}.</TableCell>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.unit}</TableCell>
                                 <TableCell>{item.ammount}</TableCell>
