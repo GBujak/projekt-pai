@@ -10,6 +10,7 @@ import { Navigation } from './components/Navigation';
 import { AdminView } from './views/AdminView';
 import { CustomerView } from './views/CustomerView';
 import { IndexView } from './views/IndexView';
+import { InvoiceView } from './views/InvoiceView';
 import { LoginView } from './views/LoginView';
 import { ManagerView } from './views/ManagerView';
 import { RegisterView } from './views/RegisterView';
@@ -46,6 +47,9 @@ function App() {
                     </Route>
                     <Route path="/historia/:id">
                         <ServiceHistoryView />
+                    </Route>
+                    <Route path="/faktura/:id">
+                        <InvoiceView />
                     </Route>
                     <Route path="/">
                         <IndexView />
