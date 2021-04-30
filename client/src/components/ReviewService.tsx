@@ -26,7 +26,12 @@ export const ReviewService: React.FC<Props> = (props) => {
                 <DialogContent>
                     <TextField label="Opis słowny" variant="outlined" fullWidth multiline />
                     <Typography style={{ margin: "1rem 0" }}>Ocena w skali 1 do 5:</Typography>
-                    <Slider style={{ display: 'block', width: '70%', margin: 'auto' }} min={1} max={5} step={1} defaultValue={3} marks valueLabelDisplay="auto" />
+                    <Slider
+                        style={{ display: 'block', width: '70%', margin: 'auto' }}
+                        min={1} max={5} step={1} defaultValue={3}
+                        valueLabelDisplay="auto"
+                        marks
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">Anuluj</Button>
