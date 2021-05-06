@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 class ServiceComment (
     var title: String,
-    var bodyText: String,
+    var content: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_servicerequest")
