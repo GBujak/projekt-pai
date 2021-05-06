@@ -5,9 +5,9 @@ import warsztat.warsztatserver.models.util.Address
 import javax.persistence.*
 
 enum class EmployeeAuthority {
-    WORKER,
+    MECHANIC,
     MANAGER,
-    ADMINISTRATOR,
+    ADMIN,
 }
 
 @Entity
@@ -24,7 +24,7 @@ class Employee (
     @JoinColumn(name = "fk_address")
     var address: Address,
 
-    var authority: EmployeeAuthority = EmployeeAuthority.WORKER,
+    var authority: EmployeeAuthority = EmployeeAuthority.MECHANIC,
 
     id: Long = 0,
 
