@@ -1,6 +1,7 @@
 package warsztat.warsztatserver.models.servicestorymodels
 
 import warsztat.warsztatserver.models.ApplicationUser
+import warsztat.warsztatserver.models.carmodels.Car
 import java.util.*
 import javax.persistence.*
 
@@ -12,6 +13,10 @@ data class ServiceRequest (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_submitter")
     val submitter: ApplicationUser,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_car")
+    val car: Car,
 
     @Temporal(TemporalType.TIMESTAMP) // przechowuj w bazie danych jako pole TIMESTAMP (data i czas)
     val submittedOn: Date = Date(),

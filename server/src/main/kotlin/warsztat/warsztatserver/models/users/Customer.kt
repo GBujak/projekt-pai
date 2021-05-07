@@ -2,6 +2,7 @@ package warsztat.warsztatserver.klient
 
 import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.carmodels.Car
+import warsztat.warsztatserver.models.servicestorymodels.ServiceRequest
 import warsztat.warsztatserver.models.util.Address
 import javax.persistence.*
 
@@ -23,7 +24,15 @@ class Customer (
         cascade = arrayOf(CascadeType.ALL),
         orphanRemoval = true,
     )
-    var cars: Set<Car> = setOf(),
+    var cars: List<Car> = listOf(),
+
+    @OneToMany(
+        mappedBy = "submitter",
+        fetch = FetchType.LAZY,
+        cascade = arrayOf(CascadeType.PERSIST),
+        orphanRemoval = true,
+    )
+    val serviceRequests: List<ServiceRequest> = listOf(),
 
     id: Long = 0,
 

@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 import warsztat.warsztatserver.klient.Customer
+import warsztat.warsztatserver.models.carmodels.Car
 import warsztat.warsztatserver.models.carmodels.CarMake
 import warsztat.warsztatserver.models.carmodels.CarModel
 import warsztat.warsztatserver.models.carmodels.CarPart
@@ -27,6 +28,7 @@ class Bootstrap (
     val carMakeRepository: CarMakeRepository,
     val carModelRepository: CarModelRepository,
     val carPartRepository: CarPartRepository,
+    val carRepository: CarRepository,
     val bCryptPasswordEncoder: BCryptPasswordEncoder,
 ) : CommandLineRunner {
 
@@ -51,11 +53,14 @@ class Bootstrap (
         val users = applicationUserRepository.findAll()
         println(users)
 
-        val req = ServiceRequest("Serwis 1", "Popsuł się samochód", customer)
-        val comment = ServiceComment("komentarz jeden", "dobra, zrobimy", req, employee)
-
         val carMake = carMakeRepository.save(CarMake("Volkswagen", setOf()))
         val carModel = carModelRepository.save(CarModel("golf", "standard", carMake))
+
+        val car = carRepository.save(Car(2000, 10000, carModel, customer))
+
+        val req = ServiceRequest("Serwis 1", "Popsuł się samochód", customer, car)
+        val comment = ServiceComment("komentarz jeden", "dobra, zrobimy", req, employee)
+
         val carPart = carPartRepository.save(CarPart("Zderzak", 100, 10, setOf(carModel), setOf()))
 
         comment.workDescriptions += WorkDescription("Wymiana zderzaka", 2, listOf(), comment)

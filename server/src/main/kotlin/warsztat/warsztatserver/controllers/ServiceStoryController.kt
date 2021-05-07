@@ -7,16 +7,13 @@ import warsztat.warsztatserver.models.servicestorymodels.ServiceComment
 import warsztat.warsztatserver.models.servicestorymodels.ServiceRequest
 import warsztat.warsztatserver.models.servicestorymodels.WorkDescription
 import warsztat.warsztatserver.models.servicestorymodels.WorkDescriptionPartUsage
+import warsztat.warsztatserver.models.util.RestMessage
+import warsztat.warsztatserver.repositories.CarRepository
 import warsztat.warsztatserver.repositories.ServiceCommentRepository
 import warsztat.warsztatserver.repositories.ServiceRequestRepository
 import java.util.*
 
-class RestMessage<T>(
-    val msg: String,
-    val data: T? = null,
-)
-
-data class CreateServiceRequest(val title: String, val description: String)
+data class CreateServiceRequest(val title: String, val description: String, val carId: Long)
 data class CreateCommentRequest(val requestId: Long, val title: String, val content: String)
 
 class ServiceStoryRest(
@@ -55,12 +52,15 @@ class UsedPartRest(
 class ServiceStoryController(
     val serviceRequestRepository: ServiceRequestRepository,
     val serviceCommentRepository: ServiceCommentRepository,
+    val carRepository: CarRepository,
 ) {
     @PostMapping("/create")
     fun create(@RequestBody request: CreateServiceRequest): RestMessage<ServiceRequest> {
-        val (title, desc) = request
+        val (title, desc, carId) = request
+        val car = carRepository.findById(carId)
+        if (car.isEmpty) return RestMessage("Błąd: nie ma takiego samochodu")
         val submitter = SecurityContextHolder.getContext().authentication.principal as ApplicationUser
-        val result = serviceRequestRepository.save(ServiceRequest(title, desc, submitter))
+        val result = serviceRequestRepository.save(ServiceRequest(title, desc, submitter, car.get()))
         return RestMessage("Ok", result)
     }
 
