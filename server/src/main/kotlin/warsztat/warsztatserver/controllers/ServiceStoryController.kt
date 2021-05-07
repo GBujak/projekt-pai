@@ -1,12 +1,11 @@
 package warsztat.warsztatserver.controllers
 
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
-import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.servicestorymodels.ServiceComment
 import warsztat.warsztatserver.models.servicestorymodels.ServiceRequest
 import warsztat.warsztatserver.models.servicestorymodels.WorkDescription
 import warsztat.warsztatserver.models.servicestorymodels.WorkDescriptionPartUsage
+import warsztat.warsztatserver.models.util.CurrentUserUtil
 import warsztat.warsztatserver.models.util.RestMessage
 import warsztat.warsztatserver.repositories.CarRepository
 import warsztat.warsztatserver.repositories.ServiceCommentRepository
@@ -53,20 +52,21 @@ class ServiceStoryController(
     val serviceRequestRepository: ServiceRequestRepository,
     val serviceCommentRepository: ServiceCommentRepository,
     val carRepository: CarRepository,
+    val currentUserUtil: CurrentUserUtil,
 ) {
     @PostMapping("/create")
     fun create(@RequestBody request: CreateServiceRequest): RestMessage<ServiceRequest> {
         val (title, desc, carId) = request
         val car = carRepository.findById(carId)
         if (car.isEmpty) return RestMessage("Błąd: nie ma takiego samochodu")
-        val submitter = SecurityContextHolder.getContext().authentication.principal as ApplicationUser
+        val submitter = currentUserUtil.getCurrentUser()
         val result = serviceRequestRepository.save(ServiceRequest(title, desc, submitter, car.get()))
         return RestMessage("Ok", result)
     }
 
     @PostMapping("/create-comment")
     fun comment(@RequestBody request: CreateCommentRequest): RestMessage<ServiceComment> {
-        val submitter = SecurityContextHolder.getContext().authentication.principal as ApplicationUser
+        val submitter = currentUserUtil.getCurrentUser()
         val serviceRequestOptional = serviceRequestRepository.findById(request.requestId)
         if (serviceRequestOptional.isEmpty) {
             return RestMessage("Nie znaleziono takiego id")

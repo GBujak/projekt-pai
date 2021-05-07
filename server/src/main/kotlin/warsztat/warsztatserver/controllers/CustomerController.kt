@@ -1,6 +1,5 @@
 package warsztat.warsztatserver.controllers
 
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import warsztat.warsztatserver.klient.Customer
 import warsztat.warsztatserver.models.carmodels.Car
@@ -8,6 +7,7 @@ import warsztat.warsztatserver.models.carmodels.CarMake
 import warsztat.warsztatserver.models.carmodels.CarModel
 import warsztat.warsztatserver.models.servicestorymodels.ServiceRequest
 import warsztat.warsztatserver.models.util.Address
+import warsztat.warsztatserver.models.util.CurrentUserUtil
 import warsztat.warsztatserver.models.util.RestMessage
 import warsztat.warsztatserver.repositories.*
 import java.util.*
@@ -57,6 +57,7 @@ class CustomerController(
     val carModelRepository: CarModelRepository,
     val carMakeRepository: CarMakeRepository,
     val carRepository: CarRepository,
+    val currentUserUtil: CurrentUserUtil,
 ) {
     @PostMapping("/rejestracja")
     fun register(@RequestBody registerRequest: RegisterRequest) : RestMessage<Unit> {
@@ -81,7 +82,9 @@ class CustomerController(
                 make
             ))
         }
-        val user = SecurityContextHolder.getContext().authentication.principal as Customer
+
+        val user = currentUserUtil.getCurrentUserIfVariant<Customer>()
+        if (user == null) return RestMessage("Błąd: konto nie jest kontem klienta")
 
         val car = carRepository.save(addCarRequest.let {
             Car(it.productionYear, it.mileage, model, user)
@@ -93,10 +96,8 @@ class CustomerController(
     @GetMapping("/dashboard")
     fun getDashboard(): RestMessage<CustomerDashboard> {
         // TODO: principal to powinno być id, bo jak jest ApplicationUser to nie działa hibernate
-        val user = customerRepository.findById((SecurityContextHolder.getContext().authentication.principal as Customer).id).get()
-        if (user == null) return RestMessage("Błąd: nie jesteś klientem")
-        return RestMessage(
-            "Ok", CustomerDashboard(user.serviceRequests, user.cars)
-        )
+        val user = currentUserUtil.getCurrentUserIfVariant<Customer>()
+        return if (user == null) RestMessage("Błąd: nie jesteś klientem")
+        else RestMessage("Ok", CustomerDashboard(user.serviceRequests, user.cars))
     }
 }

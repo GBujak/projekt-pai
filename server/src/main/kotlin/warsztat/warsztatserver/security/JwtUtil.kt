@@ -1,15 +1,12 @@
 package warsztat.warsztatserver.security
 
 import com.auth0.jwt.JWT
-import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTDecodeException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
-import warsztat.warsztatserver.models.ApplicationUser
 import warsztat.warsztatserver.models.users.Employee
 import warsztat.warsztatserver.repositories.ApplicationUserRepository
 import javax.servlet.http.HttpServletRequest
@@ -27,7 +24,7 @@ final class JwtUtil(
             val subject = decoded.subject
             val user = appUserRepo.findByUsername(subject)
             val auth = UsernamePasswordAuthenticationToken(
-                user, token,
+                user?.id, token,
                 if (user is Employee) mutableListOf(SimpleGrantedAuthority(user.authority.name))
                 else mutableListOf(),
             )
