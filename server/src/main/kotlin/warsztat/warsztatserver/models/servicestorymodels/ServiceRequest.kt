@@ -20,6 +20,14 @@ data class ServiceRequest (
     @JoinColumn(name = "fk_assignedworker", nullable = true)
     val assignedWorker: ApplicationUser? = null,
 
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        mappedBy = "serviceRequest",
+        cascade = arrayOf(CascadeType.ALL),
+        orphanRemoval = true,
+    )
+    var serviceComments: List<ServiceComment> = listOf(),
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
