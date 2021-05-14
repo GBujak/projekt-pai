@@ -34,21 +34,31 @@ class Bootstrap (
 
     @Transactional
     override fun run(vararg args: String?) {
-        var customer = Customer("customer1", bCryptPasswordEncoder.encode("pass"), "Jan Kowalski", "123123123", Address(
+        var customer = Customer("customer", bCryptPasswordEncoder.encode("pass"), "Jan Kowalski", "123123123", Address(
             "Kielce", "Sienkiewicza", 12, 1
         ))
         var employee = Employee(
-            "employee1",
-            bCryptPasswordEncoder.encode("password"),
+            "mechanic",
+            bCryptPasswordEncoder.encode("pass"),
             "Adam Nowak",
             "adam@nowak.com",
             "123123123",
             Address("Kielce", "Sienkiewicza", 100, 2),
-            authority = EmployeeAuthority.MANAGER
+            authority = EmployeeAuthority.MECHANIC,
+        )
+        var manager = Employee(
+            "manager",
+            bCryptPasswordEncoder.encode("pass"),
+            "Adam Kowalski",
+            "adam@kowalski.com",
+            "123213123",
+            Address("Kielce", "Wspólna", 1, 1),
+            authority = EmployeeAuthority.MANAGER,
         )
 
         customer = customerRepository.save(customer)
         employee = employeeRepository.save(employee)
+        manager = employeeRepository.save(manager)
 
         val users = applicationUserRepository.findAll()
         println(users)

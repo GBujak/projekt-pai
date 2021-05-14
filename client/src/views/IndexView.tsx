@@ -5,24 +5,7 @@ import { FoldingPaper } from '../components/FoldingPaper';
 import axios from 'axios';
 
 export const IndexView: React.FC = () => {
-
-    useEffect(() => {
-        axios.post("/api/auth/login", { username: "customer1", password: "pass" })
-            .then(res => console.log(res));
-    }, []);
-
-    return <Container>
-        <h2>Linki do interfejsów:</h2>
-        <ul>
-            <li><Link to="/klient">klient</Link></li>
-            <li><Link to="/pracownik">pracownik</Link></li>
-            <li><Link to="/kierownik">kierownik</Link></li>
-            <li><Link to="/admin">admin</Link></li>
-            <li><Link to="/login">login</Link></li>
-            <li><Link to="/rejestracja">rejestracja</Link></li>
-            <li><Link to="/historia/1">historia serwisu</Link></li>
-        </ul>
-
+    return <Container style={{ paddingTop: "2rem" }}>
         <Typography variant="h3">Serwis samochodowy</Typography>
         <img src="mechanik.jpg" style={{ width: "100%", height: "30vh", objectFit: 'cover', margin: '1rem 0' }}></img>
         <Typography variant="h3">Dlaczego my?</Typography>

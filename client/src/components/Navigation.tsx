@@ -34,6 +34,9 @@ export const Navigation: React.FC<Props> = (_) => {
                         Serwis samochodowy {auth !== null && `(zalogowano jako ${auth.username})`}
                     </Typography>
                 </div>
+                <Button color="inherit" variant="outlined" style={{ marginRight: "1rem" }}
+                    onClick={(e) => history.push("/dashboard")}
+                >Panel główny</Button>
                 <Button color="inherit" onClick={(_) => history.push("/login")}>{auth !== null ? "Wyloguj się" : "Zaloguj się"}</Button>
             </Toolbar>
         </AppBar>

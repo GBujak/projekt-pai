@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { AuthenticationContext } from '../auth/AuthenticationContext';
 import { AdminView } from './AdminView';
@@ -14,12 +14,12 @@ export const DashboardView: React.FC<Props> = ({ }) => {
     const { auth } = useContext(AuthenticationContext);
     const history = useHistory();
 
-    if (auth === null) {
-        history.push("/login");
-        return <></>;
-    }
+    useEffect(() => {
+        if (auth === null) history.push("/login");
+    }, []);
 
-    let result;
+    let result = <></>;
+    if (auth === null) return result;
 
     switch (auth!.accountType) {
         case "customer":

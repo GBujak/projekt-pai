@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     BrowserRouter as Router,
@@ -20,7 +20,16 @@ import { ServiceHistoryView } from './views/ServiceHistoryView';
 import { WorkerView } from './views/WorkerView';
 
 function App() {
-    const [auth, setAuth] = useState<Authentication | null>(null);
+    const [auth, setAuth] = useState<Authentication | null>(JSON.parse(localStorage.getItem("auth") || ""));
+
+    // useEffect(() => {
+    //     let auth: Authentication | null = JSON.parse(localStorage.getItem("auth") || "");
+    //     setAuth(auth);
+    // }, []);
+
+    useEffect(() => {
+        localStorage.setItem("auth", JSON.stringify(auth));
+    }, [auth]);
 
     return (
         <AuthenticationContext.Provider value={{ auth, setAuth }}>
