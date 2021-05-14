@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import warsztat.warsztatserver.models.ApplicationUser
+import warsztat.warsztatserver.models.users.Employee
 import warsztat.warsztatserver.repositories.ApplicationUserRepository
 import warsztat.warsztatserver.security.ApplicationUserDetails
 import warsztat.warsztatserver.security.JwtUtil
 import java.lang.Exception
 
 data class AuthRequest(val username: String, val password: String)
-data class LoginResponse(val token: String)
+data class LoginResponse(val token: String, val username: String, val accountType: String)
 data class RegisterResponse(val message: String)
 
 @RestController
@@ -41,10 +42,13 @@ class AuthController (
             val authentication = authenticationManager
                 .authenticate(UsernamePasswordAuthenticationToken(username, password))
             val user = authentication.principal as ApplicationUserDetails
+            val applicationUser = applicationUserRepository.findByUsername(user.username)!!
             val token = jwtUtil.userToken(user.username)
             return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, token)
-                .body(LoginResponse(token))
+                .body(LoginResponse(token, applicationUser.username,
+                    if (applicationUser is Employee) applicationUser.authority.name.toLowerCase()
+                    else "customer"))
         } catch (e: Exception) {
             throw e
         }

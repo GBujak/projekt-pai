@@ -1,9 +1,16 @@
 import { Container, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FoldingPaper } from '../components/FoldingPaper';
+import axios from 'axios';
 
 export const IndexView: React.FC = () => {
+
+    useEffect(() => {
+        axios.post("/api/auth/login", { username: "customer1", password: "pass" })
+            .then(res => console.log(res));
+    }, []);
+
     return <Container>
         <h2>Linki do interfejsów:</h2>
         <ul>

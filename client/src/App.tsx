@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     BrowserRouter as Router,
@@ -6,9 +6,11 @@ import {
     Route,
     Link,
 } from 'react-router-dom';
+import { Authentication, AuthenticationContext, AuthInterface } from './auth/AuthenticationContext';
 import { Navigation } from './components/Navigation';
 import { AdminView } from './views/AdminView';
 import { CustomerView } from './views/CustomerView';
+import { DashboardView } from './views/DashboardView';
 import { IndexView } from './views/IndexView';
 import { InvoiceView } from './views/InvoiceView';
 import { LoginView } from './views/LoginView';
@@ -18,45 +20,39 @@ import { ServiceHistoryView } from './views/ServiceHistoryView';
 import { WorkerView } from './views/WorkerView';
 
 function App() {
+    const [auth, setAuth] = useState<Authentication | null>(null);
+
     return (
-        <div className="App">
-            {/* Czcionki Roboto potrzebne do Material-ui */}
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        <AuthenticationContext.Provider value={{ auth, setAuth }}>
+            <div className="App">
+                {/* Czcionki Roboto potrzebne do Material-ui */}
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
-            <Router>
-                <Navigation />
-
-                <Switch>
-                    <Route path="/klient">
-                        <CustomerView />
-                    </Route>
-                    <Route path="/pracownik">
-                        <WorkerView />
-                    </Route>
-                    <Route path="/kierownik">
-                        <ManagerView />
-                    </Route>
-                    <Route path="/admin">
-                        <AdminView />
-                    </Route>
-                    <Route path="/login">
-                        <LoginView />
-                    </Route>
-                    <Route path="/rejestracja">
-                        <RegisterView />
-                    </Route>
-                    <Route path="/historia/:id">
-                        <ServiceHistoryView />
-                    </Route>
-                    <Route path="/faktura/:id">
-                        <InvoiceView />
-                    </Route>
-                    <Route path="/">
-                        <IndexView />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
+                <Router>
+                    <Navigation />
+                    <Switch>
+                        <Route path="/dashboard">
+                            <DashboardView />
+                        </Route>
+                        <Route path="/login">
+                            <LoginView />
+                        </Route>
+                        <Route path="/rejestracja">
+                            <RegisterView />
+                        </Route>
+                        <Route path="/historia/:id">
+                            <ServiceHistoryView />
+                        </Route>
+                        <Route path="/faktura/:id">
+                            <InvoiceView />
+                        </Route>
+                        <Route path="/">
+                            <IndexView />
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
+        </AuthenticationContext.Provider>
     );
 }
 

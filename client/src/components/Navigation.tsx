@@ -2,9 +2,10 @@ import { IconButton } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { AppBar, Toolbar } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router';
+import { AuthenticationContext } from '../auth/AuthenticationContext';
 
 interface Props {
 
@@ -12,6 +13,7 @@ interface Props {
 
 export const Navigation: React.FC<Props> = (_) => {
     const history = useHistory();
+    const { auth } = useContext(AuthenticationContext);
 
     return <>
         <AppBar position="sticky">
@@ -29,10 +31,10 @@ export const Navigation: React.FC<Props> = (_) => {
                         }}
                         onClick={() => history.push("/")}
                     >
-                        Serwis samochodowy
+                        Serwis samochodowy {auth !== null && `(zalogowano jako ${auth.username})`}
                     </Typography>
                 </div>
-                <Button color="inherit" onClick={(_) => history.push("/login")}>Login</Button>
+                <Button color="inherit" onClick={(_) => history.push("/login")}>{auth !== null ? "Wyloguj się" : "Zaloguj się"}</Button>
             </Toolbar>
         </AppBar>
     </>;
