@@ -20,7 +20,7 @@ import { ServiceHistoryView } from './views/ServiceHistoryView';
 import { WorkerView } from './views/WorkerView';
 
 function App() {
-    const [auth, setAuth] = useState<Authentication | null>(JSON.parse(localStorage.getItem("auth") || ""));
+    const [auth, setAuth] = useState<Authentication | null>(JSON.parse(localStorage.getItem("auth") || "null"));
 
     // useEffect(() => {
     //     let auth: Authentication | null = JSON.parse(localStorage.getItem("auth") || "");
