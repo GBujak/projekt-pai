@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -20,19 +21,32 @@ import { ServiceHistoryView } from './views/ServiceHistoryView';
 import { WorkerView } from './views/WorkerView';
 
 function App() {
-    const [auth, setAuth] = useState<Authentication | null>(JSON.parse(localStorage.getItem("auth") || "null"));
+    const [loading, setLoading] = useState(true);
+    const [auth, setAuth] = useState<Authentication | null>(null);
 
-    // useEffect(() => {
-    //     let auth: Authentication | null = JSON.parse(localStorage.getItem("auth") || "");
-    //     setAuth(auth);
-    // }, []);
+    const onSetAuth = (auth: Authentication | null) => {
+        if (auth !== null) {
+            axios.defaults.headers['Authorization'] = "Bearer " + auth.token;
+        } else {
+            axios.defaults.headers['Authorization'] = "";
+        }
+        setAuth(auth);
+    };
+
+    useEffect(() => {
+        let auth: Authentication | null = JSON.parse(localStorage.getItem("auth") || "null");
+        onSetAuth(auth);
+        setLoading(false);
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("auth", JSON.stringify(auth));
     }, [auth]);
 
+    if (loading === true) return <></>;
+
     return (
-        <AuthenticationContext.Provider value={{ auth, setAuth }}>
+        <AuthenticationContext.Provider value={{ auth, setAuth: onSetAuth }}>
             <div className="App">
                 {/* Czcionki Roboto potrzebne do Material-ui */}
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />

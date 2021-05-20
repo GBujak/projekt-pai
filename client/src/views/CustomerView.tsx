@@ -14,8 +14,6 @@ export const CustomerView: React.FC<Props> = (props) => {
         <Typography variant="h5">Witaj kliencie.</Typography>
         <FinishedServices />
         <CurrentServices currentServices={[
-            { assignedMechanic: 'Jan Nowak', carMake: 'Volkswagen', carModel: 'Golf', dateStarted: new Date(), state: 'started' },
-            { assignedMechanic: 'Jan Nowak', carMake: 'Daewoo', carModel: 'Matiz', dateStarted: new Date('2020-05-14'), state: 'finished' }
         ]} />
     </Container>;
 };

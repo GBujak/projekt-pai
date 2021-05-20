@@ -1,14 +1,10 @@
 import { Button, Chip, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { ServiceInterface } from './CurrentServices';
 import { FoldingPaper } from './FoldingPaper';
 
 interface Props {
-    unassignedServices: Array<{
-        carMake: string,
-        carModel: string,
-        dateStarted: Date,
-        typeOfService: Array<string>,
-    }>,
+    unassignedServices: Array<ServiceInterface>,
     availableMechanics: Array<{
         name: string,
         specializes: Array<string>,
@@ -33,7 +29,7 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                     <TableRow key={index} style={{ background: assigning === index ? "#EFEFEF" : "" }}>
                         <TableCell>{service.carMake}</TableCell>
                         <TableCell>{service.carModel}</TableCell>
-                        <TableCell>{service.dateStarted.toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(service.date).toLocaleDateString()}</TableCell>
                         <TableCell style={{ width: "6rem" }}>
                             <Button onClick={() => (assigning === index) ? setAssigning(-1) : setAssigning(index)}>
                                 {(assigning === index) ? "anuluj" : "przypisuj"}
@@ -48,7 +44,7 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
 
         {assigning !== -1 && <>
             <Typography variant="h6" style={{ marginTop: "1rem" }}>Przypisywanie mechanika</Typography>
-            <p>Wymagania wybranej usługi: {unassignedServices[assigning].typeOfService.join(", ")}</p>
+            <p>Wymagania wybranej usługi: {unassignedServices[assigning].tags.join(", ")}</p>
             <Table size="small">
                 <TableHead><TableRow>
                     <TableCell>Mechanik</TableCell>
@@ -58,7 +54,7 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                 <TableBody>
                     {availableMechanics.filter(m => {
                         for (let s of m.specializes) {
-                            if (unassignedServices[assigning].typeOfService.indexOf(s) !== -1)
+                            if (unassignedServices[assigning].tags.indexOf(s) !== -1)
                                 return true;
                         }
                         return false;
@@ -68,7 +64,7 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                             <TableCell style={{ width: "70%" }}>{m.specializes.map((s, i) => (
                                 <Chip key={i} label={s} style={{
                                     marginRight: ".5rem", marginBottom: ".2rem",
-                                    background: (unassignedServices[assigning].typeOfService.indexOf(s) !== -1)
+                                    background: (unassignedServices[assigning].tags.indexOf(s) !== -1)
                                         ? "#EEEEFF" : ""
                                 }} />
                             ))}</TableCell>

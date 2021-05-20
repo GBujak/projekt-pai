@@ -26,6 +26,9 @@ class Employee (
 
     var authority: EmployeeAuthority = EmployeeAuthority.MECHANIC,
 
+    @ElementCollection
+    var specializes: List<String> = listOf(),
+
     id: Long = 0,
 
 ) : ApplicationUser (username, password, id)

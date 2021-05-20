@@ -12,24 +12,28 @@ import java.util.*
 
 class ManagerDashboard (
     serviceRequests: List<ServiceRequest>,
-    val unassignedServiceRequests: List<RestUnassignedServiceRequest> =
+    _mechanics: List<Employee>,
+    val mechanics: List<RestMechanic> = _mechanics.map { RestMechanic(it) },
+    val unassignedServiceRequests: List<RestServiceRequest> =
         serviceRequests.filter { it.assignedWorker == null }
-        .map { RestUnassignedServiceRequest(it) },
+        .map { RestServiceRequest(it) },
     val activeServiceRequests: List<RestServiceRequest> =
         serviceRequests.map { RestServiceRequest(it) }
 )
 
-open class RestServiceRequest (
+class RestMechanic(
+    mechanic: Employee,
+    val name: String = mechanic.name,
+    val specializes: List<String> = mechanic.specializes,
+)
+
+class RestServiceRequest (
     serviceRequest: ServiceRequest,
     val carModel: String = serviceRequest.car.model.modelName,
     val carMake: String = serviceRequest.car.model.carMake.makeName,
     val date: Date = serviceRequest.submittedOn,
-)
-
-class RestUnassignedServiceRequest (
-    serviceRequest: ServiceRequest,
     val tags: List<String> = serviceRequest.tags,
-): RestServiceRequest(serviceRequest)
+)
 
 class AssignWorkerRequest (
     val serviceRequestId: Long,
@@ -51,7 +55,9 @@ class ManagerController(
                     return RestMessage("Błąd: nie jesteś kierownikiem albo administratorem")
 
         val repositories = serviceRequestRepository.findAll().toList()
-        return RestMessage("Ok", ManagerDashboard(repositories))
+        val mechanics = employeeRepository.findAllByAuthority(EmployeeAuthority.MECHANIC)
+
+        return RestMessage("Ok", ManagerDashboard(repositories, mechanics))
     }
 
     @PostMapping("/assign-worker")

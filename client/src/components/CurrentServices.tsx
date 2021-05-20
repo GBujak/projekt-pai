@@ -9,7 +9,8 @@ export interface ServiceInterface {
     carMake: string,
     carModel: string,
     assignedMechanic: string,
-    dateStarted: Date,
+    date: string,
+    tags: Array<string>,
     state: 'not started' | 'started' | 'finished',
 }
 
@@ -48,7 +49,7 @@ export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
                         <TableCell>{service.carMake}</TableCell>
                         <TableCell>{service.carModel}</TableCell>
                         <TableCell>{service.assignedMechanic}</TableCell>
-                        <TableCell>{service.dateStarted.toLocaleDateString()}</TableCell>
+                        <TableCell>{new Date(service.date).toLocaleDateString()}</TableCell>
                         <TableCell>{stateDesc(service)}</TableCell>
                     </TableRow>
                 ))}
