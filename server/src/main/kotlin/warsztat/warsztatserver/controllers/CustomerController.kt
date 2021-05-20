@@ -39,6 +39,7 @@ class CustomerDashboard(
 
 class ServiceRest(
     serviceRequest: ServiceRequest,
+    val finished: Boolean = serviceRequest.finished,
     val lastUpdate: Date = serviceRequest.serviceComments.last().submittedOn,
     val car: CarRest = CarRest(serviceRequest.car),
 )

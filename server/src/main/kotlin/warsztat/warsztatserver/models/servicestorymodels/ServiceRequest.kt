@@ -21,9 +21,14 @@ data class ServiceRequest (
     @Temporal(TemporalType.TIMESTAMP) // przechowuj w bazie danych jako pole TIMESTAMP (data i czas)
     val submittedOn: Date = Date(),
 
+    var finished: Boolean = false,
+
+    @ElementCollection
+    var tags: List<String> = listOf(),
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_assignedworker", nullable = true)
-    val assignedWorker: ApplicationUser? = null,
+    var assignedWorker: ApplicationUser? = null,
 
     @OneToMany(
         fetch = FetchType.LAZY,
