@@ -1,5 +1,6 @@
 import { Divider, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import React from 'react';
+import { moneyFormat } from '../util/moneyFormat';
 import { HistoryElement } from '../views/ServiceHistoryView';
 import { FoldingPaper } from './FoldingPaper';
 
@@ -28,14 +29,14 @@ export const ServiceHistoryElement: React.FC<Props> = ({ element }) => {
                     {element.workDescriptions.map((description, index) => (
                         <TableRow key={index}>
                             <TableCell>{description.name}</TableCell>
-                            <TableCell>{description.workHours}</TableCell>
+                            <TableCell>{description.hours}</TableCell>
                             <TableCell>
-                                {description.parts.length === 0 ? "nie dotyczy" : <Table size="small">
+                                {description.usedParts.length === 0 ? "nie dotyczy" : <Table size="small">
                                     <TableBody>
-                                        {description.parts.map((part, index) => (
+                                        {description.usedParts.map((part, index) => (
                                             <TableRow key={index}>
                                                 <TableCell>{part.name}</TableCell>
-                                                <TableCell>{part.count}</TableCell>
+                                                <TableCell>{part.ammount} x {moneyFormat(part.price)}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>

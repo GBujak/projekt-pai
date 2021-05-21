@@ -33,25 +33,16 @@ class AddCarRequest(
 class CustomerDashboard(
     inputServices: List<ServiceRequest>,
     inputCars: List<Car>,
-    val services: List<ServiceRest> = inputServices.map { ServiceRest(it) },
+    val services: List<RestServiceRequest> = inputServices.map { RestServiceRequest(it) },
+    val finishedServices: List<RestServiceRequest> = inputServices
+        .filter { it.finished }.map { RestServiceRequest(it) },
     val cars: List<CarRest> = inputCars.map { CarRest(it) },
 )
 
-class ServiceRest(
-    serviceRequest: ServiceRequest,
-    val finished: Boolean = serviceRequest.finished,
-    val lastUpdate: Date = serviceRequest.serviceComments.last().submittedOn,
-    val car: CarRest = CarRest(serviceRequest.car),
-)
 
-class CarRest(
-    car: Car,
-    val carName: String = "${car.model.carMake.makeName} ${car.model.modelName}",
-    val mileage: Int = car.lastMileage,
-)
 
 @RestController
-@RequestMapping("/api/klient")
+@RequestMapping("/api/customer")
 class CustomerController(
     val customerRepository: CustomerRepository,
     val applicationUserRepository: ApplicationUserRepository,
@@ -60,7 +51,7 @@ class CustomerController(
     val carRepository: CarRepository,
     val currentUserUtil: CurrentUserUtil,
 ) {
-    @PostMapping("/rejestracja")
+    @PostMapping("/register")
     fun register(@RequestBody registerRequest: RegisterRequest) : RestMessage<Unit> {
         if (applicationUserRepository.findByUsername(registerRequest.username) != null) {
             return RestMessage("Błąd: nazwa użytkownika już istnieje")
@@ -69,7 +60,7 @@ class CustomerController(
         return RestMessage("Ok")
     }
 
-    @PostMapping("/dodaj-samochod")
+    @PostMapping("/add-car")
     fun addCar(@RequestBody addCarRequest: AddCarRequest): RestMessage<Unit> {
         var make = carMakeRepository.findByMakeName(addCarRequest.makeName)
         var model = carModelRepository.findByModelName(addCarRequest.modelName)
@@ -96,7 +87,6 @@ class CustomerController(
 
     @GetMapping("/dashboard")
     fun getDashboard(): RestMessage<CustomerDashboard> {
-        // TODO: principal to powinno być id, bo jak jest ApplicationUser to nie działa hibernate
         val user = currentUserUtil.getCurrentUserIfVariant<Customer>()
         return if (user == null) RestMessage("Błąd: nie jesteś klientem")
         else RestMessage("Ok", CustomerDashboard(user.serviceRequests, user.cars))

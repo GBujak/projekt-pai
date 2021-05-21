@@ -7,10 +7,30 @@ interface Props {
 
 };
 
+export interface ServiceStory {
+    title: string,
+    description: string,
+    date: string,
+    submitter: string,
+    comments: Array<ServiceStoryComment>,
+}
+
+export interface ServiceStoryComment {
+    title: string,
+    content: string,
+    workDescriptions: Array<WorkDescription>,
+}
+
 export interface WorkDescription {
     name: string,
-    workHours: number,
-    parts: Array<{ name: string, count: number, }>,
+    hours: number,
+    usedParts: Array<UsedPart>,
+}
+
+export interface UsedPart {
+    name: string,
+    price: number,
+    ammount: number,
 }
 
 export interface HistoryElement {
@@ -30,12 +50,12 @@ export const ServiceHistoryView: React.FC<Props> = (props) => {
             content: "Zmieniłem olej w samochodzie, wypolerowałem zadrapanie",
             workDescriptions: [{
                 name: "zmiana oleju",
-                workHours: 2.5,
-                parts: [{ name: "olej Castrol 1 litr", count: 2, }, { name: "Zakrętka", count: 1 }]
+                hours: 2.5,
+                usedParts: [{ name: "olej Castrol 1 litr", ammount: 2, price: 10_00 }, { name: "Zakrętka", ammount: 1, price: 5_20 }]
             }, {
                 name: "wypolerowanie zadrapania",
-                workHours: 1,
-                parts: []
+                hours: 1,
+                usedParts: []
             }],
         }, {
             postDate: new Date("2021-05-30"),

@@ -16,20 +16,22 @@ interface ManagerDashboard {
 }
 
 export const ManagerView: React.FC<Props> = (props) => {
-    const [updating, setUpdating] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [dashboard, setDashboard] = useState<ManagerDashboard | null>(null);
 
-    // TODO: useEffect wykonuje się 2 razy
-    useEffect(() => {
-        if (updating === false) return;
+    const loadDashboard = () => {
         axios("/api/manager/dashboard").then(response => {
             console.log(response.data);
             setDashboard(response.data.data);
-            setUpdating(false);
+            setLoading(false);
         });
-    }, [updating]);
+    };
 
-    if (updating === true) return <h2>Ładowanie...</h2>;
+    useEffect(() => {
+        loadDashboard();
+    }, []);
+
+    if (loading === true) return <h2>Ładowanie...</h2>;
 
     return <Container>
         <CurrentServices currentServices={dashboard!.activeServiceRequests} />
@@ -38,5 +40,7 @@ export const ManagerView: React.FC<Props> = (props) => {
             unassignedServices={dashboard!.unassignedServiceRequests}
         />
         <CreateAccoutTokens />
+
+        <Button variant="outlined" onClick={() => loadDashboard()}>Odśwież</Button>
     </Container>;
 };

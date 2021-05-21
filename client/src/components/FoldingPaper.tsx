@@ -10,13 +10,13 @@ export const FoldingPaper: React.FC<{
 }> = ({ children, startOpen, title, subtitle, style }) => {
     let [visible, setVisible] = useState(startOpen);
 
-    return <Paper style={{ maxWidth: "1000px", padding: "1rem", margin: "1rem 0", ...style }}>
+    return <Paper variant="outlined" style={{ maxWidth: "1000px", padding: "1rem", margin: "1rem 0", ...style }}>
         <div className="paper-header-with-button">
             <div className="display-inline-block-div">
                 <Typography variant="h5">{title}</Typography>
                 {subtitle !== null && <Typography variant="body1">{subtitle}</Typography>}
             </div>
-            <Button onClick={() => setVisible(!visible)}>
+            <Button variant="outlined" onClick={() => setVisible(!visible)}>
                 {visible ? "zwiń" : "rozwiń"}
             </Button>
         </div>

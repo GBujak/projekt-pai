@@ -23,16 +23,9 @@ class ManagerDashboard (
 
 class RestMechanic(
     mechanic: Employee,
+    val id: Long = mechanic.id,
     val name: String = mechanic.name,
     val specializes: List<String> = mechanic.specializes,
-)
-
-class RestServiceRequest (
-    serviceRequest: ServiceRequest,
-    val carModel: String = serviceRequest.car.model.modelName,
-    val carMake: String = serviceRequest.car.model.carMake.makeName,
-    val date: Date = serviceRequest.submittedOn,
-    val tags: List<String> = serviceRequest.tags,
 )
 
 class AssignWorkerRequest (

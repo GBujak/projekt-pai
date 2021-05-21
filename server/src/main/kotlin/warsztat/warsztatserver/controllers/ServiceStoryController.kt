@@ -83,7 +83,7 @@ class ServiceStoryController(
         return RestMessage("Ok", result)
     }
 
-    @GetMapping("/story-all/{id}")
+    @GetMapping("/all/{id}")
     fun storyAll(@PathVariable("id") id: Long): RestMessage<ServiceStoryRest> {
         val serviceRequest = serviceRequestRepository.findById(id)
         if (serviceRequest.isEmpty) {

@@ -6,12 +6,14 @@ import "./styles/tableStyles.css";
 import StateIcon from '@material-ui/icons/FiberManualRecord';
 
 export interface ServiceInterface {
+    id: number,
     carMake: string,
     carModel: string,
     assignedMechanic: string,
     date: string,
     tags: Array<string>,
     state: 'not started' | 'started' | 'finished',
+    finished: boolean,
 }
 
 interface Props {
@@ -19,14 +21,11 @@ interface Props {
 }
 
 function stateDesc(service: ServiceInterface) {
-    switch (service.state) {
-        case 'not started':
-            return <div><StateIcon style={{ color: 'red', height: '.8rem' }} />Nie rozpoczęta</div>;
-        case 'started':
-            return <div><StateIcon style={{ color: '#DD0', height: '.8rem' }} />Rozpoczęta</div>;
-        case 'finished':
-            return <div><StateIcon style={{ color: 'green', height: '.8rem' }} />Zakończona</div>;
-    }
+    if (service.finished === false && service.assignedMechanic === "")
+        return <div><StateIcon style={{ color: 'red', height: '.8rem' }} />Nie rozpoczęta</div>;
+    if (service.finished === false)
+        return <div><StateIcon style={{ color: '#DD0', height: '.8rem' }} />Rozpoczęta</div>;
+    return <div><StateIcon style={{ color: 'green', height: '.8rem' }} />Zakończona</div>;
 }
 
 export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
@@ -48,7 +47,7 @@ export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
                     <TableRow key={index} className="clickable-table-row" onClick={() => { history.push("/historia/1"); }}>
                         <TableCell>{service.carMake}</TableCell>
                         <TableCell>{service.carModel}</TableCell>
-                        <TableCell>{service.assignedMechanic}</TableCell>
+                        <TableCell>{(service.assignedMechanic !== "") ? service.assignedMechanic : "nie przypisano"}</TableCell>
                         <TableCell>{new Date(service.date).toLocaleDateString()}</TableCell>
                         <TableCell>{stateDesc(service)}</TableCell>
                     </TableRow>
