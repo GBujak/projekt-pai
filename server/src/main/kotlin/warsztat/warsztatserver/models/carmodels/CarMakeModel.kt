@@ -15,7 +15,7 @@ data class CarMake (
         orphanRemoval = true,
     )
     @JsonManagedReference
-    var carModels: Set<CarModel>,
+    var carModels: List<CarModel> = listOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,14 @@ class CarModel (
     @JoinColumn(name = "fk_carmake") // nazwa kolumny przechowującej klucz obcy
     @JsonBackReference // Nie dodawaj do JSON - nieskończona rekurencja
     val carMake: CarMake,
+
+    @ManyToMany
+    @JoinTable(
+        name = "car_model_car_part",
+        joinColumns = arrayOf(JoinColumn(name = "car_model_id")),
+        inverseJoinColumns = arrayOf(JoinColumn(name = "car_part_id")),
+    )
+    var carParts: List<CarPart> = listOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

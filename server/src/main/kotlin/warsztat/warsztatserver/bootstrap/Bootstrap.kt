@@ -45,6 +45,7 @@ class Bootstrap (
             "123123123",
             Address("Kielce", "Sienkiewicza", 100, 2),
             authority = EmployeeAuthority.MECHANIC,
+            specializes = listOf("lakierowanie", "test"),
         )
         var manager = Employee(
             "manager",
@@ -63,15 +64,15 @@ class Bootstrap (
         val users = applicationUserRepository.findAll()
         println(users)
 
-        val carMake = carMakeRepository.save(CarMake("Volkswagen", setOf()))
+        val carMake = carMakeRepository.save(CarMake("Volkswagen", listOf()))
         val carModel = carModelRepository.save(CarModel("golf", "standard", carMake))
 
         val car = carRepository.save(Car(2000, 10000, carModel, customer))
 
-        val req = ServiceRequest("Serwis 1", "Popsuł się samochód", customer, car)
+        val req = ServiceRequest("Serwis 1", "Popsuł się samochód", customer, car, tags = listOf("lakierowanie"))
         val comment = ServiceComment("komentarz jeden", "dobra, zrobimy", req, employee)
 
-        val carPart = carPartRepository.save(CarPart("Zderzak", 100, 10, setOf(carModel), setOf()))
+        val carPart = carPartRepository.save(CarPart("Zderzak", 100, 10, listOf(carModel), listOf()))
 
         comment.workDescriptions += WorkDescription("Wymiana zderzaka", 2, listOf(), comment)
         comment.workDescriptions[0].partUsages += WorkDescriptionPartUsage(comment.workDescriptions[0], carPart, 1)

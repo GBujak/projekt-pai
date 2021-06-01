@@ -1,4 +1,55 @@
 package warsztat.warsztatserver.controllers
 
-class CarController {
+import org.springframework.web.bind.annotation.*
+import warsztat.warsztatserver.models.carmodels.CarMake
+import warsztat.warsztatserver.models.carmodels.CarModel
+import warsztat.warsztatserver.models.util.RestMessage
+import warsztat.warsztatserver.repositories.CarMakeRepository
+import warsztat.warsztatserver.repositories.CarModelRepository
+
+class NewMakeRequest(val makeName: String)
+class NewModelRequest(val makeId: Long, val modelName: String, val modelVariant: String)
+
+class CarMakeRest(
+    carMake: CarMake,
+    val name: String = carMake.makeName,
+    val id: Long = carMake.id,
+    val carModels: List<CarModelRest> = carMake.carModels.map { CarModelRest(it) },
+)
+
+class CarModelRest(
+    carModel: CarModel,
+    val modelName: String = carModel.modelName,
+    val modelVariant: String = carModel.modelVariant,
+    val id: Long = carModel.id,
+)
+
+class CarInfoRest(
+    makes: List<CarMake>,
+    val carInfo: List<CarMakeRest> = makes.map { CarMakeRest(it) },
+)
+
+@RestController("/api/car")
+class CarController (
+    val carModelRepository: CarModelRepository,
+    val carMakeRepository: CarMakeRepository,
+) {
+    @GetMapping("/car-info")
+    fun carInfo(): RestMessage<CarInfoRest>
+        = RestMessage("Ok", CarInfoRest(carMakeRepository.findAll().toList()))
+
+    @PostMapping("/new-make")
+    fun newMake(@RequestBody req: NewMakeRequest): RestMessage<Long> {
+        val make = carMakeRepository.save(CarMake(req.makeName))
+        return RestMessage("Ok", make.id)
+    }
+
+    @RequestMapping("new-model")
+    fun newModel(@RequestBody req: NewModelRequest): RestMessage<Long> {
+        val makeOpt = carMakeRepository.findById(req.makeId)
+        if (makeOpt.isEmpty) return RestMessage("Błąd: nie ma takiej marki")
+        val make = makeOpt.get()
+        val model = carModelRepository.save(make.newModel(req.modelName, req.modelVariant))
+        return RestMessage("Ok", model.id)
+    }
 }

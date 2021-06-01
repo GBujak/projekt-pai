@@ -18,6 +18,7 @@ data class CreateCommentRequest(val requestId: Long, val title: String, val cont
 class ServiceStoryRest(
     serviceRequest: ServiceRequest,
     val title: String = serviceRequest.title,
+    val finished: Boolean = serviceRequest.finished,
     val description: String = serviceRequest.description,
     val date: Date = serviceRequest.submittedOn,
     val submitter: String = serviceRequest.submitter.username,

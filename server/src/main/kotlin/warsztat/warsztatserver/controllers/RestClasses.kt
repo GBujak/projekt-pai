@@ -20,6 +20,6 @@ class RestServiceRequest (
 class CarRest(
     car: Car,
     val id: Long = car.id,
-    val carName: String = "${car.model.carMake.makeName} ${car.model.modelName}",
+    val name: String = "${car.model.carMake.makeName} ${car.model.modelName}",
     val mileage: Int = car.lastMileage,
 )
