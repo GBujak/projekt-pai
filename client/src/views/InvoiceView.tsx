@@ -16,9 +16,9 @@ export const InvoiceView: React.FC<Props> = (props) => {
             seller={{ name: "Serwis samochodowy", nip: 2194094, address: { address: 'Sienkiewicza 4', postalCode: '12-351', city: 'Kielce' } }}
             sellerBankAccount="1294 0124 912 49012"
             items={[
-                { name: 'polerowanie zadrapania', unit: 'godzina', ammount: 1, nettoPriceItem: 50, taxPercent: 5 },
-                { name: 'olej Castrol 1 litr', unit: 'szt.', ammount: 1, nettoPriceItem: 80, taxPercent: 23 },
-                { name: 'zakrętka', unit: 'szt.', ammount: 5, nettoPriceItem: 5, taxPercent: 23 },
+                { name: 'polerowanie zadrapania', unit: 'godzina', ammount: 1, nettoPriceItem: 50_00, taxPercent: 5 },
+                { name: 'olej Castrol 1 litr', unit: 'szt.', ammount: 1, nettoPriceItem: 80_00, taxPercent: 23 },
+                { name: 'zakrętka', unit: 'szt.', ammount: 5, nettoPriceItem: 5_00, taxPercent: 23 },
             ]}
         />
     </Container>;

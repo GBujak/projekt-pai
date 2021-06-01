@@ -1,5 +1,6 @@
 import { Button, Container, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import React from 'react';
+import { moneyFormat } from '../util/moneyFormat';
 import { FoldingPaper } from './FoldingPaper';
 
 export interface InvoiceItem {
@@ -92,10 +93,10 @@ export const Invoice: React.FC<Props> = (props) => {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.unit}</TableCell>
                                 <TableCell>{item.ammount}</TableCell>
-                                <TableCell>{item.nettoPriceItem}</TableCell>
+                                <TableCell>{moneyFormat(item.nettoPriceItem)}</TableCell>
                                 <TableCell>{`${item.taxPercent}%`}</TableCell>
-                                <TableCell>{`${item.nettoPriceItem * item.ammount}`}</TableCell>
-                                <TableCell>{`${item.nettoPriceItem * item.ammount * (1.0 + item.taxPercent * 0.01)}`}</TableCell>
+                                <TableCell>{moneyFormat(item.nettoPriceItem * item.ammount)}</TableCell>
+                                <TableCell>{moneyFormat(item.nettoPriceItem * item.ammount * (1.0 + item.taxPercent * 0.01))}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -116,23 +117,23 @@ export const Invoice: React.FC<Props> = (props) => {
                         {Object.entries(taxTotals).map(([key, value]) => (
                             <TableRow key={key}>
                                 <TableCell>{`${key}%`}</TableCell>
-                                <TableCell>{value.nettoPrice}</TableCell>
-                                <TableCell>{value.vatPrice}</TableCell>
-                                <TableCell>{value.bruttoPrice}</TableCell>
+                                <TableCell>{moneyFormat(value.nettoPrice)}</TableCell>
+                                <TableCell>{moneyFormat(value.vatPrice)}</TableCell>
+                                <TableCell>{moneyFormat(value.bruttoPrice)}</TableCell>
                             </TableRow>
                         ))}
                         <TableRow>
                             <TableCell>Razem</TableCell>
-                            <TableCell>{totalTax.nettoPrice}</TableCell>
-                            <TableCell>{totalTax.vatPrice}</TableCell>
-                            <TableCell>{totalTax.bruttoPrice}</TableCell>
+                            <TableCell>{moneyFormat(totalTax.nettoPrice)}</TableCell>
+                            <TableCell>{moneyFormat(totalTax.vatPrice)}</TableCell>
+                            <TableCell>{moneyFormat(totalTax.bruttoPrice)}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </Grid>
             <Grid item xs={4}>
-                <p>Do zapłaty: {totalTax.bruttoPrice} PLN</p>
-                <p>Zapłacono: 0 PLN</p>
+                <p>Do zapłaty: {moneyFormat(totalTax.bruttoPrice)}</p>
+                <p>Zapłacono: 0 zł</p>
             </Grid>
         </Grid>
         <Button variant="outlined">Opłać fakturę</Button>

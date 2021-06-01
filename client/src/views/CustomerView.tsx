@@ -1,8 +1,10 @@
 import { Container, Typography } from '@material-ui/core';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { CarManagementComponent } from '../components/CarManagementComponent';
 import { CurrentServices, ServiceInterface } from '../components/CurrentServices';
 import { FinishedServices } from '../components/FinishedServices';
+import { NewServiceComponent } from '../components/NewServiceComponent';
 
 interface Props {
 
@@ -16,6 +18,7 @@ export interface Car {
 
 interface CustomerDashboard {
     services: Array<ServiceInterface>,
+    cars: Array<Car>,
 }
 
 export const CustomerView: React.FC<Props> = ({ }) => {
@@ -26,7 +29,8 @@ export const CustomerView: React.FC<Props> = ({ }) => {
         axios("/api/customer/dashboard").then(response => {
             console.log(response.data);
             setDashboard(response.data.data);
-            setLoading(false);
+            if (loading === true)
+                setLoading(false);
         });
     };
 
@@ -38,6 +42,8 @@ export const CustomerView: React.FC<Props> = ({ }) => {
 
     return <Container style={{ paddingTop: "1rem" }}>
         <Typography variant="h5">Witaj kliencie.</Typography>
+        <CarManagementComponent cars={dashboard!.cars} onChange={loadDashboard} />
+        <NewServiceComponent cars={dashboard!.cars} onChange={loadDashboard} />
         <FinishedServices />
         <CurrentServices currentServices={dashboard!.services} />
     </Container>;
