@@ -64,7 +64,7 @@ class Bootstrap (
         val users = applicationUserRepository.findAll()
         println(users)
 
-        val carMake = carMakeRepository.save(CarMake("Volkswagen", listOf()))
+        val carMake = carMakeRepository.save(CarMake("Volkswagen", mutableListOf()))
         val carModel = carModelRepository.save(CarModel("golf", "standard", carMake))
 
         val car = carRepository.save(Car(2000, 10000, carModel, customer))

@@ -2,6 +2,7 @@ package warsztat.warsztatserver.controllers
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import warsztat.warsztatserver.models.carmodels.CarModel
 import warsztat.warsztatserver.models.carmodels.CarPart
@@ -25,7 +26,8 @@ class PartForModel (
 
 class PartsForModelRequest (val modelId: Long)
 
-@RestController("/api/car-part")
+@RestController
+@RequestMapping("/api/car-part")
 class CarPartController (
     val carPartRepository: CarPartRepository,
     val carModelRepository: CarModelRepository,
@@ -49,6 +51,8 @@ class CarPartController (
         )
 
         carPart = carPartRepository.save(carPart)
+        println(carPart)
+        println(carPart.carModel.map { it.modelName })
         return RestMessage("Ok", carPart.id)
     }
 

@@ -65,7 +65,7 @@ class CustomerController(
         var make = carMakeRepository.findByMakeName(addCarRequest.makeName)
         var model = carModelRepository.findByModelName(addCarRequest.modelName)
         if (make == null) {
-            make = carMakeRepository.save(CarMake(addCarRequest.makeName, setOf()))
+            make = carMakeRepository.save(CarMake(addCarRequest.makeName, mutableListOf()))
         }
         if (model == null) {
             model = carModelRepository.save(CarModel(

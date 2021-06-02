@@ -19,8 +19,8 @@ class CarMakeRest(
 
 class CarModelRest(
     carModel: CarModel,
-    val modelName: String = carModel.modelName,
-    val modelVariant: String = carModel.modelVariant,
+    val name: String = carModel.modelName,
+    val variant: String = carModel.modelVariant,
     val id: Long = carModel.id,
 )
 
@@ -29,12 +29,13 @@ class CarInfoRest(
     val carInfo: List<CarMakeRest> = makes.map { CarMakeRest(it) },
 )
 
-@RestController("/api/car")
+@RestController
+@RequestMapping("/api/car")
 class CarController (
     val carModelRepository: CarModelRepository,
     val carMakeRepository: CarMakeRepository,
 ) {
-    @GetMapping("/car-info")
+    @GetMapping("/info")
     fun carInfo(): RestMessage<CarInfoRest>
         = RestMessage("Ok", CarInfoRest(carMakeRepository.findAll().toList()))
 
@@ -45,11 +46,14 @@ class CarController (
     }
 
     @RequestMapping("new-model")
-    fun newModel(@RequestBody req: NewModelRequest): RestMessage<Long> {
+    fun newModel(@RequestBody req: NewModelRequest): RestMessage<Unit> {
         val makeOpt = carMakeRepository.findById(req.makeId)
         if (makeOpt.isEmpty) return RestMessage("Błąd: nie ma takiej marki")
         val make = makeOpt.get()
-        val model = carModelRepository.save(make.newModel(req.modelName, req.modelVariant))
-        return RestMessage("Ok", model.id)
+        make.newModel(req.modelName, req.modelVariant)
+        val model = CarModel(req.modelName, req.modelVariant, null)
+        make.carModels.add(model)
+        carMakeRepository.save(make)
+        return RestMessage("Ok")
     }
 }

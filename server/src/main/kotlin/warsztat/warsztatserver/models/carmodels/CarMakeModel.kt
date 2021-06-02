@@ -15,7 +15,7 @@ data class CarMake (
         orphanRemoval = true,
     )
     @JsonManagedReference
-    var carModels: List<CarModel> = listOf(),
+    var carModels: MutableList<CarModel> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ data class CarMake (
 ) {
     fun newModel(modelName: String, modelVariant: String): CarModel {
         val carModel = CarModel(modelName, modelVariant, carMake = this)
-        this.carModels += carModel
+        this.carModels.add(carModel)
         return carModel
     }
 }
@@ -36,7 +36,7 @@ class CarModel (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_carmake") // nazwa kolumny przechowującej klucz obcy
     @JsonBackReference // Nie dodawaj do JSON - nieskończona rekurencja
-    val carMake: CarMake,
+    val carMake: CarMake?,
 
     @ManyToMany
     @JoinTable(

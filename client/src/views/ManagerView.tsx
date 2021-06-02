@@ -1,8 +1,10 @@
 import { Button, Container } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { CarModelManagement } from '../components/CarModelManagement';
 import { CreateAccoutTokens, } from '../components/CreateAccountTokens';
 import { CurrentServices, ServiceInterface } from '../components/CurrentServices';
+import { NewPart } from '../components/NewPart';
 import { UnassignedServices } from '../components/UnassignedServices';
 
 interface Props {
@@ -35,6 +37,8 @@ export const ManagerView: React.FC<Props> = (props) => {
 
     return <Container>
         <CurrentServices currentServices={dashboard!.activeServiceRequests} />
+        <CarModelManagement />
+        <NewPart onChange={loadDashboard} />
         <UnassignedServices
             availableMechanics={dashboard!.mechanics}
             unassignedServices={dashboard!.unassignedServiceRequests}
