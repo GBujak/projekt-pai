@@ -1,23 +1,36 @@
 import { Container, Typography } from '@material-ui/core';
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ServiceHistoryElement } from '../components/ServiceHistoryElement';
+import { AuthenticationContext } from '../auth/AuthenticationContext';
+import { ChipEditor } from '../components/ChipEditor';
+import { GenerateInvoice } from '../components/GenerateInvoice';
+import { NewComment } from '../components/NewComment';
+import { ServiceHistoryComment } from '../components/ServiceHistoryElement';
 
 interface Props {
 
 };
 
 export interface ServiceStory {
+    id: number,
+    hasInvoice: boolean,
     title: string,
+    carModelId: number,
+    finished: boolean,
     description: string,
+    tags: Array<string>,
     date: string,
     submitter: string,
-    comments: Array<ServiceStoryComment>,
+    comments: Array<ServiceComment>,
 }
 
-export interface ServiceStoryComment {
+export interface ServiceComment {
     title: string,
     content: string,
+    submitter: string,
+    accountType: 'customer' | 'mechanic' | 'manager' | 'administrator',
+    submittedOn: string,
     workDescriptions: Array<WorkDescription>,
 }
 
@@ -33,47 +46,59 @@ export interface UsedPart {
     ammount: number,
 }
 
-export interface HistoryElement {
-    postDate: Date,
-    author: string,
-    title: string,
-    content: string,
-    workDescriptions: Array<WorkDescription>,
-};
+export const ServiceHistoryView: React.FC<Props> = ({ }) => {
+    const [serviceStory, setServiceStory] = useState<ServiceStory | null>(null);
+    const [error, setError] = useState("");
 
-export const ServiceHistoryView: React.FC<Props> = (props) => {
-    const history: Array<HistoryElement> = [
-        {
-            postDate: new Date("2021-05-23"),
-            author: "Jan Kowalski",
-            title: "Zmieniłem olej",
-            content: "Zmieniłem olej w samochodzie, wypolerowałem zadrapanie",
-            workDescriptions: [{
-                name: "zmiana oleju",
-                hours: 2.5,
-                usedParts: [{ name: "olej Castrol 1 litr", ammount: 2, price: 10_00 }, { name: "Zakrętka", ammount: 1, price: 5_20 }]
-            }, {
-                name: "wypolerowanie zadrapania",
-                hours: 1,
-                usedParts: []
-            }],
-        }, {
-            postDate: new Date("2021-05-30"),
-            author: "Jan Kowalski",
-            title: "samochód do odebrania",
-            content: "",
-            workDescriptions: [],
-        }
-    ];
+    const auth = useContext(AuthenticationContext);
 
     let route_params = useParams<{ id: string; }>();
     let id = +route_params.id;
 
-    return <Container style={{ marginTop: "2rem" }}>
-        <Typography variant="h5" style={{ margin: "2rem 0" }}>Historia usługi {id}</Typography>
+    const loadStory = () => {
+        axios.get(`/api/service-story/all/${id}`).then((res) => {
+            console.log("service-all", res.data.data);
+            let data = res.data;
+            if (data.msg === "Ok") setServiceStory({ ...data.data });
+            else setError(data.msg);
+        });
+    };
 
-        {history.map((e, index) => (
-            <ServiceHistoryElement key={index} element={e} />
+    const onChangeTags = (newTags: Array<string>) => {
+        axios.post("/api/service-story/change-tags", {
+            serviceId: serviceStory!!.id,
+            newTags
+        }).then(() => {
+            loadStory();
+        });
+    };
+
+    useEffect(() => loadStory(), []);
+
+    if (error !== "") return <h1 style={{ color: "red" }}>{error}</h1>;
+    if (serviceStory === null) return <h2>Ładowanie...</h2>;
+
+    return <Container style={{ marginTop: "2rem" }}>
+        <Typography variant="h5" style={{ margin: "2rem 0" }}>Historia usługi {serviceStory.finished &&
+            <>(<span style={{ color: "green" }}>zakończona</span>)</>}</Typography>
+
+        <ChipEditor title="Rodzaj usługi"
+            editable={auth.auth?.accountType !== "customer"}
+            chips={serviceStory.tags}
+            onChange={onChangeTags}
+        />
+
+        {serviceStory.comments.map((e, index) => (
+            <ServiceHistoryComment key={index} comment={e} />
         ))}
+
+        <NewComment modelId={serviceStory.carModelId} serviceId={serviceStory.id}
+            onShouldReload={loadStory} />
+
+        {serviceStory.finished && <GenerateInvoice
+            hasInvoice={serviceStory.hasInvoice}
+            serviceId={serviceStory.id} />}
+
+        <div style={{ height: "150px" }} />
     </Container>;
 };

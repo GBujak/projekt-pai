@@ -1,21 +1,31 @@
 import { Divider, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import React from 'react';
 import { moneyFormat } from '../util/moneyFormat';
-import { HistoryElement } from '../views/ServiceHistoryView';
+import { ServiceComment, WorkDescription } from '../views/ServiceHistoryView';
 import { FoldingPaper } from './FoldingPaper';
 
 interface Props {
-    element: HistoryElement,
+    comment: ServiceComment,
 }
 
-export const ServiceHistoryElement: React.FC<Props> = ({ element }) => {
+const accountTypeDescription = {
+    "customer": "klient",
+    "mechanic": "mechanik",
+    "manager": "kierownik",
+    "admin": "administrator",
+};
 
-    return <FoldingPaper title={element.title} subtitle={element.postDate.toLocaleDateString()} startOpen={true}>
-        <Typography variant="body2">Autor: {element.author}</Typography>
+export const ServiceHistoryComment: React.FC<Props> = ({ comment }) => {
+
+    return <FoldingPaper title={comment.title} subtitle={new Date(comment.submittedOn).toLocaleDateString()} startOpen={true}>
+        <Typography variant="body2">Autor: {comment.submitter} ({(accountTypeDescription as any)[comment.accountType]})</Typography>
         <Divider style={{ margin: "1rem 0" }} />
-        <Typography variant="body1">{element.content}</Typography>
 
-        {element.workDescriptions.length !== 0 && <div>
+        <pre>
+            <Typography variant="body1">{comment.content}</Typography>
+        </pre>
+
+        {comment.workDescriptions.length !== 0 && <div>
             <div style={{ height: "2rem" }} />
             <Typography variant="overline">Opis pracy</Typography>
             <Divider />
@@ -26,7 +36,7 @@ export const ServiceHistoryElement: React.FC<Props> = ({ element }) => {
                     <TableCell>Zużyte części</TableCell>
                 </TableRow></TableHead>
                 <TableBody>
-                    {element.workDescriptions.map((description, index) => (
+                    {comment.workDescriptions.map((description, index) => (
                         <TableRow key={index}>
                             <TableCell>{description.name}</TableCell>
                             <TableCell>{description.hours}</TableCell>

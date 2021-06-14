@@ -66,7 +66,7 @@ function App() {
                         <Route path="/historia/:id">
                             <ServiceHistoryView />
                         </Route>
-                        <Route path="/faktura/:id">
+                        <Route path="/faktura/dla-uslugi/:id">
                             <InvoiceView />
                         </Route>
                         <Route path="/">

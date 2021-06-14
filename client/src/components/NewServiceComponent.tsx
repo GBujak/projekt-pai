@@ -1,6 +1,7 @@
 import { FormControlLabel, Input, Radio, RadioGroup, TextareaAutosize, TextField } from '@material-ui/core';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Car } from '../views/CustomerView';
 import { FoldingPaper } from './FoldingPaper';
 
@@ -15,6 +16,8 @@ export const NewServiceComponent: React.FC<Props> = ({ cars, onChange }) => {
     const [carId, setCarId] = useState("");
     const [msg, setMsg] = useState("");
 
+    const history = useHistory();
+
     const onSubmit = () => {
         console.log({ title, description, carId });
 
@@ -24,7 +27,10 @@ export const NewServiceComponent: React.FC<Props> = ({ cars, onChange }) => {
         setMsg("");
 
         axios.post("/api/service-story/create", { title, description, carId })
-            .then(() => onChange());
+            .then((res) => {
+                onChange();
+                history.push(`/historia/${res.data.data}`);
+            });
     };
 
     return <FoldingPaper title="Nowa usługa">

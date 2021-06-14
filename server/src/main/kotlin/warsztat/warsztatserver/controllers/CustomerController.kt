@@ -25,9 +25,8 @@ class RegisterRequest(
 class AddCarRequest(
     val productionYear: Int,
     val mileage: Int,
-    val modelName: String,
-    val makeName: String,
-    val modelVariant: String,
+    val modelId: Long,
+    val makeId: Long,
 )
 
 class CustomerDashboard(
@@ -61,28 +60,31 @@ class CustomerController(
     }
 
     @PostMapping("/add-car")
-    fun addCar(@RequestBody addCarRequest: AddCarRequest): RestMessage<Unit> {
-        var make = carMakeRepository.findByMakeName(addCarRequest.makeName)
-        var model = carModelRepository.findByModelName(addCarRequest.modelName)
-        if (make == null) {
-            make = carMakeRepository.save(CarMake(addCarRequest.makeName, mutableListOf()))
+    fun addCar(@RequestBody addCarRequest: AddCarRequest): RestMessage<Long> {
+        val makeOpt = carMakeRepository.findById(addCarRequest.makeId)
+        if (makeOpt.isEmpty) {
+            return RestMessage("Błąd: marka o takim id nie istnieje")
         }
-        if (model == null) {
-            model = carModelRepository.save(CarModel(
-                addCarRequest.modelName,
-                addCarRequest.modelVariant,
-                make
-            ))
+        val make = makeOpt.get()
+
+        val modelOpt = carModelRepository.findById(addCarRequest.modelId)
+        if (modelOpt.isEmpty) {
+            return RestMessage("Błąd: nie ma modelu o takim id")
+        }
+        val model = modelOpt.get()
+        if (make.carModels.filter { it.id == model.id }.size != 1) {
+            return RestMessage("Błąd: podany model nie należy do podanej marki")
         }
 
         val user = currentUserUtil.getCurrentUserIfVariant<Customer>()
         if (user == null) return RestMessage("Błąd: konto nie jest kontem klienta")
 
+
         val car = carRepository.save(addCarRequest.let {
             Car(it.productionYear, it.mileage, model, user)
         })
 
-        return RestMessage("Ok")
+        return RestMessage("Ok", car.id)
     }
 
     @GetMapping("/dashboard")

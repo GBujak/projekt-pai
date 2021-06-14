@@ -19,6 +19,7 @@ class NewCarPart(
 
 class PartForModel (
     carPart: CarPart,
+    val id: Long = carPart.id,
     val name: String = carPart.name,
     val price: Long = carPart.price,
     val amountInStock: Long = carPart.amountInStock,
@@ -47,15 +48,16 @@ class CarPartController (
             newCarPart.price,
             newCarPart.ammountInStock,
             carModels,
-            listOf(),
+            mutableListOf(),
         )
 
         carPart = carPartRepository.save(carPart)
         println(carPart)
-        println(carPart.carModel.map { it.modelName })
+        println(carPart.carModels.map { it.modelName })
         return RestMessage("Ok", carPart.id)
     }
 
+    @PostMapping("for-model")
     fun partsForModel(@RequestBody req: PartsForModelRequest): RestMessage<List<PartForModel>> {
         val model = carModelRepository.findById(req.modelId)
         if (model.isEmpty) return RestMessage("Błąd: nie ma modelu o takiej nazwie")

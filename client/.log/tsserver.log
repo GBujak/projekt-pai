@@ -1,0 +1,123 @@
+Info 0    [18:48:37.595] Starting TS Server
+Info 1    [18:48:37.595] Version: 4.2.4
+Info 2    [18:48:37.595] Arguments: /usr/bin/node /home/gbujak/Programming/projekt-pai/client/node_modules/.bin/tsserver --logFile /home/gbujak/Programming/projekt-pai/client/.log/tsserver.log --logVerbosity info --cancellationPipeName /tmp/6dea4fac47ad22196f5f24000e20a7e2/tscancellation*
+Info 3    [18:48:37.595] Platform: linux NodeVersion: 12 CaseSensitive: true
+Info 4    [18:48:37.595] ServerMode: undefined syntaxOnly: false hasUnknownServerMode: undefined
+Info 5    [18:48:37.610] Search path: /home/gbujak/Programming/projekt-pai/client/src/components
+Info 6    [18:48:37.611] For info: /home/gbujak/Programming/projekt-pai/client/src/components/Invoice.tsx :: Config file name: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 7    [18:48:37.612] Opened configuration file /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 8    [18:48:37.630] Config: /home/gbujak/Programming/projekt-pai/client/tsconfig.json : {
+ "rootNames": [
+  "/home/gbujak/Programming/projekt-pai/client/src/App.test.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/App.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/index.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/react-app-env.d.ts",
+  "/home/gbujak/Programming/projekt-pai/client/src/reportWebVitals.ts",
+  "/home/gbujak/Programming/projekt-pai/client/src/setupTests.ts",
+  "/home/gbujak/Programming/projekt-pai/client/src/auth/AuthenticationContext.ts",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/CarManagementComponent.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/CarModelManagement.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/CreateAccountTokens.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/CurrentServices.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/FinishedServices.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/FoldingPaper.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/Invoice.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/Navigation.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/NewCarMake.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/NewCarModel.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/NewPart.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/NewServiceComponent.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/ReviewService.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/ServiceHistoryElement.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/components/UnassignedServices.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/util/moneyFormat.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/AdminView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/CustomerView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/DashboardView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/IndexView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/InvoiceView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/LoginView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/ManagerView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/RegisterView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/ServiceHistoryView.tsx",
+  "/home/gbujak/Programming/projekt-pai/client/src/views/WorkerView.tsx"
+ ],
+ "options": {
+  "target": 1,
+  "lib": [
+   "lib.dom.d.ts",
+   "lib.dom.iterable.d.ts",
+   "lib.esnext.d.ts"
+  ],
+  "allowJs": true,
+  "skipLibCheck": true,
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true,
+  "strict": true,
+  "forceConsistentCasingInFileNames": true,
+  "noFallthroughCasesInSwitch": true,
+  "module": 99,
+  "moduleResolution": 2,
+  "resolveJsonModule": true,
+  "isolatedModules": true,
+  "noEmit": true,
+  "jsx": 4,
+  "configFilePath": "/home/gbujak/Programming/projekt-pai/client/tsconfig.json"
+ }
+}
+Info 9    [18:48:37.683] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 10   [18:48:40.869] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 1 structureChanged: true Elapsed: 3185.798541000113ms
+Info 11   [18:48:40.869] Project '/home/gbujak/Programming/projekt-pai/client/tsconfig.json' (Configured)
+Info 12   [18:48:40.869] 	Files (605)
+
+Info 13   [18:48:40.869] -----------------------------------------------
+Info 14   [18:48:40.888] Starting updateGraphWorker: Project: /dev/null/autoImportProviderProject1*
+Info 15   [18:48:41.803] Finishing updateGraphWorker: Project: /dev/null/autoImportProviderProject1* Version: 1 structureChanged: true Elapsed: 915.2794589996338ms
+Info 16   [18:48:41.803] Project '/dev/null/autoImportProviderProject1*' (AutoImportProvider)
+Info 17   [18:48:41.803] 	Files (360)
+
+Info 18   [18:48:41.803] -----------------------------------------------
+Info 19   [18:48:41.858] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 20   [18:48:41.910] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 2 structureChanged: false Elapsed: 52.488224000670016ms
+Info 21   [18:48:41.910] Different program with same set of files:: structureIsReused:: 2
+Info 22   [18:48:41.912] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 23   [18:48:41.950] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 3 structureChanged: false Elapsed: 37.15610700007528ms
+Info 24   [18:48:41.950] Different program with same set of files:: structureIsReused:: 2
+Info 25   [18:48:41.952] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 26   [18:48:41.986] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 4 structureChanged: false Elapsed: 34.191226999275386ms
+Info 27   [18:48:41.986] Different program with same set of files:: structureIsReused:: 2
+Info 28   [18:48:44.003] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 29   [18:48:44.033] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 5 structureChanged: false Elapsed: 30.050798000767827ms
+Info 30   [18:48:44.033] Different program with same set of files:: structureIsReused:: 2
+Info 31   [18:48:45.290] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 32   [18:48:45.313] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 6 structureChanged: false Elapsed: 22.96105400007218ms
+Info 33   [18:48:45.313] Different program with same set of files:: structureIsReused:: 2
+Info 34   [18:48:46.523] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 35   [18:48:46.547] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 7 structureChanged: false Elapsed: 24.432029999792576ms
+Info 36   [18:48:46.547] Different program with same set of files:: structureIsReused:: 2
+Info 37   [18:48:48.326] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 38   [18:48:48.347] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 8 structureChanged: false Elapsed: 21.064606999978423ms
+Info 39   [18:48:48.347] Different program with same set of files:: structureIsReused:: 2
+Info 40   [18:48:50.047] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 41   [18:48:50.068] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 9 structureChanged: false Elapsed: 21.060394000262022ms
+Info 42   [18:48:50.068] Different program with same set of files:: structureIsReused:: 2
+Info 43   [18:48:51.772] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 44   [18:48:51.797] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 10 structureChanged: false Elapsed: 25.361101999878883ms
+Info 45   [18:48:51.797] Different program with same set of files:: structureIsReused:: 2
+Info 46   [18:48:53.807] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 47   [18:48:53.822] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 11 structureChanged: false Elapsed: 14.905519000254571ms
+Info 48   [18:48:53.822] Different program with same set of files:: structureIsReused:: 2
+Info 49   [18:48:55.812] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 50   [18:48:55.826] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 12 structureChanged: false Elapsed: 14.66483400017023ms
+Info 51   [18:48:55.827] Different program with same set of files:: structureIsReused:: 2
+Info 52   [18:48:57.349] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 53   [18:48:57.382] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 13 structureChanged: false Elapsed: 33.30436800047755ms
+Info 54   [18:48:57.382] Different program with same set of files:: structureIsReused:: 2
+Info 55   [18:49:17.414] Format host information updated
+Info 56   [18:49:19.654] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 57   [18:49:19.714] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 14 structureChanged: false Elapsed: 60.0188350006938ms
+Info 58   [18:49:19.715] Different program with same set of files:: structureIsReused:: 2
+Info 59   [18:49:23.927] Format host information updated
+Info 60   [18:49:24.182] Starting updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json
+Info 61   [18:49:24.211] Finishing updateGraphWorker: Project: /home/gbujak/Programming/projekt-pai/client/tsconfig.json Version: 15 structureChanged: false Elapsed: 29.640792000107467ms
+Info 62   [18:49:24.211] Different program with same set of files:: structureIsReused:: 2
