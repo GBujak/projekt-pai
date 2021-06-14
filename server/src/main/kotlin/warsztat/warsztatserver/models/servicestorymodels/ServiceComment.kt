@@ -25,7 +25,7 @@ class ServiceComment (
         orphanRemoval = true,
     )
     @JsonManagedReference
-    var workDescriptions: List<WorkDescription> = listOf(),
+    var workDescriptions: MutableList<WorkDescription> = mutableListOf(),
 
     @Temporal(TemporalType.TIMESTAMP)
     val submittedOn: Date = Date(),

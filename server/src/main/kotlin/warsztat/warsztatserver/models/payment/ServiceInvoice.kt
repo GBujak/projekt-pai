@@ -10,6 +10,10 @@ class ServiceInvoice (
     @JoinColumn(name = "fk_service")
     val service: ServiceRequest,
 
+    val buyer: String,
+    val street: String,
+    val postalCity: String,
+
     @Temporal(TemporalType.TIMESTAMP)
     val createdDate: Date = Date(),
 

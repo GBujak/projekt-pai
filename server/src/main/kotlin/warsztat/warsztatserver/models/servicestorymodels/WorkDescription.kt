@@ -15,7 +15,7 @@ class WorkDescription (
         cascade = arrayOf(CascadeType.ALL),
         orphanRemoval = true,
     )
-    var partUsages: List<WorkDescriptionPartUsage>,
+    var partUsages: MutableList<WorkDescriptionPartUsage>,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_servicecomment")

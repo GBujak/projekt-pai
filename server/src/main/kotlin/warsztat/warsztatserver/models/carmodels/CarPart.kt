@@ -3,13 +3,13 @@ package warsztat.warsztatserver.models.carmodels
 import javax.persistence.*
 
 @Entity
-class CarPart (
+class CarPart(
     val name: String,
     var price: Long,
     var amountInStock: Long,
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "carParts", cascade = [CascadeType.PERSIST])
-    val carModel: List<CarModel>,
+    val carModels: MutableList<CarModel>,
 
     @OneToMany(
         fetch = FetchType.LAZY,
@@ -17,7 +17,7 @@ class CarPart (
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
     )
-    var purchases: List<CarPartPurchase>,
+    var purchases: MutableList<CarPartPurchase>,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

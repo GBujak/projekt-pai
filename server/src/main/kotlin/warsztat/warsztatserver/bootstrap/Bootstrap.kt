@@ -72,13 +72,19 @@ class Bootstrap (
         val req = ServiceRequest("Serwis 1", "Popsuł się samochód", customer, car, tags = listOf("lakierowanie"))
         val comment = ServiceComment("komentarz jeden", "dobra, zrobimy", req, employee)
 
-        val carPart = carPartRepository.save(CarPart("Zderzak", 100, 10, listOf(carModel), listOf()))
+        val carPart = carPartRepository.save(CarPart("Zderzak", 100, 10, mutableListOf(), mutableListOf()))
 
-        comment.workDescriptions += WorkDescription("Wymiana zderzaka", 2, listOf(), comment)
-        comment.workDescriptions[0].partUsages += WorkDescriptionPartUsage(comment.workDescriptions[0], carPart, 1)
+        carModel.addPart(carPart)
+        carPartRepository.save(carPart)
+
+        comment.workDescriptions.add(WorkDescription("Wymiana zderzaka", 2, mutableListOf(), comment))
+        comment.workDescriptions[0].partUsages.add(WorkDescriptionPartUsage(comment.workDescriptions[0], carPart, 1))
         serviceCommentRepository.save(comment)
 
         serviceRequestRepository.save(req)
         serviceCommentRepository.save(comment)
+
+        println(carModelRepository.findById(1).get().carParts)
+        println(carPartRepository.findById(1).get().carModels)
     }
 }

@@ -29,7 +29,7 @@ data class CarMake (
 }
 
 @Entity
-class CarModel (
+class CarModel(
     val modelName: String,
     val modelVariant: String,
 
@@ -38,13 +38,13 @@ class CarModel (
     @JsonBackReference // Nie dodawaj do JSON - nieskończona rekurencja
     val carMake: CarMake?,
 
-    @ManyToMany
+    @ManyToMany(cascade = [CascadeType.PERSIST])
     @JoinTable(
         name = "car_model_car_part",
         joinColumns = arrayOf(JoinColumn(name = "car_model_id")),
         inverseJoinColumns = arrayOf(JoinColumn(name = "car_part_id")),
     )
-    var carParts: List<CarPart> = listOf(),
+    var carParts: MutableList<CarPart> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,5 +52,10 @@ class CarModel (
 ) {
     override fun toString(): String {
         return "CarModel(modelName=$modelName, modelVariant=$modelVariant, id=$id)"
+    }
+
+    fun addPart(carPart: CarPart) {
+        carPart.carModels.add(this)
+        this.carParts.add(carPart)
     }
 }
