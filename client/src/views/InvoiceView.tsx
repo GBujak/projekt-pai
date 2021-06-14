@@ -1,25 +1,62 @@
 import { Container } from '@material-ui/core';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Invoice } from '../components/Invoice';
 
 interface Props {
 
 }
 
-export const InvoiceView: React.FC<Props> = (props) => {
+export interface InvoiceRest {
+    nr: string,
+    date: string,
+    buyer: string,
+    street: string,
+    postalCity: string,
+    items: Array<InvoiceItemRest>,
+}
 
+export interface InvoiceItemRest {
+    name: string,
+    cost: number,
+    ammount: number,
+    unit: string,
+    taxPercent: number,
+    type: string,
+}
+
+export const InvoiceView: React.FC<Props> = (props) => {
+    const route_params = useParams<{ id: string; }>();
+    const serviceId = +route_params.id;
+
+    const [loading, setLoading] = useState(true);
+    const [invoiceData, setInvoiceData] = useState<InvoiceRest | null>(null);
+
+    const loadInvoiceData = () => {
+        axios.post("/api/invoice/get", { serviceId }).then(res => {
+            if (res.data.msg !== "Ok") {
+                alert(res.data.msg);
+                return;
+            }
+            setInvoiceData(res.data.data);
+            setLoading(false);
+        });
+    };
+
+    useEffect(() => loadInvoiceData(), []);
+
+    if (loading) return <h2>Ładowanie...</h2>;
+
+    const inv = invoiceData!;
     return <Container>
         <Invoice
-            nr="FV 1/2021"
-            date={new Date()}
-            buyer={{ name: "Janex sp. z o.o.", nip: 124124125, address: { address: 'Sienkiewicza 34', postalCode: '31-125', city: 'Kielce' } }}
-            seller={{ name: "Serwis samochodowy", nip: 2194094, address: { address: 'Sienkiewicza 4', postalCode: '12-351', city: 'Kielce' } }}
+            nr={inv.nr}
+            date={new Date(inv.date)}
+            buyer={{ name: inv.buyer, address: { address: inv.street, postalCity: inv.postalCity } }}
+            seller={{ name: "Serwis samochodowy", address: { address: 'Sienkiewicza 4', postalCity: '12-351 Kielce' } }}
             sellerBankAccount="1294 0124 912 49012"
-            items={[
-                { name: 'polerowanie zadrapania', unit: 'godzina', ammount: 1, nettoPriceItem: 50_00, taxPercent: 5 },
-                { name: 'olej Castrol 1 litr', unit: 'szt.', ammount: 1, nettoPriceItem: 80_00, taxPercent: 23 },
-                { name: 'zakrętka', unit: 'szt.', ammount: 5, nettoPriceItem: 5_00, taxPercent: 23 },
-            ]}
+            items={inv.items}
         />
     </Container>;
 };

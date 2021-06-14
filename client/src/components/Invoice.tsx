@@ -7,14 +7,13 @@ export interface InvoiceItem {
     name: string,
     unit: string,
     ammount: number,
-    nettoPriceItem: number,
+    cost: number,
     taxPercent: number,
 }
 
 export interface InvoiceParty {
     name: string,
-    address: { address: string, postalCode: string, city: string, },
-    nip: number,
+    address: { address: string, postalCity: string, },
 }
 
 interface TaxTotal {
@@ -38,7 +37,7 @@ export const Invoice: React.FC<Props> = (props) => {
 
     for (let item of props.items) {
         let tax = item.taxPercent;
-        let nettoPrice = item.nettoPriceItem * item.ammount;
+        let nettoPrice = item.cost * item.ammount;
         let vatPrice = nettoPrice * item.taxPercent * 0.01;
         let bruttoPrice = nettoPrice + vatPrice;
 
@@ -61,14 +60,14 @@ export const Invoice: React.FC<Props> = (props) => {
                 <Typography variant="h6">Sprzedający</Typography>
                 <p>{props.seller.name}</p>
                 <p>{props.seller.address.address}</p>
-                <p>{`${props.seller.address.postalCode} ${props.seller.address.city}`}</p>
+                <p>{props.seller.address.postalCity}</p>
                 <p>{`Konto bankowe sprzedającego: ${props.sellerBankAccount}`}</p>
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="h6">Kupujący</Typography>
                 <p>{props.buyer.name}</p>
                 <p>{props.buyer.address.address}</p>
-                <p>{`${props.buyer.address.postalCode} ${props.buyer.address.city}`}</p>
+                <p>{props.buyer.address.postalCity}</p>
             </Grid>
             <Divider />
 
@@ -93,10 +92,10 @@ export const Invoice: React.FC<Props> = (props) => {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.unit}</TableCell>
                                 <TableCell>{item.ammount}</TableCell>
-                                <TableCell>{moneyFormat(item.nettoPriceItem)}</TableCell>
+                                <TableCell>{moneyFormat(item.cost)}</TableCell>
                                 <TableCell>{`${item.taxPercent}%`}</TableCell>
-                                <TableCell>{moneyFormat(item.nettoPriceItem * item.ammount)}</TableCell>
-                                <TableCell>{moneyFormat(item.nettoPriceItem * item.ammount * (1.0 + item.taxPercent * 0.01))}</TableCell>
+                                <TableCell>{moneyFormat(item.cost * item.ammount)}</TableCell>
+                                <TableCell>{moneyFormat(item.cost * item.ammount * (1.0 + item.taxPercent * 0.01))}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
