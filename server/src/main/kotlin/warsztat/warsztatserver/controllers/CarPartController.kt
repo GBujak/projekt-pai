@@ -38,9 +38,10 @@ class CarPartController (
         val carModels = mutableListOf<CarModel>()
 
         for (modelId in newCarPart.carModels) {
-            val model = carModelRepository.findById(modelId)
-            if (model.isEmpty) return RestMessage("Błąd: model o takim ID nie istnieje")
-            carModels.add(model.get())
+            val modelOpt = carModelRepository.findById(modelId)
+            if (modelOpt.isEmpty) return RestMessage("Błąd: model o takim ID nie istnieje")
+            val model = modelOpt.get()
+            carModels.add(model)
         }
 
         var carPart = CarPart(
@@ -52,8 +53,11 @@ class CarPartController (
         )
 
         carPart = carPartRepository.save(carPart)
-        println(carPart)
-        println(carPart.carModels.map { it.modelName })
+        for (model in carModels) {
+            model.carParts.add(carPart)
+            carModelRepository.save(model)
+        }
+
         return RestMessage("Ok", carPart.id)
     }
 

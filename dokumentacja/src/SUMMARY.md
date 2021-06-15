@@ -8,7 +8,7 @@
     - [Kierownik](przypadki/kierownik.md)
 - [Modele](./modele/README.md)
 - [Diagramy UML](./uml/README.md)
-- [Kontrolery](./kontrolery/README.md)
+- [Kontrolery]()
     - [AdminController.kt](./kontrolery/AdminController.md)
     - [AuthController.kt](./kontrolery/AuthController.md)
     - [CarController.kt](./kontrolery/CarController.md)
@@ -18,4 +18,5 @@
     - [ManagerController.kt](./kontrolery/ManagerController.md)
     - [MechanicController.kt](./kontrolery/MechanicController.md)
     - [ServiceStoryController.kt](./kontrolery/ServiceStoryController.md)
-
+- [Przebieg usługi w systemie](./przebieg/README.md)
+- [Wnioski](./wnioski.md)

@@ -11,4 +11,9 @@ dodaj_pliki() {
     done
 }
 
+cat ./pandoc_config.md >> tmp/all.md
+cat src/dane.md >> tmp/all.md
+
+dodaj_pliki 'przypadki'
 dodaj_pliki 'kontrolery'
+
