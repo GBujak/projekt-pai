@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -634,6 +634,647 @@ Przypisuje zgłosznie do wybranego przez kierownika pracownika.</li>
 <h1 id="modele"><a class="header" href="#modele">Modele</a></h1>
 <p><a href="https://github.com/GBujak/projekt-pai/tree/master/server/src/main/kotlin/warsztat/warsztatserver/models">Kod źródłowy modeli</a></p>
 <p><img src="modele/./er_diagram.png" alt="Diagram ER bazy danych" /></p>
+<h1 id="admincontrollerkt"><a class="header" href="#admincontrollerkt">AdminController.kt</a></h1>
+<p>Kontroler AdminController zawiera implementacje funkcji administratora systemu. Są to
+między innymi kasowanie kont użytkowników, kasowanie komentarzy z historii serwisu
+itd.</p>
+<p>Nie zdążyliśmy zaimplementować funkcji administratora. Funkcje niezbędne do
+korzystania z systemu są sprawowane przez kierownika.</p>
+<h1 id="authcontrollerkt"><a class="header" href="#authcontrollerkt">AuthController.kt</a></h1>
+<p>Jest to kontroler, w którym zaimplementowaliśmy funkcje logowania i rejestracji.
+Aplikacja używa technologii Json Web Token (JWT) do uwierzytelniania. Tokeny są
+generowane przez metodę login tego kontrolera. Metoda register zawiera logikę
+tworzącą konta użytkowników i zapisującą je do bazy danych.</p>
+<h1 id="carcontrollerkt"><a class="header" href="#carcontrollerkt">CarController.kt</a></h1>
+<p>Kontroler zawiera logikę zarządzania samochodami. Przyjęliśmy, że kierownik będzie
+ustalał, jakie modele samochodów są obsługiwane w warsztacie. Kierownik może dodawać
+nowe modele.</p>
+<p>Funkcja ta jest związana z funkcją kontolera
+<a href="kontrolery/./CarPartController.html">CarPartController.kt</a>.</p>
+<p>Ten kontroler pozwala kierowanikowi dodawać części, jakich mechanicy będą mogli
+używać przy dodawaniu opisów pracy do komentarzy do historii serwisu.</p>
+<h2 id="klasy-pomocnicze"><a class="header" href="#klasy-pomocnicze">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">class NewMakeRequest(val makeName: String)
+class NewModelRequest(val makeId: Long, val modelName: String, val modelVariant: String)
+
+class CarMakeRest(
+    carMake: CarMake,
+    val name: String = carMake.makeName,
+    val id: Long = carMake.id,
+    val carModels: List&lt;CarModelRest&gt; = carMake.carModels.map { CarModelRest(it) },
+)
+
+class CarModelRest(
+    carModel: CarModel,
+    val name: String = carModel.modelName,
+    val variant: String = carModel.modelVariant,
+    val id: Long = carModel.id,
+)
+
+class CarInfoRest(
+    makes: List&lt;CarMake&gt;,
+    val carInfo: List&lt;CarMakeRest&gt; = makes.map { CarMakeRest(it) },
+)
+</code></pre>
+<h2 id="klasa-kontolera"><a class="header" href="#klasa-kontolera">Klasa kontolera</a></h2>
+<ul>
+<li><code>CarController.newMake</code> - tworzenie nowej marki samochodu.</li>
+<li><code>CarController.newModel</code> - tworzenie nowego modelu samochodu, który będzie
+obsługiwany w warsztacie.</li>
+<li><code>CarController.carInfo</code> - zwracanie informacji o samochodzie. Jest to używane na
+przykład przy tworzeniu nowej usługi przez klienta. Klient wybiera z listy
+obsługiwanych modeli.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/car&quot;)
+class CarController (
+    val carModelRepository: CarModelRepository,
+    val carMakeRepository: CarMakeRepository,
+) {
+    @GetMapping(&quot;/info&quot;)
+    fun carInfo(): RestMessage&lt;CarInfoRest&gt;
+        = RestMessage(&quot;Ok&quot;, CarInfoRest(carMakeRepository.findAll().toList()))
+
+    @PostMapping(&quot;/new-make&quot;)
+    fun newMake(@RequestBody req: NewMakeRequest): RestMessage&lt;Long&gt; {
+        val make = carMakeRepository.save(CarMake(req.makeName))
+        return RestMessage(&quot;Ok&quot;, make.id)
+    }
+
+    @RequestMapping(&quot;new-model&quot;)
+    fun newModel(@RequestBody req: NewModelRequest): RestMessage&lt;Unit&gt; {
+        val makeOpt = carMakeRepository.findById(req.makeId)
+        if (makeOpt.isEmpty) return RestMessage(&quot;Błąd: nie ma takiej marki&quot;)
+        val make = makeOpt.get()
+        make.newModel(req.modelName, req.modelVariant)
+        val model = CarModel(req.modelName, req.modelVariant, null)
+        make.carModels.add(model)
+        carMakeRepository.save(make)
+        return RestMessage(&quot;Ok&quot;)
+    }
+}
+</code></pre>
+<h1 id="carpartcontrollerkt"><a class="header" href="#carpartcontrollerkt">CarPartController.kt</a></h1>
+<p>Kontroler zawierający logikę zarządzania częściami w aplikacji. Pozwala na tworzenie
+nowych części oraz dostawanie informacji, jakie części można użyć do serwisu
+samochodu o danym modelu.</p>
+<p>Jest to używane przy tworzeniu opisu pracy w komentarzu do historii serwisu.</p>
+<h2 id="klasy-pomocnicze-1"><a class="header" href="#klasy-pomocnicze-1">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">class NewCarPart(
+    val name: String,
+    val price: Long,
+    val ammountInStock: Long,
+    val carModels: List&lt;Long&gt;,
+)
+
+class PartForModel (
+    carPart: CarPart,
+    val id: Long = carPart.id,
+    val name: String = carPart.name,
+    val price: Long = carPart.price,
+    val amountInStock: Long = carPart.amountInStock,
+)
+
+class PartsForModelRequest (val modelId: Long)
+</code></pre>
+<h2 id="klasa-kontrolera"><a class="header" href="#klasa-kontrolera">Klasa kontrolera</a></h2>
+<ul>
+<li><code>CarPartController.createNew</code> - tworzenie nowej części.</li>
+<li><code>CarPartController.partsForModel</code> - części pasujące do danego modelu.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/car-part&quot;)
+class CarPartController (
+    val carPartRepository: CarPartRepository,
+    val carModelRepository: CarModelRepository,
+) {
+    @PostMapping(&quot;/create&quot;)
+    fun createNew(@RequestBody newCarPart: NewCarPart): RestMessage&lt;Long&gt; {
+        val carModels = mutableListOf&lt;CarModel&gt;()
+
+        for (modelId in newCarPart.carModels) {
+            val model = carModelRepository.findById(modelId)
+            if (model.isEmpty) return RestMessage(&quot;Błąd: model o takim ID nie istnieje&quot;)
+            carModels.add(model.get())
+        }
+
+        var carPart = CarPart(
+            newCarPart.name,
+            newCarPart.price,
+            newCarPart.ammountInStock,
+            carModels,
+            mutableListOf(),
+        )
+
+        carPart = carPartRepository.save(carPart)
+        println(carPart)
+        println(carPart.carModels.map { it.modelName })
+        return RestMessage(&quot;Ok&quot;, carPart.id)
+    }
+
+    @PostMapping(&quot;for-model&quot;)
+    fun partsForModel(@RequestBody req: PartsForModelRequest): RestMessage&lt;List&lt;PartForModel&gt;&gt; {
+        val model = carModelRepository.findById(req.modelId)
+        if (model.isEmpty) return RestMessage(&quot;Błąd: nie ma modelu o takiej nazwie&quot;)
+
+        return RestMessage(
+            &quot;Ok&quot;,
+            model.get().carParts.map { PartForModel(it) }
+        )
+    }
+}
+</code></pre>
+<h1 id="customercontrollerkt"><a class="header" href="#customercontrollerkt">CustomerController.kt</a></h1>
+<p>Kontroler klienta zawiera implementacje czynności, jakie może wykonać klient w
+systemie. </p>
+<h2 id="klasy-pomocnicze-2"><a class="header" href="#klasy-pomocnicze-2">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">class RegisterRequest(
+    val username: String,
+    val password: String,
+    val name: String,
+    val phoneNumber: String,
+    val address: Address,
+) {
+    fun toCustomer() = Customer(username, password, name, phoneNumber, address)
+}
+
+class AddCarRequest(
+    val productionYear: Int,
+    val mileage: Int,
+    val modelId: Long,
+    val makeId: Long,
+)
+
+class CustomerDashboard(
+    inputServices: List&lt;ServiceRequest&gt;,
+    inputCars: List&lt;Car&gt;,
+    val services: List&lt;RestServiceRequest&gt; = inputServices.map { RestServiceRequest(it) },
+    val finishedServices: List&lt;RestServiceRequest&gt; = inputServices
+        .filter { it.finished }.map { RestServiceRequest(it) },
+    val cars: List&lt;CarRest&gt; = inputCars.map { CarRest(it) },
+)
+</code></pre>
+<h2 id="klasa-kontrolera-1"><a class="header" href="#klasa-kontrolera-1">Klasa kontrolera</a></h2>
+<ul>
+<li><code>CustomerController.register</code> - implementacja rejestracji konta klienta.</li>
+<li><code>CustomerController.addCar</code> - dodawanie nowego samochodu przypisanego do konta
+klienta. Klient może tworzyć nową usługę dotyczącą jednego z samochodów
+przypisanego do konta.</li>
+<li><code>CustomerController.getDashboard</code> - pobieranie informacji do strony głównej
+klienta. Dzięki temu rozwiązaniu, przeglądarka wykonuje mniej zapytań HTTP przy
+ładowaniu strony.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/customer&quot;)
+class CustomerController(
+    val customerRepository: CustomerRepository,
+    val applicationUserRepository: ApplicationUserRepository,
+    val carModelRepository: CarModelRepository,
+    val carMakeRepository: CarMakeRepository,
+    val carRepository: CarRepository,
+    val currentUserUtil: CurrentUserUtil,
+) {
+    @PostMapping(&quot;/register&quot;)
+    fun register(@RequestBody registerRequest: RegisterRequest) : RestMessage&lt;Unit&gt; {
+        if (applicationUserRepository.findByUsername(registerRequest.username) != null) {
+            return RestMessage(&quot;Błąd: nazwa użytkownika już istnieje&quot;)
+        }
+        val customer = customerRepository.save(registerRequest.toCustomer())
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @PostMapping(&quot;/add-car&quot;)
+    fun addCar(@RequestBody addCarRequest: AddCarRequest): RestMessage&lt;Long&gt; {
+        val makeOpt = carMakeRepository.findById(addCarRequest.makeId)
+        if (makeOpt.isEmpty) {
+            return RestMessage(&quot;Błąd: marka o takim id nie istnieje&quot;)
+        }
+        val make = makeOpt.get()
+
+        val modelOpt = carModelRepository.findById(addCarRequest.modelId)
+        if (modelOpt.isEmpty) {
+            return RestMessage(&quot;Błąd: nie ma modelu o takim id&quot;)
+        }
+        val model = modelOpt.get()
+        if (make.carModels.filter { it.id == model.id }.size != 1) {
+            return RestMessage(&quot;Błąd: podany model nie należy do podanej marki&quot;)
+        }
+
+        val user = currentUserUtil.getCurrentUserIfVariant&lt;Customer&gt;()
+        if (user == null) return RestMessage(&quot;Błąd: konto nie jest kontem klienta&quot;)
+
+
+        val car = carRepository.save(addCarRequest.let {
+            Car(it.productionYear, it.mileage, model, user)
+        })
+
+        return RestMessage(&quot;Ok&quot;, car.id)
+    }
+
+    @GetMapping(&quot;/dashboard&quot;)
+    fun getDashboard(): RestMessage&lt;CustomerDashboard&gt; {
+        val user = currentUserUtil.getCurrentUserIfVariant&lt;Customer&gt;()
+        return if (user == null) RestMessage(&quot;Błąd: nie jesteś klientem&quot;)
+        else RestMessage(&quot;Ok&quot;, CustomerDashboard(user.serviceRequests, user.cars))
+    }
+}
+</code></pre>
+<h1 id="invoicecontrollerkt"><a class="header" href="#invoicecontrollerkt">InvoiceController.kt</a></h1>
+<h2 id="klasy-i-funkcje-pomocnicze"><a class="header" href="#klasy-i-funkcje-pomocnicze">Klasy i funkcje pomocnicze</a></h2>
+<ul>
+<li><code>fun workDescriptionToInvoiceItems</code> - funkcja zbierająca wszystkie elementy
+historii usługi posiadające cenę i konwertująca je do elementów faktury. Dzięki
+takiemu rozwiązaniu zapobiegliśmy duplikacji danych w historii usługi i w fakturze.
+<strong>Jest to bezpieczne, bo system nie pozwala na dodawanie opisów pracy do komentarza
+do usługi zakończonej. Z tego powodu zawartość faktury nigdy się nie zmieni.</strong></li>
+<li><code>fun invoiceIdDateToNumber</code> - funkcja tworząca numer faktury. Numer faktury nie
+jest przechowywany w bazie danych w celu uniknięcia duplikacji danych. Jest
+generowany z niezmiennych pól faktury - daty utworzenia i id w bazie danych.</li>
+</ul>
+<pre><code class="language-kotlin">class GenerateInvoiceRequest(
+    val serviceId: Long,
+    val buyer: String,
+    val street: String,
+    val postalCity: String,
+)
+
+class GetInvoiceRequest(val serviceId: Long)
+
+class InvoiceRest (
+    serviceInvoice: ServiceInvoice,
+    val nr: String = invoiceIdDateToNumber(serviceInvoice.id, serviceInvoice.createdDate),
+    val date: Date = serviceInvoice.createdDate,
+    val buyer: String = serviceInvoice.buyer,
+    val street: String = serviceInvoice.street,
+    val postalCity: String = serviceInvoice.postalCity,
+
+    val items: List&lt;InvoiceCostItem&gt; = serviceInvoice
+        .service
+        .serviceComments
+        .flatMap { it.workDescriptions }
+        .flatMap { workDescriptionToInvoiceItems(it) },
+)
+
+fun workDescriptionToInvoiceItems(workDescription: WorkDescription): List&lt;InvoiceCostItem&gt; {
+    val result = mutableListOf&lt;InvoiceCostItem&gt;()
+
+    result.add(InvoiceCostItem(
+        name = workDescription.workName,
+        cost = 20_00,
+        ammount = workDescription.workHours,
+        unit = &quot;godzin&quot;,
+        taxPercent = 5,
+        type = InvoiceItemType.SERVICE.name.toLowerCase(),
+    ))
+
+    for (partUsage in workDescription.partUsages) {
+        result.add(InvoiceCostItem(
+            name = partUsage.carPart.name,
+            cost = partUsage.carPart.price,
+            ammount = partUsage.ammount,
+            unit = &quot;sztuk&quot;,
+            taxPercent = 23,
+            type = InvoiceItemType.RESOURCE.name.toLowerCase(),
+        ))
+    }
+
+    return result.toList()
+}
+
+fun invoiceIdDateToNumber(id: Long, date: Date): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val year = calendar.get(Calendar.YEAR)
+
+    return &quot;FV $id/$year&quot;
+}
+
+enum class InvoiceItemType {
+    SERVICE,
+    RESOURCE,
+}
+
+class InvoiceCostItem (
+    val name: String,
+    val cost: Long,
+    val ammount: Int,
+    val unit: String,
+    val taxPercent: Int,
+    val type: String,
+)
+</code></pre>
+<h2 id="klasa-kontrolera-2"><a class="header" href="#klasa-kontrolera-2">Klasa kontrolera</a></h2>
+<ul>
+<li><code>InvoiceController.generate</code> - funkcja implementuje generowanie faktury dla
+historii serwisu. Dostaje dane o kupującym niezbędne do wygenerowania faktury.</li>
+<li><code>InvoiceController.getInvoice</code> - funkcja zwracająca dane o fakturze. Jest dość
+skomplikowana obliczeniowo, ale umożliwia to uniknięcie duplikacji danych.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/invoice&quot;)
+class InvoiceController(
+    val serviceInvoiceRepository: ServiceInvoiceRepository,
+    val serviceRequestRepository: ServiceRequestRepository,
+    val currentUserUtil: CurrentUserUtil,
+) {
+    @PostMapping(&quot;generate&quot;)
+    fun generate(@RequestBody req: GenerateInvoiceRequest): RestMessage&lt;Unit&gt; {
+        val user = currentUserUtil.getCurrentUser()
+
+        val serviceOpt = serviceRequestRepository.findById(req.serviceId)
+        if (serviceOpt.isEmpty) return RestMessage(&quot;Błąd: Nie ma usługi o takim id&quot;)
+        val service = serviceOpt.get()
+
+        if (user.id != service.submitter.id) return RestMessage(&quot;Błąd: Nie masz uprawnień&quot;)
+
+        val invoice = ServiceInvoice(service, req.buyer, req.street, req.postalCity)
+        serviceInvoiceRepository.save(invoice)
+
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @PostMapping(&quot;get&quot;)
+    fun getInvoice(@RequestBody req: GetInvoiceRequest): RestMessage&lt;InvoiceRest&gt; {
+        val user = currentUserUtil.getCurrentUser()
+        val serviceOpt = serviceRequestRepository.findById(req.serviceId)
+        if (serviceOpt.isEmpty) return RestMessage(&quot;Błąd: Nie ma usługi o takim id&quot;)
+        val service = serviceOpt.get()
+
+        if (user !is Employee &amp;&amp; user.id != service.submitter.id)
+            return RestMessage(&quot;Błąd: Nie masz uprawnień&quot;)
+
+        val invoice = serviceInvoiceRepository.findByService(service)
+        if (invoice == null) return RestMessage(&quot;Błąd: nie ma takiej faktury&quot;)
+
+        return RestMessage(&quot;Ok&quot;, InvoiceRest(invoice))
+    }
+}
+</code></pre>
+<h1 id="managercontrollerkt"><a class="header" href="#managercontrollerkt">ManagerController.kt</a></h1>
+<p>Kontroler zawiera funkcje ładowania danych do strony startowej kierownika oraz
+przypisywania pracownika od usługi. Przypisywanie mechanika do usługi jest dość
+skomplikowane, ale większość tej logiki znajduje się w kliencie. Uznaliśmy, że
+niepotrzebne jest sprawdzanie na serwerze, czy kompetencje mechanika zawierają
+wszystkie tagi opisujące usługę. Jest to sprawdzane na kliencie.</p>
+<h2 id="klasy-pomocnicze-3"><a class="header" href="#klasy-pomocnicze-3">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">class ManagerDashboard (
+    serviceRequests: List&lt;ServiceRequest&gt;,
+    _mechanics: List&lt;Employee&gt;,
+    val mechanics: List&lt;RestMechanic&gt; = _mechanics.map { RestMechanic(it) },
+    val unassignedServiceRequests: List&lt;RestServiceRequest&gt; =
+        serviceRequests.filter { it.assignedWorker == null }
+        .map { RestServiceRequest(it) },
+    val activeServiceRequests: List&lt;RestServiceRequest&gt; =
+        serviceRequests.map { RestServiceRequest(it) }
+)
+
+class RestMechanic(
+    mechanic: Employee,
+    val id: Long = mechanic.id,
+    val name: String = mechanic.name,
+    val specializes: List&lt;String&gt; = mechanic.specializes,
+)
+
+class AssignWorkerRequest (
+    val serviceRequestId: Long,
+    val workerId: Long,
+)
+</code></pre>
+<h2 id="klasa-kontrolera-3"><a class="header" href="#klasa-kontrolera-3">Klasa kontrolera</a></h2>
+<ul>
+<li><code>ManagerController.getDashboard</code> - dane do strony startowej kierownika.</li>
+<li><code>ManagerController.assignWorker</code> - przypisanie pracownika do usługi.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/manager&quot;)
+class ManagerController(
+    val currentUserUtil: CurrentUserUtil,
+    val serviceRequestRepository: ServiceRequestRepository,
+    val employeeRepository: EmployeeRepository,
+) {
+    @GetMapping(&quot;/dashboard&quot;)
+    fun getDashboard(): RestMessage&lt;ManagerDashboard&gt; {
+        val user = currentUserUtil.getCurrentUserIfVariant&lt;Employee&gt;()
+        if (user == null ||
+            !listOf(EmployeeAuthority.MANAGER, EmployeeAuthority.ADMIN).contains(user.authority))
+                    return RestMessage(&quot;Błąd: nie jesteś kierownikiem albo administratorem&quot;)
+
+        val repositories = serviceRequestRepository.findAll().toList()
+        val mechanics = employeeRepository.findAllByAuthority(EmployeeAuthority.MECHANIC)
+
+        return RestMessage(&quot;Ok&quot;, ManagerDashboard(repositories, mechanics))
+    }
+
+    @PostMapping(&quot;/assign-worker&quot;)
+    fun assignWorker(@RequestBody assignWorkerRequest: AssignWorkerRequest): RestMessage&lt;Unit&gt; {
+        val employee = employeeRepository.findById(assignWorkerRequest.workerId)
+        if (employee.isEmpty()) return RestMessage(&quot;Błąd: pracownik nie istnieje&quot;)
+
+        val serviceRequest = serviceRequestRepository.findById(assignWorkerRequest.serviceRequestId)
+        if (serviceRequest.isEmpty()) return RestMessage(&quot;Błąd: usługa nie istnieje&quot;)
+
+        val req = serviceRequest.get()
+        req.assignedWorker = employee.get()
+        serviceRequestRepository.save(req)
+
+        return RestMessage(&quot;Ok&quot;)
+    }
+}
+</code></pre>
+<h1 id="servicestorycontrollerkt"><a class="header" href="#servicestorycontrollerkt">ServiceStoryController.kt</a></h1>
+<p>Kontroler implementuje wszystkie funkcje związane z historią usługi. Jest to
+największy kontroler w całej aplikacji.</p>
+<h2 id="klasy-pomocnicze-4"><a class="header" href="#klasy-pomocnicze-4">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">data class CreateServiceRequest(val title: String, val description: String, val carId: Long)
+
+data class NewUsedPart (
+    val id: Long,
+    val ammount: Int,
+)
+
+data class NewWorkDescription (
+    val name: String,
+    val hours: Int,
+    val usedParts: List&lt;NewUsedPart&gt;,
+)
+
+data class CreateCommentRequest(
+    val serviceId: Long,
+    val title: String,
+    val content: String,
+    val finishesService: Boolean,
+
+    val workDescriptions: List&lt;NewWorkDescription&gt;,
+)
+
+data class ChangeTagsRequest (
+    val serviceId: Long,
+    val newTags: List&lt;String&gt;,
+)
+
+class ServiceStoryRest(
+    serviceRequest: ServiceRequest,
+    val hasInvoice: Boolean,
+    val id: Long = serviceRequest.id,
+    val title: String = serviceRequest.title,
+    val carModelId: Long = serviceRequest.car.model.id,
+    val finished: Boolean = serviceRequest.finished,
+    val description: String = serviceRequest.description,
+    val tags: List&lt;String&gt; = serviceRequest.tags,
+    val date: Date = serviceRequest.submittedOn,
+    val submitter: String = serviceRequest.submitter.username,
+    val comments: List&lt;ServiceCommentRest&gt; = serviceRequest
+        .serviceComments.map { ServiceCommentRest(it) },
+)
+
+class ServiceCommentRest(
+    serviceComment: ServiceComment,
+    val title: String = serviceComment.title,
+    val content: String = serviceComment.content,
+
+    val submitter: String = if (Hibernate.unproxy(serviceComment.submitter) is Employee)
+        (Hibernate.unproxy(serviceComment.submitter) as Employee).name
+        else serviceComment.submitter.username,
+
+    val accountType: String = if (Hibernate.unproxy(serviceComment.submitter) is Employee)
+        (Hibernate.unproxy(serviceComment.submitter) as Employee).authority.name.toLowerCase()
+        else &quot;customer&quot;,
+
+    val submittedOn: Date = serviceComment.submittedOn,
+
+    val workDescriptions: List&lt;WorkDescriptionRest&gt; =
+        serviceComment.workDescriptions.map { WorkDescriptionRest(it) }
+)
+
+class WorkDescriptionRest(
+    workDescription: WorkDescription,
+    val name: String = workDescription.workName,
+    val hours: Int = workDescription.workHours,
+    val usedParts: List&lt;UsedPartRest&gt; = workDescription.partUsages.map { UsedPartRest(it) }
+)
+
+class UsedPartRest(
+    usage: WorkDescriptionPartUsage,
+    val name: String = usage.carPart.name,
+    val price: Long = usage.carPart.price,
+    val ammount: Int = usage.ammount,
+)
+</code></pre>
+<h2 id="klasa-kontrolera-4"><a class="header" href="#klasa-kontrolera-4">Klasa kontrolera</a></h2>
+<ul>
+<li><code>ServiceStoryController.create</code> - tworzenie nowej historii serwisu. Jest wywoływane
+przez klienta.</li>
+<li><code>ServiceStoryController.comment</code> - tworzenie komentarza do historii serwisu. Jest
+to bardzo ważna funkcja. Pracownik może dodać do komentarza kilka opisów pracy, a
+każdy opis pracy może zawierać kilka wykorzystanych części. Takie rozwiązanie
+generuje przejrzysty spis kosztów dla klienta, który jest widoczny w widoku
+historii serwisu oraz w widoku faktury.</li>
+<li><code>ServiceStoryController.storyAll</code> - wczytanie wszystkich informacji o historii
+usługi. Redukuje to liczbę zapytań przy ładowaniu strony.</li>
+<li><code>ServiceStoryController.changeTags</code> - zmiana &quot;tagów&quot; opisujących historię usługi.
+Jest to bardzo ważna funkcja. Tagi decydują, jakiego pracownika należy przypisać do
+historii usługi.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/service-story&quot;)
+class ServiceStoryController(
+    val serviceRequestRepository: ServiceRequestRepository,
+    val serviceCommentRepository: ServiceCommentRepository,
+    val carPartRepository: CarPartRepository,
+    val carRepository: CarRepository,
+    val currentUserUtil: CurrentUserUtil,
+    val serviceInvoiceRepository: ServiceInvoiceRepository,
+) {
+    @PostMapping(&quot;/create&quot;)
+    fun create(@RequestBody request: CreateServiceRequest): RestMessage&lt;Long&gt; {
+        val (title, desc, carId) = request
+        val car = carRepository.findById(carId)
+        if (car.isEmpty) return RestMessage(&quot;Błąd: nie ma takiego samochodu&quot;)
+        val submitter = currentUserUtil.getCurrentUser()
+        val result = serviceRequestRepository.save(ServiceRequest(title, desc, submitter, car.get()))
+        return RestMessage(&quot;Ok&quot;, result.id)
+    }
+
+    @PostMapping(&quot;/create-comment&quot;)
+    fun comment(@RequestBody request: CreateCommentRequest): RestMessage&lt;Unit&gt; {
+        val submitter = currentUserUtil.getCurrentUser()
+        val serviceOpt = serviceRequestRepository.findById(request.serviceId)
+        if (serviceOpt.isEmpty) {
+            return RestMessage(&quot;Nie znaleziono takiego id&quot;)
+        }
+
+        val service = serviceOpt.get()
+
+        if (request.workDescriptions.isNotEmpty()) {
+            if (submitter !is Employee) {
+                return RestMessage(&quot;Błąd: tylko pracownicy mogą dodawać opisy pracy&quot;)
+            }
+            if (service.finished) {
+                return RestMessage(&quot;Błąd: dodawanie pracy do zakończonej usługi&quot;)
+            }
+        }
+
+        val comment = ServiceComment(
+            title = request.title,
+            content = request.content,
+            serviceRequest = service,
+            submitter = submitter,
+        )
+
+        for (desc in request.workDescriptions) {
+            val newDesc = WorkDescription(desc.name, desc.hours, mutableListOf(), comment)
+            for (usedPart in desc.usedParts) {
+                val partOpt = carPartRepository.findById(usedPart.id)
+                if (partOpt.isEmpty) return RestMessage(&quot;Błąd: część o takim id nie istnieje&quot;)
+                val part = partOpt.get()
+                newDesc.partUsages.add(WorkDescriptionPartUsage(newDesc, part, usedPart.ammount))
+            }
+            comment.workDescriptions.add(newDesc)
+        }
+
+        serviceCommentRepository.save(comment)
+
+        if (request.finishesService) {
+            service.finished = true
+            serviceRequestRepository.save(service)
+        }
+
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @GetMapping(&quot;/all/{id}&quot;)
+    fun storyAll(@PathVariable(&quot;id&quot;) id: Long): RestMessage&lt;ServiceStoryRest&gt; {
+        val serviceRequest = serviceRequestRepository.findById(id)
+        if (serviceRequest.isEmpty) {
+            return RestMessage(&quot;Nie znaleziono takiego id&quot;)
+        }
+        return RestMessage(&quot;Ok&quot;, ServiceStoryRest(
+            serviceRequest.get(),
+            serviceInvoiceRepository.findByService(serviceRequest.get()) != null
+        ))
+    }
+
+    @PostMapping(&quot;change-tags&quot;)
+    fun changeTags(@RequestBody changeTagsRequest: ChangeTagsRequest): RestMessage&lt;Unit&gt; {
+        val user = currentUserUtil.getCurrentUserIfVariant&lt;Employee&gt;()
+
+        if (user == null) {
+            return RestMessage(&quot;Błąd: nie masz uprawnień&quot;)
+        }
+
+        val serviceOpt = serviceRequestRepository.findById(changeTagsRequest.serviceId)
+        if (serviceOpt == null) {
+            return RestMessage(&quot;Błąd: nie ma usługi o takim id&quot;)
+        }
+        val service = serviceOpt.get()
+
+        service.tags = changeTagsRequest.newTags
+        serviceRequestRepository.save(service)
+
+        return RestMessage(&quot;Ok&quot;)
+    }
+}
+</code></pre>
 
                     </main>
 

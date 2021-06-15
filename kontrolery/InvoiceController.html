@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Przypadki użycia - Projekt PAI</title>
+        <title>InvoiceController.kt - Projekt PAI</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html" class="active"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="../kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="../kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html" class="active"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,26 +163,150 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="przypadki-użycia"><a class="header" href="#przypadki-użycia">Przypadki użycia</a></h1>
+                        <h1 id="invoicecontrollerkt"><a class="header" href="#invoicecontrollerkt">InvoiceController.kt</a></h1>
+<h2 id="klasy-i-funkcje-pomocnicze"><a class="header" href="#klasy-i-funkcje-pomocnicze">Klasy i funkcje pomocnicze</a></h2>
 <ul>
-<li><a href="./niezalogowany.html">Przypadki użycia użytkownika niezalogowanego</a></li>
-<li><a href="./klient.html">Przypadki użycia klienta</a></li>
-<li><a href="./pracownik.html">Przypadki użycia pracownika</a></li>
-<li><a href="./kierownik.html">Przypadki użycia kierownika</a></li>
+<li><code>fun workDescriptionToInvoiceItems</code> - funkcja zbierająca wszystkie elementy
+historii usługi posiadające cenę i konwertująca je do elementów faktury. Dzięki
+takiemu rozwiązaniu zapobiegliśmy duplikacji danych w historii usługi i w fakturze.
+<strong>Jest to bezpieczne, bo system nie pozwala na dodawanie opisów pracy do komentarza
+do usługi zakończonej. Z tego powodu zawartość faktury nigdy się nie zmieni.</strong></li>
+<li><code>fun invoiceIdDateToNumber</code> - funkcja tworząca numer faktury. Numer faktury nie
+jest przechowywany w bazie danych w celu uniknięcia duplikacji danych. Jest
+generowany z niezmiennych pól faktury - daty utworzenia i id w bazie danych.</li>
 </ul>
+<pre><code class="language-kotlin">class GenerateInvoiceRequest(
+    val serviceId: Long,
+    val buyer: String,
+    val street: String,
+    val postalCity: String,
+)
+
+class GetInvoiceRequest(val serviceId: Long)
+
+class InvoiceRest (
+    serviceInvoice: ServiceInvoice,
+    val nr: String = invoiceIdDateToNumber(serviceInvoice.id, serviceInvoice.createdDate),
+    val date: Date = serviceInvoice.createdDate,
+    val buyer: String = serviceInvoice.buyer,
+    val street: String = serviceInvoice.street,
+    val postalCity: String = serviceInvoice.postalCity,
+
+    val items: List&lt;InvoiceCostItem&gt; = serviceInvoice
+        .service
+        .serviceComments
+        .flatMap { it.workDescriptions }
+        .flatMap { workDescriptionToInvoiceItems(it) },
+)
+
+fun workDescriptionToInvoiceItems(workDescription: WorkDescription): List&lt;InvoiceCostItem&gt; {
+    val result = mutableListOf&lt;InvoiceCostItem&gt;()
+
+    result.add(InvoiceCostItem(
+        name = workDescription.workName,
+        cost = 20_00,
+        ammount = workDescription.workHours,
+        unit = &quot;godzin&quot;,
+        taxPercent = 5,
+        type = InvoiceItemType.SERVICE.name.toLowerCase(),
+    ))
+
+    for (partUsage in workDescription.partUsages) {
+        result.add(InvoiceCostItem(
+            name = partUsage.carPart.name,
+            cost = partUsage.carPart.price,
+            ammount = partUsage.ammount,
+            unit = &quot;sztuk&quot;,
+            taxPercent = 23,
+            type = InvoiceItemType.RESOURCE.name.toLowerCase(),
+        ))
+    }
+
+    return result.toList()
+}
+
+fun invoiceIdDateToNumber(id: Long, date: Date): String {
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val year = calendar.get(Calendar.YEAR)
+
+    return &quot;FV $id/$year&quot;
+}
+
+enum class InvoiceItemType {
+    SERVICE,
+    RESOURCE,
+}
+
+class InvoiceCostItem (
+    val name: String,
+    val cost: Long,
+    val ammount: Int,
+    val unit: String,
+    val taxPercent: Int,
+    val type: String,
+)
+</code></pre>
+<h2 id="klasa-kontrolera"><a class="header" href="#klasa-kontrolera">Klasa kontrolera</a></h2>
+<ul>
+<li><code>InvoiceController.generate</code> - funkcja implementuje generowanie faktury dla
+historii serwisu. Dostaje dane o kupującym niezbędne do wygenerowania faktury.</li>
+<li><code>InvoiceController.getInvoice</code> - funkcja zwracająca dane o fakturze. Jest dość
+skomplikowana obliczeniowo, ale umożliwia to uniknięcie duplikacji danych.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/invoice&quot;)
+class InvoiceController(
+    val serviceInvoiceRepository: ServiceInvoiceRepository,
+    val serviceRequestRepository: ServiceRequestRepository,
+    val currentUserUtil: CurrentUserUtil,
+) {
+    @PostMapping(&quot;generate&quot;)
+    fun generate(@RequestBody req: GenerateInvoiceRequest): RestMessage&lt;Unit&gt; {
+        val user = currentUserUtil.getCurrentUser()
+
+        val serviceOpt = serviceRequestRepository.findById(req.serviceId)
+        if (serviceOpt.isEmpty) return RestMessage(&quot;Błąd: Nie ma usługi o takim id&quot;)
+        val service = serviceOpt.get()
+
+        if (user.id != service.submitter.id) return RestMessage(&quot;Błąd: Nie masz uprawnień&quot;)
+
+        val invoice = ServiceInvoice(service, req.buyer, req.street, req.postalCity)
+        serviceInvoiceRepository.save(invoice)
+
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @PostMapping(&quot;get&quot;)
+    fun getInvoice(@RequestBody req: GetInvoiceRequest): RestMessage&lt;InvoiceRest&gt; {
+        val user = currentUserUtil.getCurrentUser()
+        val serviceOpt = serviceRequestRepository.findById(req.serviceId)
+        if (serviceOpt.isEmpty) return RestMessage(&quot;Błąd: Nie ma usługi o takim id&quot;)
+        val service = serviceOpt.get()
+
+        if (user !is Employee &amp;&amp; user.id != service.submitter.id)
+            return RestMessage(&quot;Błąd: Nie masz uprawnień&quot;)
+
+        val invoice = serviceInvoiceRepository.findByService(service)
+        if (invoice == null) return RestMessage(&quot;Błąd: nie ma takiej faktury&quot;)
+
+        return RestMessage(&quot;Ok&quot;, InvoiceRest(invoice))
+    }
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../dane.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../kontrolery/CustomerController.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../przypadki/niezalogowany.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../kontrolery/ManagerController.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -194,13 +318,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../dane.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../kontrolery/CustomerController.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../przypadki/niezalogowany.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../kontrolery/ManagerController.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

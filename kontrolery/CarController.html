@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Przypadki użycia - Projekt PAI</title>
+        <title>CarController.kt - Projekt PAI</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html" class="active"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="../kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="../kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html" class="active"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,26 +163,88 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="przypadki-użycia"><a class="header" href="#przypadki-użycia">Przypadki użycia</a></h1>
+                        <h1 id="carcontrollerkt"><a class="header" href="#carcontrollerkt">CarController.kt</a></h1>
+<p>Kontroler zawiera logikę zarządzania samochodami. Przyjęliśmy, że kierownik będzie
+ustalał, jakie modele samochodów są obsługiwane w warsztacie. Kierownik może dodawać
+nowe modele.</p>
+<p>Funkcja ta jest związana z funkcją kontolera
+<a href="./CarPartController.html">CarPartController.kt</a>.</p>
+<p>Ten kontroler pozwala kierowanikowi dodawać części, jakich mechanicy będą mogli
+używać przy dodawaniu opisów pracy do komentarzy do historii serwisu.</p>
+<h2 id="klasy-pomocnicze"><a class="header" href="#klasy-pomocnicze">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">class NewMakeRequest(val makeName: String)
+class NewModelRequest(val makeId: Long, val modelName: String, val modelVariant: String)
+
+class CarMakeRest(
+    carMake: CarMake,
+    val name: String = carMake.makeName,
+    val id: Long = carMake.id,
+    val carModels: List&lt;CarModelRest&gt; = carMake.carModels.map { CarModelRest(it) },
+)
+
+class CarModelRest(
+    carModel: CarModel,
+    val name: String = carModel.modelName,
+    val variant: String = carModel.modelVariant,
+    val id: Long = carModel.id,
+)
+
+class CarInfoRest(
+    makes: List&lt;CarMake&gt;,
+    val carInfo: List&lt;CarMakeRest&gt; = makes.map { CarMakeRest(it) },
+)
+</code></pre>
+<h2 id="klasa-kontolera"><a class="header" href="#klasa-kontolera">Klasa kontolera</a></h2>
 <ul>
-<li><a href="./niezalogowany.html">Przypadki użycia użytkownika niezalogowanego</a></li>
-<li><a href="./klient.html">Przypadki użycia klienta</a></li>
-<li><a href="./pracownik.html">Przypadki użycia pracownika</a></li>
-<li><a href="./kierownik.html">Przypadki użycia kierownika</a></li>
+<li><code>CarController.newMake</code> - tworzenie nowej marki samochodu.</li>
+<li><code>CarController.newModel</code> - tworzenie nowego modelu samochodu, który będzie
+obsługiwany w warsztacie.</li>
+<li><code>CarController.carInfo</code> - zwracanie informacji o samochodzie. Jest to używane na
+przykład przy tworzeniu nowej usługi przez klienta. Klient wybiera z listy
+obsługiwanych modeli.</li>
 </ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/car&quot;)
+class CarController (
+    val carModelRepository: CarModelRepository,
+    val carMakeRepository: CarMakeRepository,
+) {
+    @GetMapping(&quot;/info&quot;)
+    fun carInfo(): RestMessage&lt;CarInfoRest&gt;
+        = RestMessage(&quot;Ok&quot;, CarInfoRest(carMakeRepository.findAll().toList()))
+
+    @PostMapping(&quot;/new-make&quot;)
+    fun newMake(@RequestBody req: NewMakeRequest): RestMessage&lt;Long&gt; {
+        val make = carMakeRepository.save(CarMake(req.makeName))
+        return RestMessage(&quot;Ok&quot;, make.id)
+    }
+
+    @RequestMapping(&quot;new-model&quot;)
+    fun newModel(@RequestBody req: NewModelRequest): RestMessage&lt;Unit&gt; {
+        val makeOpt = carMakeRepository.findById(req.makeId)
+        if (makeOpt.isEmpty) return RestMessage(&quot;Błąd: nie ma takiej marki&quot;)
+        val make = makeOpt.get()
+        make.newModel(req.modelName, req.modelVariant)
+        val model = CarModel(req.modelName, req.modelVariant, null)
+        make.carModels.add(model)
+        carMakeRepository.save(make)
+        return RestMessage(&quot;Ok&quot;)
+    }
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../dane.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../kontrolery/AuthController.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../przypadki/niezalogowany.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../kontrolery/CarPartController.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -194,13 +256,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../dane.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../kontrolery/AuthController.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../przypadki/niezalogowany.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../kontrolery/CarPartController.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
