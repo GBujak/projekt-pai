@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Kontrolery</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/AuthController.html"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li><li class="chapter-item expanded "><a href="przebieg/index.html"><strong aria-hidden="true">6.</strong> Przebieg usługi w systemie</a></li><li class="chapter-item expanded "><a href="wnioski.html"><strong aria-hidden="true">7.</strong> Wnioski</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -647,6 +647,72 @@ korzystania z systemu są sprawowane przez kierownika.</p>
 Aplikacja używa technologii Json Web Token (JWT) do uwierzytelniania. Tokeny są
 generowane przez metodę login tego kontrolera. Metoda register zawiera logikę
 tworzącą konta użytkowników i zapisującą je do bazy danych.</p>
+<h2 id="klasy-pomocnicze"><a class="header" href="#klasy-pomocnicze">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">data class AuthRequest(val username: String, val password: String)
+data class LoginResponse(val token: String, val username: String, val accountType: String)
+data class RegisterResponse(val message: String)
+
+data class UserRegisterRequest (
+    val username: String,
+    val password: String,
+    val name: String,
+    val phoneNumber: String,
+    val address: NewAddressRequest,
+)
+</code></pre>
+<h2 id="klasa-kontrolera"><a class="header" href="#klasa-kontrolera">Klasa kontrolera</a></h2>
+<ul>
+<li><code>AuthController.register</code> - rejestracja bez tokena tworzenia konta. Metoda ta jest
+wywoływana przy rejestracji konta użytkownika.</li>
+<li><code>AuthController.login</code> - logowanie się. Tutaj jest tworzony token JWT. Każdy
+użytkownik aplikacji loguje się z wykorzystaniem tej metody.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/auth&quot;)
+class AuthController (
+    val applicationUserRepository: ApplicationUserRepository,
+    val bCryptPasswordEncoder: BCryptPasswordEncoder,
+    val authenticationManager: AuthenticationManager,
+    val customerRepository: CustomerRepository,
+    val jwtUtil: JwtUtil,
+) {
+    @PostMapping(&quot;register&quot;)
+    fun register(@RequestBody req: UserRegisterRequest): RestMessage&lt;Unit&gt; {
+        val customer = Customer(
+            req.username,
+            bCryptPasswordEncoder.encode(req.password),
+            req.name,
+            req.phoneNumber,
+            Address(
+                req.address.city,
+                req.address.street,
+                req.address.houseNumber,
+            ),
+        )
+        customerRepository.save(customer)
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @PostMapping(&quot;/login&quot;)
+    fun login(@RequestBody authRequest: AuthRequest): ResponseEntity&lt;LoginResponse&gt; {
+        val (username, password) = authRequest
+        try {
+            val authentication = authenticationManager
+                .authenticate(UsernamePasswordAuthenticationToken(username, password))
+            val user = authentication.principal as ApplicationUserDetails
+            val applicationUser = applicationUserRepository.findByUsername(user.username)!!
+            val token = jwtUtil.userToken(user.username)
+            return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .body(LoginResponse(token, applicationUser.username,
+                    if (applicationUser is Employee) applicationUser.authority.name.toLowerCase()
+                    else &quot;customer&quot;))
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+}
+</code></pre>
 <h1 id="carcontrollerkt"><a class="header" href="#carcontrollerkt">CarController.kt</a></h1>
 <p>Kontroler zawiera logikę zarządzania samochodami. Przyjęliśmy, że kierownik będzie
 ustalał, jakie modele samochodów są obsługiwane w warsztacie. Kierownik może dodawać
@@ -655,7 +721,7 @@ nowe modele.</p>
 <a href="kontrolery/./CarPartController.html">CarPartController.kt</a>.</p>
 <p>Ten kontroler pozwala kierowanikowi dodawać części, jakich mechanicy będą mogli
 używać przy dodawaniu opisów pracy do komentarzy do historii serwisu.</p>
-<h2 id="klasy-pomocnicze"><a class="header" href="#klasy-pomocnicze">Klasy pomocnicze</a></h2>
+<h2 id="klasy-pomocnicze-1"><a class="header" href="#klasy-pomocnicze-1">Klasy pomocnicze</a></h2>
 <pre><code class="language-kotlin">class NewMakeRequest(val makeName: String)
 class NewModelRequest(val makeId: Long, val modelName: String, val modelVariant: String)
 
@@ -721,7 +787,7 @@ class CarController (
 nowych części oraz dostawanie informacji, jakie części można użyć do serwisu
 samochodu o danym modelu.</p>
 <p>Jest to używane przy tworzeniu opisu pracy w komentarzu do historii serwisu.</p>
-<h2 id="klasy-pomocnicze-1"><a class="header" href="#klasy-pomocnicze-1">Klasy pomocnicze</a></h2>
+<h2 id="klasy-pomocnicze-2"><a class="header" href="#klasy-pomocnicze-2">Klasy pomocnicze</a></h2>
 <pre><code class="language-kotlin">class NewCarPart(
     val name: String,
     val price: Long,
@@ -739,7 +805,7 @@ class PartForModel (
 
 class PartsForModelRequest (val modelId: Long)
 </code></pre>
-<h2 id="klasa-kontrolera"><a class="header" href="#klasa-kontrolera">Klasa kontrolera</a></h2>
+<h2 id="klasa-kontrolera-1"><a class="header" href="#klasa-kontrolera-1">Klasa kontrolera</a></h2>
 <ul>
 <li><code>CarPartController.createNew</code> - tworzenie nowej części.</li>
 <li><code>CarPartController.partsForModel</code> - części pasujące do danego modelu.</li>
@@ -789,7 +855,7 @@ class CarPartController (
 <h1 id="customercontrollerkt"><a class="header" href="#customercontrollerkt">CustomerController.kt</a></h1>
 <p>Kontroler klienta zawiera implementacje czynności, jakie może wykonać klient w
 systemie. </p>
-<h2 id="klasy-pomocnicze-2"><a class="header" href="#klasy-pomocnicze-2">Klasy pomocnicze</a></h2>
+<h2 id="klasy-pomocnicze-3"><a class="header" href="#klasy-pomocnicze-3">Klasy pomocnicze</a></h2>
 <pre><code class="language-kotlin">class RegisterRequest(
     val username: String,
     val password: String,
@@ -816,7 +882,7 @@ class CustomerDashboard(
     val cars: List&lt;CarRest&gt; = inputCars.map { CarRest(it) },
 )
 </code></pre>
-<h2 id="klasa-kontrolera-1"><a class="header" href="#klasa-kontrolera-1">Klasa kontrolera</a></h2>
+<h2 id="klasa-kontrolera-2"><a class="header" href="#klasa-kontrolera-2">Klasa kontrolera</a></h2>
 <ul>
 <li><code>CustomerController.register</code> - implementacja rejestracji konta klienta.</li>
 <li><code>CustomerController.addCar</code> - dodawanie nowego samochodu przypisanego do konta
@@ -965,7 +1031,7 @@ class InvoiceCostItem (
     val type: String,
 )
 </code></pre>
-<h2 id="klasa-kontrolera-2"><a class="header" href="#klasa-kontrolera-2">Klasa kontrolera</a></h2>
+<h2 id="klasa-kontrolera-3"><a class="header" href="#klasa-kontrolera-3">Klasa kontrolera</a></h2>
 <ul>
 <li><code>InvoiceController.generate</code> - funkcja implementuje generowanie faktury dla
 historii serwisu. Dostaje dane o kupującym niezbędne do wygenerowania faktury.</li>
@@ -1018,7 +1084,7 @@ przypisywania pracownika od usługi. Przypisywanie mechanika do usługi jest do�
 skomplikowane, ale większość tej logiki znajduje się w kliencie. Uznaliśmy, że
 niepotrzebne jest sprawdzanie na serwerze, czy kompetencje mechanika zawierają
 wszystkie tagi opisujące usługę. Jest to sprawdzane na kliencie.</p>
-<h2 id="klasy-pomocnicze-3"><a class="header" href="#klasy-pomocnicze-3">Klasy pomocnicze</a></h2>
+<h2 id="klasy-pomocnicze-4"><a class="header" href="#klasy-pomocnicze-4">Klasy pomocnicze</a></h2>
 <pre><code class="language-kotlin">class ManagerDashboard (
     serviceRequests: List&lt;ServiceRequest&gt;,
     _mechanics: List&lt;Employee&gt;,
@@ -1042,7 +1108,7 @@ class AssignWorkerRequest (
     val workerId: Long,
 )
 </code></pre>
-<h2 id="klasa-kontrolera-3"><a class="header" href="#klasa-kontrolera-3">Klasa kontrolera</a></h2>
+<h2 id="klasa-kontrolera-4"><a class="header" href="#klasa-kontrolera-4">Klasa kontrolera</a></h2>
 <ul>
 <li><code>ManagerController.getDashboard</code> - dane do strony startowej kierownika.</li>
 <li><code>ManagerController.assignWorker</code> - przypisanie pracownika do usługi.</li>
@@ -1083,10 +1149,67 @@ class ManagerController(
     }
 }
 </code></pre>
+<h1 id="mechaniccontroller"><a class="header" href="#mechaniccontroller">MechanicController</a></h1>
+<p>Kontroler mechanika odpowiada za dwie funkcje. Pierwsza to (tak jak inne kontrolery
+użytkowników) zwracanie informacji do strony głównej. Druga opcja to zmiana
+specjalizacji. Decydują one o tym, jakiego pracownika wybierze kierownik do
+realizacji danej usługi.</p>
+<h2 id="klasy-pomocnicze-5"><a class="header" href="#klasy-pomocnicze-5">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">data class MechanicDashboard(
+    val unassigned: List&lt;RestServiceRequest&gt;,
+    val assigned: List&lt;RestServiceRequest&gt;,
+    val specializations: List&lt;String&gt;,
+)
+
+data class ChangeSpecializationsRequest(
+    val newSpecializations: List&lt;String&gt;,
+)
+</code></pre>
+<h2 id="klasa-kontrolera-5"><a class="header" href="#klasa-kontrolera-5">Klasa kontrolera</a></h2>
+<ul>
+<li><code>MechanicController.getDashBoard</code> - informacje do strony głównej</li>
+<li><code>MechanicController.changeSpecializations</code> - zmiana specjalizacji</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/mechanic&quot;)
+class MechanicController(
+    val serviceRequestRepository: ServiceRequestRepository,
+    val currentUserUtil: CurrentUserUtil,
+    val employeeRepository: EmployeeRepository,
+) {
+    @PostMapping(&quot;dashboard&quot;)
+    fun getDashBoard(): RestMessage&lt;MechanicDashboard&gt; {
+        val serviceRequests = serviceRequestRepository.findAll()
+        val currentUser = currentUserUtil.getCurrentUserIfVariant&lt;Employee&gt;()!!
+
+        val dashboard = MechanicDashboard(
+            unassigned = serviceRequests
+                .filter { it.assignedWorker == null }
+                .map { RestServiceRequest(it) },
+            assigned = serviceRequests
+                .filter { it.assignedWorker != null &amp;&amp; it.assignedWorker!!.id == currentUser.id }
+                .map { RestServiceRequest(it) },
+            specializations = currentUser.specializes,
+        )
+
+        return RestMessage(&quot;Ok&quot;, dashboard)
+    }
+
+    @PostMapping(&quot;change-specializations&quot;)
+    fun changeSpecializations(@RequestBody req: ChangeSpecializationsRequest): RestMessage&lt;Unit&gt; {
+        val curUser = currentUserUtil.getCurrentUserIfVariant&lt;Employee&gt;()!!
+        val userOpt = employeeRepository.findById(curUser.id)
+        val user = userOpt.get()
+        user.specializes = req.newSpecializations
+        employeeRepository.save(user)
+        return RestMessage(&quot;Ok&quot;)
+    }
+}
+</code></pre>
 <h1 id="servicestorycontrollerkt"><a class="header" href="#servicestorycontrollerkt">ServiceStoryController.kt</a></h1>
 <p>Kontroler implementuje wszystkie funkcje związane z historią usługi. Jest to
 największy kontroler w całej aplikacji.</p>
-<h2 id="klasy-pomocnicze-4"><a class="header" href="#klasy-pomocnicze-4">Klasy pomocnicze</a></h2>
+<h2 id="klasy-pomocnicze-6"><a class="header" href="#klasy-pomocnicze-6">Klasy pomocnicze</a></h2>
 <pre><code class="language-kotlin">data class CreateServiceRequest(val title: String, val description: String, val carId: Long)
 
 data class NewUsedPart (
@@ -1162,7 +1285,7 @@ class UsedPartRest(
     val ammount: Int = usage.ammount,
 )
 </code></pre>
-<h2 id="klasa-kontrolera-4"><a class="header" href="#klasa-kontrolera-4">Klasa kontrolera</a></h2>
+<h2 id="klasa-kontrolera-6"><a class="header" href="#klasa-kontrolera-6">Klasa kontrolera</a></h2>
 <ul>
 <li><code>ServiceStoryController.create</code> - tworzenie nowej historii serwisu. Jest wywoływane
 przez klienta.</li>
@@ -1277,6 +1400,53 @@ class ServiceStoryController(
     }
 }
 </code></pre>
+<h1 id="przebieg-usługi-w-systemie"><a class="header" href="#przebieg-usługi-w-systemie">Przebieg usługi w systemie</a></h1>
+<ol>
+<li>
+<p>Użytkownik dodaje samochód. Wybiera markę i model. Wpisuje przebieg i rok
+produkcji.</p>
+</li>
+<li>
+<p>Użytkownik przyjeżdża do warsztatu samochodowego.</p>
+</li>
+<li>
+<p>Mechanik ogląda samochów i edytuje tagi serwisu.</p>
+</li>
+<li>
+<p>Kierownik przypisuje obsługę serwisu mechanikowi, którego specjalizacje zawierają
+tagi opisujące serwis.</p>
+</li>
+<li>
+<p>Mechanik i klient zostawiają komentarze w historii usługi. Mechanik może dodawać
+do komentarza jeden lub kilka opisów pracy. Każdy opis pracy może mieć przypisane
+jedną lub kilka zużytych części.</p>
+</li>
+<li>
+<p>Mechanik lub klient dodają komentarz zaznaczając przed tym pole &quot;Komentarz kończy
+usługę&quot;.</p>
+</li>
+<li>
+<p>W historii usługi pojawia się formularz, w kóry klient musi wpisać dane do
+wystawienia faktury. Nie można już dodawać opisów pracy do komentarzy, bo mogłoby
+to zmienić już wystawioną fakturę, ale można dodawać komentarze bez opisu pracy.</p>
+</li>
+<li>
+<p>System zapisuje dane do faktury. Od tej pory wyświetla się przycisk służący do
+otwarcia faktury za usługę. Do faktury są zliczane wszystkie opisy pracy dotyczące
+usługi. Praca jest wyceniana za godzinę, a zużyte części za sztukę.</p>
+</li>
+<li>
+<p>Użytkownik widzi na swojej stronie głównej możliwość podglądu faktur i wystawienia
+ocen dla wszystkich skończonych usług (niezaimplementowane).</p>
+</li>
+</ol>
+<h1 id="wnioski"><a class="header" href="#wnioski">Wnioski</a></h1>
+<ul>
+<li>Dowiedzieliśmy się, jak działają biblioteki do aplikacji internetowych SPA.</li>
+<li>Dowiedzieliśmy się, jak działają technologie Spring Boot.</li>
+<li>Dowiedzieliśmy się, jak wygląda faktura VAT.</li>
+<li>Dowiedzieliśmy się, jak projektować skomplikowane formularze.</li>
+</ul>
 
                     </main>
 

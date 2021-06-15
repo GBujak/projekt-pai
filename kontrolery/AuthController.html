@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><a href="../kontrolery/index.html"><strong aria-hidden="true">5.</strong> Kontrolery</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html" class="active"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../dane.html"><strong aria-hidden="true">1.</strong> Dane o projekcie</a></li><li class="chapter-item expanded "><a href="../przypadki/index.html"><strong aria-hidden="true">2.</strong> Przypadki użycia</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../przypadki/niezalogowany.html"><strong aria-hidden="true">2.1.</strong> Użytkownik niezalogowany</a></li><li class="chapter-item expanded "><a href="../przypadki/klient.html"><strong aria-hidden="true">2.2.</strong> Klient</a></li><li class="chapter-item expanded "><a href="../przypadki/pracownik.html"><strong aria-hidden="true">2.3.</strong> Pracownik</a></li><li class="chapter-item expanded "><a href="../przypadki/kierownik.html"><strong aria-hidden="true">2.4.</strong> Kierownik</a></li></ol></li><li class="chapter-item expanded "><a href="../modele/index.html"><strong aria-hidden="true">3.</strong> Modele</a></li><li class="chapter-item expanded "><a href="../uml/index.html"><strong aria-hidden="true">4.</strong> Diagramy UML</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Kontrolery</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../kontrolery/AdminController.html"><strong aria-hidden="true">5.1.</strong> AdminController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/AuthController.html" class="active"><strong aria-hidden="true">5.2.</strong> AuthController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarController.html"><strong aria-hidden="true">5.3.</strong> CarController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CarPartController.html"><strong aria-hidden="true">5.4.</strong> CarPartController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/CustomerController.html"><strong aria-hidden="true">5.5.</strong> CustomerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/InvoiceController.html"><strong aria-hidden="true">5.6.</strong> InvoiceController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ManagerController.html"><strong aria-hidden="true">5.7.</strong> ManagerController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/MechanicController.html"><strong aria-hidden="true">5.8.</strong> MechanicController.kt</a></li><li class="chapter-item expanded "><a href="../kontrolery/ServiceStoryController.html"><strong aria-hidden="true">5.9.</strong> ServiceStoryController.kt</a></li></ol></li><li class="chapter-item expanded "><a href="../przebieg/index.html"><strong aria-hidden="true">6.</strong> Przebieg usługi w systemie</a></li><li class="chapter-item expanded "><a href="../wnioski.html"><strong aria-hidden="true">7.</strong> Wnioski</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -168,6 +168,72 @@
 Aplikacja używa technologii Json Web Token (JWT) do uwierzytelniania. Tokeny są
 generowane przez metodę login tego kontrolera. Metoda register zawiera logikę
 tworzącą konta użytkowników i zapisującą je do bazy danych.</p>
+<h2 id="klasy-pomocnicze"><a class="header" href="#klasy-pomocnicze">Klasy pomocnicze</a></h2>
+<pre><code class="language-kotlin">data class AuthRequest(val username: String, val password: String)
+data class LoginResponse(val token: String, val username: String, val accountType: String)
+data class RegisterResponse(val message: String)
+
+data class UserRegisterRequest (
+    val username: String,
+    val password: String,
+    val name: String,
+    val phoneNumber: String,
+    val address: NewAddressRequest,
+)
+</code></pre>
+<h2 id="klasa-kontrolera"><a class="header" href="#klasa-kontrolera">Klasa kontrolera</a></h2>
+<ul>
+<li><code>AuthController.register</code> - rejestracja bez tokena tworzenia konta. Metoda ta jest
+wywoływana przy rejestracji konta użytkownika.</li>
+<li><code>AuthController.login</code> - logowanie się. Tutaj jest tworzony token JWT. Każdy
+użytkownik aplikacji loguje się z wykorzystaniem tej metody.</li>
+</ul>
+<pre><code class="language-kotlin">@RestController
+@RequestMapping(&quot;/api/auth&quot;)
+class AuthController (
+    val applicationUserRepository: ApplicationUserRepository,
+    val bCryptPasswordEncoder: BCryptPasswordEncoder,
+    val authenticationManager: AuthenticationManager,
+    val customerRepository: CustomerRepository,
+    val jwtUtil: JwtUtil,
+) {
+    @PostMapping(&quot;register&quot;)
+    fun register(@RequestBody req: UserRegisterRequest): RestMessage&lt;Unit&gt; {
+        val customer = Customer(
+            req.username,
+            bCryptPasswordEncoder.encode(req.password),
+            req.name,
+            req.phoneNumber,
+            Address(
+                req.address.city,
+                req.address.street,
+                req.address.houseNumber,
+            ),
+        )
+        customerRepository.save(customer)
+        return RestMessage(&quot;Ok&quot;)
+    }
+
+    @PostMapping(&quot;/login&quot;)
+    fun login(@RequestBody authRequest: AuthRequest): ResponseEntity&lt;LoginResponse&gt; {
+        val (username, password) = authRequest
+        try {
+            val authentication = authenticationManager
+                .authenticate(UsernamePasswordAuthenticationToken(username, password))
+            val user = authentication.principal as ApplicationUserDetails
+            val applicationUser = applicationUserRepository.findByUsername(user.username)!!
+            val token = jwtUtil.userToken(user.username)
+            return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .body(LoginResponse(token, applicationUser.username,
+                    if (applicationUser is Employee) applicationUser.authority.name.toLowerCase()
+                    else &quot;customer&quot;))
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+}
+</code></pre>
 
                     </main>
 
