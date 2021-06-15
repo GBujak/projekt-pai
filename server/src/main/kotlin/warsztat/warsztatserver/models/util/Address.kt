@@ -10,7 +10,6 @@ data class Address (
     val city: String,
     val street: String,
     val houseNumber: Int,
-    val apartmentNumber: Int?, // ? -> może być null
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

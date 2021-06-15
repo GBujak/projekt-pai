@@ -8,7 +8,7 @@ interface Props {
     comment: ServiceComment,
 }
 
-const accountTypeDescription = {
+export const accountTypeDescription = {
     "customer": "klient",
     "mechanic": "mechanik",
     "manager": "kierownik",

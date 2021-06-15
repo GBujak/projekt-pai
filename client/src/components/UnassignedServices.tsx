@@ -1,4 +1,5 @@
 import { Button, Chip, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { ServiceInterface } from './CurrentServices';
 import { FoldingPaper } from './FoldingPaper';
@@ -7,12 +8,28 @@ interface Props {
     unassignedServices: Array<ServiceInterface>,
     availableMechanics: Array<{
         name: string,
+        id: number,
         specializes: Array<string>,
     }>,
+    onAssignedService: () => void,
 }
 
-export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availableMechanics }) => {
+export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availableMechanics, onAssignedService }) => {
     const [assigning, setAssigning] = useState(-1);
+
+    const onAssignMechanic = (mechanicId: number) => {
+        if (assigning === -1) return;
+
+        let service = unassignedServices[assigning];
+
+        axios.post("/api/manager/assign-worker", {
+            serviceRequestId: service.id,
+            workerId: mechanicId,
+        }).then(() => {
+            setAssigning(-1);
+            onAssignedService();
+        });
+    };
 
     return <FoldingPaper startOpen={true} title="Nieprzypisane usługi">
         <Table size="small">
@@ -69,7 +86,9 @@ export const UnassignedServices: React.FC<Props> = ({ unassignedServices, availa
                                 }} />
                             ))}</TableCell>
                             <TableCell style={{ width: "5rem" }}>
-                                <Button>przypisz</Button>
+                                <Button onClick={() => onAssignMechanic(m.id)}>
+                                    przypisz
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

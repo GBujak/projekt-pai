@@ -1,5 +1,6 @@
 package warsztat.warsztatserver.models.util
 
+import org.hibernate.Hibernate
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import warsztat.warsztatserver.models.ApplicationUser
@@ -12,7 +13,7 @@ class CurrentUserUtil (
     fun getCurrentUser(): ApplicationUser {
         val id = SecurityContextHolder.getContext().authentication.principal as Long
         val user = applicationUserRepository.findById(id)
-        return user.get()
+        return Hibernate.unproxy(user.get()) as ApplicationUser
     }
 
     final inline fun <reified T: ApplicationUser>getCurrentUserIfVariant(): T? {

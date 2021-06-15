@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { AuthenticationContext } from '../auth/AuthenticationContext';
+import { RegisterComponent } from '../components/RegisterComponent';
 
 interface Props {
 
@@ -26,14 +27,19 @@ export const LoginView: React.FC<Props> = (props) => {
             });
     };
 
-    return <Container>
-        <h2>Logowanie</h2>
-        <TextField label="Nazwa użytkownika" value={username} onChange={(e) => setUsername(e.target.value)}></TextField>
-        <br />
-        <br />
-        <TextField type="password" label="Hasło" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
-        <br />
-        <br />
-        <Button variant="outlined" onClick={onLogin}>Zaloguj się</Button>
+    return <Container style={{ display: "flex", justifyContent: "space-around", margin: "2rem 0" }}>
+        <div>
+            <h2>Logowanie</h2>
+            <TextField label="Nazwa użytkownika" value={username} onChange={(e) => setUsername(e.target.value)}></TextField>
+            <br />
+            <br />
+            <TextField type="password" label="Hasło" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
+            <br />
+            <br />
+            <Button variant="outlined" onClick={onLogin}>Zaloguj się</Button>
+        </div>
+        <div>
+            <RegisterComponent />
+        </div>
     </Container>;
 };

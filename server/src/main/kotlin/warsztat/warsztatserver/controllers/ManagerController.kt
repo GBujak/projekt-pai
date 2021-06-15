@@ -42,10 +42,6 @@ class ManagerController(
 ) {
     @GetMapping("/dashboard")
     fun getDashboard(): RestMessage<ManagerDashboard> {
-        val user = currentUserUtil.getCurrentUserIfVariant<Employee>()
-        if (user == null ||
-            !listOf(EmployeeAuthority.MANAGER, EmployeeAuthority.ADMIN).contains(user.authority))
-                    return RestMessage("Błąd: nie jesteś kierownikiem albo administratorem")
 
         val repositories = serviceRequestRepository.findAll().toList()
         val mechanics = employeeRepository.findAllByAuthority(EmployeeAuthority.MECHANIC)
@@ -57,12 +53,13 @@ class ManagerController(
     fun assignWorker(@RequestBody assignWorkerRequest: AssignWorkerRequest): RestMessage<Unit> {
         val employee = employeeRepository.findById(assignWorkerRequest.workerId)
         if (employee.isEmpty()) return RestMessage("Błąd: pracownik nie istnieje")
+        val emp = employee.get()
 
         val serviceRequest = serviceRequestRepository.findById(assignWorkerRequest.serviceRequestId)
         if (serviceRequest.isEmpty()) return RestMessage("Błąd: usługa nie istnieje")
 
         val req = serviceRequest.get()
-        req.assignedWorker = employee.get()
+        req.assignedWorker = emp
         serviceRequestRepository.save(req)
 
         return RestMessage("Ok")

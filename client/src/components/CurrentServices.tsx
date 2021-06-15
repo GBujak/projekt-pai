@@ -44,7 +44,7 @@ export const CurrentServices: React.FC<Props> = ({ currentServices }) => {
             </TableHead>
             <TableBody>
                 {currentServices.map((service, index) => (
-                    <TableRow key={index} className="clickable-table-row" onClick={() => { history.push("/historia/1"); }}>
+                    <TableRow key={index} className="clickable-table-row" onClick={() => { history.push(`/historia/${service.id}`); }}>
                         <TableCell>{service.carMake}</TableCell>
                         <TableCell>{service.carModel}</TableCell>
                         <TableCell>{(service.assignedMechanic !== "") ? service.assignedMechanic : "nie przypisano"}</TableCell>

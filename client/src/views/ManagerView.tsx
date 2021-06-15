@@ -14,7 +14,7 @@ interface Props {
 interface ManagerDashboard {
     activeServiceRequests: Array<ServiceInterface>,
     unassignedServiceRequests: Array<ServiceInterface>,
-    mechanics: Array<{ name: string, specializes: Array<string>; }>,
+    mechanics: Array<{ id: number, name: string, specializes: Array<string>; }>,
 }
 
 export const ManagerView: React.FC<Props> = (props) => {
@@ -42,6 +42,7 @@ export const ManagerView: React.FC<Props> = (props) => {
         <UnassignedServices
             availableMechanics={dashboard!.mechanics}
             unassignedServices={dashboard!.unassignedServiceRequests}
+            onAssignedService={() => loadDashboard()}
         />
         <CreateAccoutTokens />
 

@@ -79,8 +79,16 @@ export const ServiceHistoryView: React.FC<Props> = ({ }) => {
     if (serviceStory === null) return <h2>Ładowanie...</h2>;
 
     return <Container style={{ marginTop: "2rem" }}>
-        <Typography variant="h5" style={{ margin: "2rem 0" }}>Historia usługi {serviceStory.finished &&
+        <Typography variant="h5" style={{ margin: "2rem 0" }}>Historia usługi {serviceStory.id} {serviceStory.finished &&
             <>(<span style={{ color: "green" }}>zakończona</span>)</>}</Typography>
+
+        <h2>{serviceStory.title}</h2>
+        <h4>Rozpoczęta {new Date(serviceStory.date).toLocaleDateString()} przez {serviceStory.submitter}</h4>
+        <br />
+        <pre>
+            <Typography>{serviceStory.description}</Typography>
+        </pre>
+        <br />
 
         <ChipEditor title="Rodzaj usługi"
             editable={auth.auth?.accountType !== "customer"}

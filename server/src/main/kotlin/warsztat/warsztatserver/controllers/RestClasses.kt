@@ -1,5 +1,6 @@
 package warsztat.warsztatserver.controllers
 
+import org.hibernate.Hibernate
 import warsztat.warsztatserver.models.carmodels.Car
 import warsztat.warsztatserver.models.servicestorymodels.ServiceRequest
 import warsztat.warsztatserver.models.users.Employee
@@ -14,7 +15,7 @@ class RestServiceRequest (
     val tags: List<String> = serviceRequest.tags,
     val finished: Boolean = serviceRequest.finished,
     val assignedMechanic: String = if (serviceRequest.assignedWorker != null)
-        (serviceRequest.assignedWorker as Employee).name else "",
+        (Hibernate.unproxy(serviceRequest.assignedWorker) as Employee).name else "",
 )
 
 class CarRest(
